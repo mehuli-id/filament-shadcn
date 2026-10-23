@@ -417,3 +417,16 @@ html[data-sc-style='lyra'] .fi-fo-slider {
 .fi-fo-toggle-buttons.fi-btn-group {
     width: max-content;
 }
+
+/* ---------- Form tanpa Section di halaman panel: dibungkus kartu (docs/mockup/gambar/Form.png) ----------
+ * Mis. form hasil make:filament-resource --generate. Form dengan Section/Tabs/Wizard tidak diubah;
+ * halaman login (layout sederhana) juga tidak.
+ */
+
+.fi-main .fi-sc-form > .fi-sc-has-gap:first-child:not(:has(.fi-section, .fi-sc-tabs, .fi-sc-wizard)) {
+    padding: calc(var(--sc-card-padding) + 0.5rem);
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: var(--sc-shadow-xs), var(--sc-border);
+}

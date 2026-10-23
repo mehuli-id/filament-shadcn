@@ -2,6 +2,7 @@
 
 namespace Mehuli\FilamentShadcn;
 
+use Filament\Forms\Components\DateTimePicker;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -40,6 +41,11 @@ class FilamentShadcnServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'filament-shadcn');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'filament-shadcn');
+
+        // Kalender tanggal Filament (bergaya shadcn) sebagai bawaan; ->native() di field tetap menang.
+        if (! config('filament-shadcn.forms.native_date_pickers', false) && class_exists(DateTimePicker::class)) {
+            DateTimePicker::configureUsing(fn (DateTimePicker $picker): DateTimePicker => $picker->native(false));
+        }
 
         // Override view Filament (resources/views/overrides): sesudah override milik aplikasi
         // (resources/views/vendor/filament-panels), sebelum view bawaan Filament.

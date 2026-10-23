@@ -97,6 +97,16 @@ return [
     ],
 
     /*
+    | Form.
+    |   native_date_pickers: false – DatePicker/DateTimePicker/TimePicker memakai kalender Filament
+    |                                (bergaya shadcn, sama di semua browser) kecuali ->native() ditulis sendiri
+    |                        true  – kontrol tanggal bawaan browser
+    */
+    'forms' => [
+        'native_date_pickers' => env('SHADCN_NATIVE_DATE_PICKERS', false),
+    ],
+
+    /*
     | Halaman login / daftar / lupa sandi.
     |   layout: 'muted' – kartu di tengah, latar abu-abu (block login-03)
     |           'split' – form + gambar berdampingan (block login-02/04)

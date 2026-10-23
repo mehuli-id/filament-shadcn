@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.5 — 2026-10-24
+
+- DatePicker/DateTimePicker/TimePicker memakai kalender Filament (bergaya shadcn, sama di semua browser) sebagai bawaan; `->native()` di field tetap menang. Kontrol bawaan browser: `SHADCN_NATIVE_DATE_PICKERS=true` (`forms.native_date_pickers`).
+- Form tanpa Section/Tabs/Wizard di halaman panel (mis. hasil `make:filament-resource --generate`) dibungkus kartu.
+
 ## v1.1.4 — 2026-10-24
 
 Sisa selisih dengan `docs/mockup/`:
