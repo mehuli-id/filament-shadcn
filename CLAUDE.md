@@ -22,6 +22,7 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - `resources/views/components/` — 28 komponen Blade `<x-shadcn::…>` (Alpine.js).
 - `stubs/` — theme.css & contoh AdminPanelProvider.
 - `tests/Unit`, `tests/Feature` — tes PHP (Testbench): keamanan, installer, `ViewCopiesTest` (sha1 view Filament yang disalin).
+- `.github/dependabot.yml` — PR pembaruan mingguan (Composer, npm tests/ui) & bulanan (Actions).
 - `.github/workflows/tests.yml` — CI: tes PHP 8.3/8.4 + audit, lalu aplikasi uji baru (`tests/ui/ci-app.sh`) + uji tampilan Chromium.
 - `tests/ui/` — uji tampilan otomatis (aturan di `checks.js`, runner `run.mjs` untuk Chromium & Safari, uji-diri `selftest.mjs`).
 - `docs/mockup/` — mockup desain acuan: `gambar/*.png` (cepat dilihat) dan `sumber/*.dc.html` (interaktif, buka di browser). Tampilan package harus mengikuti mockup ini.
@@ -45,6 +46,6 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 
 ## Pekerjaan lanjutan yang tercatat
 - Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit (kini `^1.1.7`). CI kedua repo harus hijau.
-- CI starter kit memakai secret `FILAMENT_SHADCN_TOKEN` (fine-grained, Contents: Read-only ke repo ini). Proyek dari template butuh secret yang sama. Token punya masa berlaku — perbarui sebelum kedaluwarsa.
+- CI & Dependabot starter kit memakai secret `FILAMENT_SHADCN_TOKEN` (fine-grained, Contents: Read-only ke repo ini) — di secret Actions **dan** secret Dependabot. Proyek dari template butuh keduanya. Token punya masa berlaku — perbarui sebelum kedaluwarsa.
 - Belum dikerjakan: alur OAuth (Socialite) untuk `auth.social` di starter kit; polesan mockup (kalender ‹ ›, ikon ⋮ menu pengguna, nomor & status satu baris di daftar ponsel).
 - Catatan uji: `php artisan serve` mewarisi `APP_ENV` lama setelah `.env` diubah, jadi restart penuh server saat menguji production.
