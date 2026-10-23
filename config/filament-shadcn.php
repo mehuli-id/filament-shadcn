@@ -77,9 +77,23 @@ return [
     |   sidebar: 'inset'   – konten utama jadi kartu di atas latar sidebar
     |            'sidebar' – sidebar polos dengan garis pemisah (klasik)
     |            'floating'– sidebar & konten sama-sama kartu mengambang
+    |   shell:   true  – header shadcn di dalam kartu konten (lihat docs/mockup): judul/breadcrumb,
+    |                    pencarian, pilihan tema, notifikasi, tautan. Topbar bawaan Filament
+    |                    dimatikan dan menu pengguna pindah ke kaki sidebar.
+    |            false – topbar bawaan Filament
+    |   sidebar_width:  lebar sidebar desktop (shadcn: 16rem). Angka + rem/px/em.
+    |   brand_icon:     ikon di kotak merek (sidebar & login) bila panel tanpa ->brandLogo().
+    |   brand_subtitle: teks kecil di bawah nama merek, mis. nama toko/cabang.
+    |   header_links:   tautan di ujung header, mis. [['label' => 'Dokumentasi', 'url' => 'https://…']].
+    |                   Label boleh kunci terjemahan.
     */
     'layout' => [
         'sidebar' => env('SHADCN_SIDEBAR', 'inset'),
+        'shell' => env('SHADCN_SHELL', true),
+        'sidebar_width' => env('SHADCN_SIDEBAR_WIDTH', '16rem'),
+        'brand_icon' => env('SHADCN_BRAND_ICON', 'heroicon-o-home'),
+        'brand_subtitle' => env('SHADCN_BRAND_SUBTITLE'),
+        'header_links' => [],
     ],
 
     /*

@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Dasbor tablet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}a:hover{color:inherit}
+button,input{font-family:inherit}
+input::placeholder{color:#8A8A93}
+</style>
+</helmet>
+<div style="position: relative; width: 820px; min-height: 1600px; box-sizing: border-box; background: {{t.bg}}; color: {{t.fg}}; font-family: {{s.font}}; font-size: 14px; line-height: 1.45; overflow: hidden;">
+
+  <header style="position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 8px; height: 60px; padding: 0 16px; background: {{t.bg}}; border-bottom: 1px solid {{t.border}};">
+    <button type="button" onClick="{{openMenu}}" aria-label="Buka menu" style="width: 44px; height: 44px; border: 0; border-radius: {{s.rSm}}px; background: transparent; color: {{t.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+    <span style="font-weight: 600; font-size: 15px; margin-right: 8px;">{{brand}}</span>
+    <label style="flex-grow: 1; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 8px 0 12px; border: 1px solid {{t.border}}; border-radius: {{s.rBtn}}px; background: {{t.muted}}; color: {{t.mutedFg}}; box-sizing: border-box; min-width: 0;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35"></path></svg>
+      <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Cari di seluruh panel</span>
+      <input type="search" placeholder="Cari pesanan, produk, pelanggan…" style="flex-grow: 1; min-width: 0; border: 0; outline: none; background: transparent; color: {{t.fg}}; font-size: 14px;">
+      <kbd style="font-family: 'Geist Mono', monospace; font-size: 11px; padding: 1px 6px; border: 1px solid {{t.border}}; border-radius: 4px; background: {{t.bg}};">⌘K</kbd>
+    </label>
+    <div role="radiogroup" aria-label="Tema tampilan" style="display: flex; gap: 2px; padding: 2px; border: 1px solid {{t.border}}; border-radius: {{s.rBtn}}px;">
+      <sc-for list="{{themeOpts}}" as="th" hint-placeholder-count="3">
+        <button type="button" role="radio" aria-checked="{{th.sel}}" aria-label="{{th.label}}" title="{{th.label}}" onClick="{{th.pick}}" style="width: 36px; height: 36px; border: 0; border-radius: {{th.r}}px; background: {{th.bg}}; color: {{th.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{th.icon}}"></path></svg>
+        </button>
+      </sc-for>
+    </div>
+    <button type="button" aria-label="Notifikasi, 3 belum dibaca" style="position: relative; width: 44px; height: 44px; border: 0; border-radius: {{s.rSm}}px; background: transparent; color: {{t.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+      <span style="position: absolute; top: 6px; right: 6px; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: #DC2626; color: #FFFFFF; font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center;">3</span>
+    </button>
+    <span style="width: 34px; height: 34px; border-radius: 999px; background: {{t.muted}}; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0;">AD</span>
+  </header>
+
+  <main style="padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <span style="font-size: 13px; color: {{t.mutedFg}};">Panel / Dasbor</span>
+        <h1 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.02em;">Dasbor</h1>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button type="button" style="height: 40px; padding: 0 14px; border: 1px solid {{t.input}}; border-radius: {{s.rBtn}}px; background: {{t.bg}}; color: {{t.fg}}; font-size: 14px; font-weight: 500; cursor: pointer;">Ekspor</button>
+        <button type="button" style="display: flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border: 0; border-radius: {{s.rBtn}}px; background: {{t.primary}}; color: {{t.primaryFg}}; font-size: 14px; font-weight: 500; cursor: pointer;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+          Pesanan baru
+        </button>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+      <sc-for list="{{cards}}" as="c" hint-placeholder-count="4">
+        <div style="padding: 18px; border: 1px solid {{c.border}}; border-radius: {{c.r}}px; background: {{c.bg}}; display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+            <span style="font-size: 13px; color: {{c.mutedFg}};">{{c.label}}</span>
+            <span style="display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 500; padding: 1px 7px; border: 1px solid {{c.border}}; border-radius: {{c.rBadge}}px; color: {{c.deltaColor}};">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{c.icon}}"></path></svg>
+              {{c.delta}}
+            </span>
+          </div>
+          <span style="font-size: 26px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;">{{c.value}}</span>
+          <span style="font-size: 13px; color: {{c.mutedFg}};">{{c.foot}}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <section style="border: 1px solid {{t.border}}; border-radius: {{s.r}}px; background: {{t.card}};">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 18px 18px 0;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 600;">Pendapatan per kanal</h2>
+          <span style="font-size: 13px; color: {{t.mutedFg}};">{{rangeDesc}}</span>
+        </div>
+        <div role="group" aria-label="Rentang waktu" style="display: flex; padding: 3px; gap: 2px; border-radius: {{s.rBtn}}px; background: {{t.muted}};">
+          <sc-for list="{{ranges}}" as="rg" hint-placeholder-count="3">
+            <button type="button" onClick="{{rg.pick}}" aria-pressed="{{rg.pressed}}" style="height: 36px; padding: 0 14px; border: 0; border-radius: {{rg.r}}px; background: {{rg.bg}}; color: {{rg.fg}}; box-shadow: {{rg.shadow}}; font-size: 13px; font-weight: 500; cursor: pointer;">{{rg.label}}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding: 12px 18px 18px;">
+        <svg viewBox="0 0 760 200" preserveAspectRatio="none" width="100%" height="200" role="img" aria-label="Grafik pendapatan website dan marketplace">
+          <sc-for list="{{grid}}" as="g" hint-placeholder-count="3"><line x1="0" x2="760" y1="{{g.y}}" y2="{{g.y}}" stroke="{{t.border}}" stroke-dasharray="3 3"></line></sc-for>
+          <path d="{{areaA}}" fill="{{t.chart1}}" fill-opacity="0.35" stroke="{{t.chart1}}" stroke-width="1.5" vector-effect="non-scaling-stroke"></path>
+          <path d="{{areaB}}" fill="{{t.chart2}}" fill-opacity="0.45" stroke="{{t.chart2}}" stroke-width="1.5" vector-effect="non-scaling-stroke"></path>
+        </svg>
+        <div style="display: flex; justify-content: space-between; font-size: 12px; color: {{t.mutedFg}}; padding-top: 6px;">
+          <sc-for list="{{xLabels}}" as="x" hint-placeholder-count="5"><span>{{x}}</span></sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div role="tablist" aria-label="Status pesanan" style="display: flex; gap: 2px; padding: 3px; border-radius: {{s.rBtn}}px; background: {{t.muted}};">
+          <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="5">
+            <button type="button" role="tab" aria-selected="{{tb.sel}}" onClick="{{tb.pick}}" style="display: flex; align-items: center; gap: 5px; height: 36px; padding: 0 12px; border: 0; border-radius: {{tb.r}}px; background: {{tb.bg}}; color: {{tb.fg}}; box-shadow: {{tb.shadow}}; font-size: 13px; font-weight: 500; white-space: nowrap; cursor: pointer;">
+              {{tb.label}}<span style="font-size: 11px; color: {{tb.countFg}};">{{tb.count}}</span>
+            </button>
+          </sc-for>
+        </div>
+        <span style="flex-grow: 1;"></span>
+        <button type="button" style="display: flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border: 1px solid {{t.input}}; border-radius: {{s.rBtn}}px; background: {{t.bg}}; color: {{t.fg}}; font-size: 13px; font-weight: 500; cursor: pointer;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"></path></svg>
+          Filter
+        </button>
+      </div>
+
+      <div style="border: 1px solid {{t.border}}; border-radius: {{s.r}}px; overflow: hidden;">
+        <div style="overflow-x: auto;">
+          <div style="min-width: 700px;">
+            <div style="display: grid; grid-template-columns: 100px minmax(170px, 2fr) 120px 110px 120px 40px; gap: 12px; align-items: center; padding: 0 16px; min-height: 42px; background: {{t.muted}}; font-size: 13px; font-weight: 500; color: {{t.mutedFg}};">
+              <span>No.</span><span>Pelanggan</span><span>Status</span><span>Kanal</span><span style="text-align: right;">Total</span><span></span>
+            </div>
+            <sc-for list="{{rows}}" as="o" hint-placeholder-count="5">
+              <div style="display: grid; grid-template-columns: 100px minmax(170px, 2fr) 120px 110px 120px 40px; gap: 12px; align-items: center; padding: 0 16px; min-height: 56px; border-top: 1px solid {{o.border}};">
+                <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">{{o.id}}</span>
+                <span style="display: flex; flex-direction: column; min-width: 0;"><span style="font-weight: 500;">{{o.name}}</span><span style="font-size: 12px; color: {{o.mutedFg}};">{{o.date}}</span></span>
+                <span><span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; padding: 2px 8px; border: 1px solid {{o.border}}; border-radius: {{o.rBadge}}px; color: {{o.mutedFg}};"><span style="width: 6px; height: 6px; border-radius: 999px; background: {{o.dot}};"></span>{{o.status}}</span></span>
+                <span style="color: {{o.mutedFg}};">{{o.channel}}</span>
+                <span style="text-align: right; font-weight: 500; font-variant-numeric: tabular-nums;">{{o.total}}</span>
+                <button type="button" aria-label="Aksi {{o.id}}" style="width: 40px; height: 40px; border: 0; border-radius: {{o.rSm}}px; background: transparent; color: {{o.mutedFg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM19 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM5 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path></svg>
+                </button>
+              </div>
+            </sc-for>
+            <sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+              <div style="padding: 36px 16px; text-align: center; color: {{t.mutedFg}}; font-size: 13px; border-top: 1px solid {{t.border}};">Tidak ada pesanan dengan status ini.</div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px; font-size: 13px;">
+        <span style="color: {{t.mutedFg}}; flex-grow: 1;">Menampilkan {{rowCount}} dari 1.284 pesanan</span>
+        <span style="font-weight: 500;">Halaman 1 dari 129</span>
+        <div style="display: flex; gap: 6px;">
+          <button type="button" aria-label="Sebelumnya" disabled="{{yes}}" style="width: 40px; height: 40px; border: 1px solid {{t.input}}; border-radius: {{s.rBtn}}px; background: {{t.bg}}; color: {{t.fg}}; opacity: 0.5; display: flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
+          <button type="button" aria-label="Berikutnya" style="width: 40px; height: 40px; border: 1px solid {{t.input}}; border-radius: {{s.rBtn}}px; background: {{t.bg}}; color: {{t.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}">
+    <div style="position: absolute; top: 0; left: 0; width: 820px; height: 1180px; z-index: 20;">
+      <button type="button" aria-label="Tutup menu" onClick="{{closeMenu}}" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: rgba(0,0,0,0.5); cursor: pointer;"></button>
+      <nav aria-label="Navigasi utama" style="position: absolute; top: 0; left: 0; bottom: 0; width: 300px; box-sizing: border-box; padding: 14px; background: {{t.sidebar}}; border-right: 1px solid {{t.border}}; box-shadow: 0 10px 30px rgba(0,0,0,0.25); display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px; padding: 4px;">
+          <span style="width: 32px; height: 32px; border-radius: {{s.rSm}}px; background: {{t.primary}}; color: {{t.primaryFg}}; display: flex; align-items: center; justify-content: center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM9 21V12h6v9"></path></svg>
+          </span>
+          <span style="flex-grow: 1; font-weight: 600;">{{brand}}</span>
+          <button type="button" aria-label="Tutup menu" onClick="{{closeMenu}}" style="width: 40px; height: 40px; border: 0; border-radius: {{s.rSm}}px; background: transparent; color: {{t.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <sc-for list="{{nav}}" as="g" hint-placeholder-count="2">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-size: 12px; font-weight: 500; color: {{g.mutedFg}}; padding: 0 10px 4px;">{{g.label}}</span>
+            <sc-for list="{{g.items}}" as="it" hint-placeholder-count="4">
+              <a href="#" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 10px; border-radius: {{it.r}}px; text-decoration: none; background: {{it.bg}}; font-weight: {{it.weight}}; font-size: 14px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.icon}}"></path></svg>
+                <span style="flex-grow: 1;">{{it.label}}</span>
+                <sc-if value="{{it.hasBadge}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; background: {{it.badgeBg}};">{{it.badge}}</span></sc-if>
+              </a>
+            </sc-for>
+          </div>
+        </sc-for>
+      </nav>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"style":{"editor":"enum","default":"nova","options":["vega","nova","maia","lyra"],"section":"shadcn"},"dark":{"editor":"boolean","default":false,"section":"shadcn"},"menuOpen":{"editor":"boolean","default":false,"section":"Tampilan"},"$preview":{"width":820,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { themeMode: 'system', range: '90', tab: 'semua', menu: null };
+  }
+  renderVals() {
+    var self = this, st = this.state || {};
+    function set(o) { self.setState(o); }
+    var styles = {
+      vega: { r: 12, rSm: 8, rBtn: 8, rBadge: 6, rTab: 6, font: "'Geist', system-ui, sans-serif" },
+      nova: { r: 10, rSm: 6, rBtn: 6, rBadge: 6, rTab: 5, font: "'Geist', system-ui, sans-serif" },
+      maia: { r: 20, rSm: 999, rBtn: 999, rBadge: 999, rTab: 999, font: "'Geist', system-ui, sans-serif" },
+      lyra: { r: 0, rSm: 0, rBtn: 0, rBadge: 0, rTab: 0, font: "'Geist Mono', ui-monospace, monospace" }
+    };
+    var themes = {
+      light: { bg: '#FFFFFF', card: '#FFFFFF', sidebar: '#FAFAFA', border: '#E4E4E7', input: '#E4E4E7', fg: '#09090B', mutedFg: '#71717A', muted: '#F4F4F5', accent: '#EDEDEF', primary: '#18181B', primaryFg: '#FAFAFA', chart1: '#E8590C', chart2: '#0D9488', up: '#15803D', down: '#B91C1C' },
+      dark: { bg: '#0A0A0A', card: '#141414', sidebar: '#171717', border: '#2A2A2A', input: '#333333', fg: '#FAFAFA', mutedFg: '#A1A1A1', muted: '#262626', accent: '#262626', primary: '#E5E5E5', primaryFg: '#171717', chart1: '#FB8C3C', chart2: '#2DD4BF', up: '#4ADE80', down: '#F87171' }
+    };
+    var s = styles[this.props.style ?? 'nova'] || styles.nova;
+    var themeMode = st.themeMode || 'system';
+    var dark = themeMode === 'system' ? (this.props.dark ?? false) : themeMode === 'dark';
+    var t = dark ? themes.dark : themes.light;
+
+    // ---- Konfigurasi konten (di Filament: dari model / setting) ----
+    var brand = 'Panel Admin';
+    var UP = 'M22 7 13.5 15.5 8.5 10.5 2 17M16 7h6v6', DOWN = 'M22 17 13.5 8.5 8.5 13.5 2 7M16 17h6v-6';
+    var cardsConfig = [
+      { label: 'Total pendapatan', value: 'Rp 248,6 jt', delta: '+12,4%', up: true, foot: 'Naik dibanding bulan lalu' },
+      { label: 'Pesanan baru', value: '1.284', delta: '+8,1%', up: true, foot: '42 pesanan hari ini' },
+      { label: 'Pelanggan aktif', value: '4.672', delta: '−2,0%', up: false, foot: 'Turun 2% periode ini' },
+      { label: 'Rasio konversi', value: '3,8%', delta: '+0,6%', up: true, foot: 'Sesuai proyeksi' }
+    ];
+    var rangesConfig = [{ k: '90', label: '3 bulan', desc: 'Total 3 bulan terakhir' }, { k: '30', label: '30 hari', desc: 'Total 30 hari terakhir' }, { k: '7', label: '7 hari', desc: 'Total 7 hari terakhir' }];
+    var statusMap = { baru: { label: 'Baru', dot: '#2563EB' }, proses: { label: 'Diproses', dot: '#CA8A04' }, kirim: { label: 'Dikirim', dot: '#7C3AED' }, selesai: { label: 'Selesai', dot: '#16A34A' } };
+    var tabsConfig = [{ k: 'semua', label: 'Semua' }, { k: 'baru', label: 'Baru' }, { k: 'proses', label: 'Diproses' }, { k: 'kirim', label: 'Dikirim' }, { k: 'selesai', label: 'Selesai' }];
+    var orders = [
+      { id: 'INV-2041', name: 'Rina Sembiring', status: 'baru', channel: 'Website', date: '22 Okt, 09.14', total: 'Rp 1.250.000' },
+      { id: 'INV-2040', name: 'Budi Santoso', status: 'proses', channel: 'Marketplace', date: '22 Okt, 08.52', total: 'Rp 845.000' },
+      { id: 'INV-2039', name: 'Sari Ginting', status: 'kirim', channel: 'Website', date: '21 Okt, 19.30', total: 'Rp 2.310.000' },
+      { id: 'INV-2038', name: 'Yohanes Tarigan', status: 'selesai', channel: 'WhatsApp', date: '21 Okt, 15.02', total: 'Rp 560.000' },
+      { id: 'INV-2037', name: 'Maria Wijaya', status: 'selesai', channel: 'Marketplace', date: '21 Okt, 11.47', total: 'Rp 1.780.000' },
+      { id: 'INV-2036', name: 'Lia Sitepu', status: 'kirim', channel: 'Offline', date: '20 Okt, 16.25', total: 'Rp 975.000' }
+    ];
+    var I = {
+      grid: 'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z',
+      bag: 'M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0',
+      box: 'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z',
+      users: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+      chart: 'M12 20V10M18 20V4M6 20v-4',
+      gear: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM4 12h2M18 12h2M12 4v2M12 18v2',
+      swatch: 'M4 4h6v16H4zM10 8l5-5 4 4-9 9M10 20h10v-6h-4'
+    };
+    var navConfig = [
+      { label: 'Utama', items: [{ k: 'dasbor', label: 'Dasbor', icon: I.grid }, { k: 'pesanan', label: 'Pesanan', icon: I.bag, badge: '12' }, { k: 'produk', label: 'Produk', icon: I.box }, { k: 'pelanggan', label: 'Pelanggan', icon: I.users }, { k: 'laporan', label: 'Laporan', icon: I.chart }] },
+      { label: 'Pengaturan', items: [{ k: 'tampilan', label: 'Tampilan', icon: I.swatch }, { k: 'umum', label: 'Umum', icon: I.gear }] }
+    ];
+    // ---------------------------------------------------------------------
+
+    var range = st.range || '90', tab = st.tab || 'semua';
+    var menuOpen = st.menu === null || st.menu === undefined ? !!(this.props.menuOpen ?? false) : st.menu;
+    function series(n, base, amp, seed) { var out = []; for (var i = 0; i < n; i++) { seed = (seed * 9301 + 49297) % 233280; out.push(Math.max(1, base + amp * Math.sin(i / 6) + (seed / 233280 - 0.5) * amp * 1.2 + i * base * 0.004)); } return out; }
+    var n = parseInt(range, 10), A = series(90, 60, 18, 7).slice(90 - n), B = series(90, 34, 12, 3).slice(90 - n);
+    var W = 760, H = 200, sum = A.map(function (v, i) { return v + B[i]; }), mx = Math.max.apply(null, sum) * 1.08;
+    function path(top, bottom) { var step = W / (top.length - 1); var up = top.map(function (v, i) { return (i ? 'L' : 'M') + (i * step).toFixed(1) + ' ' + (H - v / mx * H).toFixed(1); }).join(' '); var down = bottom.slice().reverse().map(function (v, j) { var i = bottom.length - 1 - j; return 'L' + (i * step).toFixed(1) + ' ' + (H - v / mx * H).toFixed(1); }).join(' '); return up + ' ' + down + ' Z'; }
+    var labels = { '90': ['25 Jul', '18 Agu', '12 Sep', '6 Okt', '23 Okt'], '30': ['24 Sep', '1 Okt', '8 Okt', '15 Okt', '23 Okt'], '7': ['17 Okt', '19 Okt', '20 Okt', '21 Okt', '23 Okt'] };
+    var visible = orders.filter(function (o) { return tab === 'semua' || o.status === tab; });
+
+    return {
+      t: t, s: s, yes: true, brand: brand, menuOpen: menuOpen, rowCount: visible.length,
+      openMenu: function () { set({ menu: true }); }, closeMenu: function () { set({ menu: false }); },
+      cards: cardsConfig.map(function (c) { return { label: c.label, value: c.value, delta: c.delta, foot: c.foot, icon: c.up ? UP : DOWN, deltaColor: c.up ? t.up : t.down, border: t.border, bg: t.card, mutedFg: t.mutedFg, r: s.r, rBadge: s.rBadge }; }),
+      ranges: rangesConfig.map(function (rg) { var on = rg.k === range; return { label: rg.label, pressed: on ? 'true' : 'false', r: s.rTab, bg: on ? t.bg : 'transparent', fg: on ? t.fg : t.mutedFg, shadow: on ? '0 1px 2px rgba(0,0,0,0.08)' : 'none', pick: function () { set({ range: rg.k }); } }; }),
+      rangeDesc: rangesConfig.filter(function (x) { return x.k === range; })[0].desc,
+      grid: [0.25, 0.5, 0.75].map(function (f) { return { y: Math.round(H * f) }; }),
+      areaA: path(sum, B), areaB: path(B, B.map(function () { return 0; })), xLabels: labels[range],
+      tabs: tabsConfig.map(function (tb) { var on = tb.k === tab; var count = tb.k === 'semua' ? orders.length : orders.filter(function (o) { return o.status === tb.k; }).length; return { label: tb.label, count: count, sel: on ? 'true' : 'false', r: s.rTab, bg: on ? t.bg : 'transparent', fg: on ? t.fg : t.mutedFg, countFg: t.mutedFg, shadow: on ? '0 1px 2px rgba(0,0,0,0.08)' : 'none', pick: function () { set({ tab: tb.k }); } }; }),
+      rows: visible.map(function (o) { var sm = statusMap[o.status]; return { id: o.id, name: o.name, channel: o.channel, date: o.date, total: o.total, status: sm.label, dot: sm.dot, border: t.border, mutedFg: t.mutedFg, rBadge: s.rBadge, rSm: s.rSm }; }),
+      empty: visible.length === 0,
+      nav: navConfig.map(function (g) { return { label: g.label, mutedFg: t.mutedFg, items: g.items.map(function (it) { var on = it.k === 'dasbor'; return { label: it.label, icon: it.icon, badge: it.badge || '', hasBadge: !!it.badge, badgeBg: t.muted, r: s.rSm, bg: on ? t.accent : 'transparent', weight: on ? 500 : 400 }; }) }; }),
+      themeOpts: [
+        { k: 'light', label: 'Terang', icon: 'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42' },
+        { k: 'dark', label: 'Gelap', icon: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' },
+        { k: 'system', label: 'Ikuti sistem', icon: 'M2 3h20v14H2zM8 21h8M12 17v4' }
+      ].map(function (o) { var on = o.k === themeMode; return { label: o.label, icon: o.icon, sel: on ? 'true' : 'false', r: s.rSm, bg: on ? t.muted : 'transparent', fg: on ? t.fg : t.mutedFg, pick: function () { set({ themeMode: o.k }); } }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

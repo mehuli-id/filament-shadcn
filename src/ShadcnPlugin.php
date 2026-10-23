@@ -4,6 +4,8 @@ namespace Mehuli\FilamentShadcn;
 
 use Closure;
 use Filament\Contracts\Plugin;
+use Filament\Enums\DatabaseNotificationsPosition;
+use Filament\Enums\UserMenuPosition;
 use Filament\Panel;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\View\View;
@@ -12,6 +14,7 @@ use Mehuli\FilamentShadcn\Pages\Appearance;
 use Mehuli\FilamentShadcn\Pages\ComponentShowcase;
 use Mehuli\FilamentShadcn\Pages\ShadcnComponents;
 use Mehuli\FilamentShadcn\Support\AppearanceRepository;
+use Mehuli\FilamentShadcn\Support\SafeUrl;
 use Mehuli\FilamentShadcn\Support\ThemeSettings;
 use Mehuli\FilamentShadcn\Support\TokenBuilder;
 
@@ -29,6 +32,24 @@ class ShadcnPlugin implements Plugin
     protected bool | Closure | null $hasShowcase = null;
 
     protected bool | Closure | null $canCustomizeAppearance = null;
+
+    protected bool | Closure | null $hasShell = null;
+
+    protected ?string $sidebarWidth = null;
+
+    protected ?string $brandIcon = null;
+
+    protected string | Closure | null $brandSubtitle = null;
+
+    /**
+     * @var list<array{label: string, url: string}> | null
+     */
+    protected ?array $headerLinks = null;
+
+    /**
+     * Lebar sidebar yang diterima (dicetak Filament tanpa escape di <style>).
+     */
+    public const SIDEBAR_WIDTH_PATTERN = '/^\d{1,3}(\.\d{1,3})?(rem|px|em)$/';
 
     protected ?ThemeSettings $resolved = null;
 
@@ -167,6 +188,47 @@ class ShadcnPlugin implements Plugin
         return $this;
     }
 
+    /**
+     * Header shadcn di dalam kartu konten (seperti docs/mockup) sebagai ganti topbar Filament.
+     */
+    public function shell(bool | Closure $condition = true): static
+    {
+        $this->hasShell = $condition;
+
+        return $this;
+    }
+
+    /**
+     * Lebar sidebar desktop, mis. '16rem'.
+     */
+    public function sidebarWidth(string $width): static
+    {
+        $this->sidebarWidth = $width;
+
+        return $this;
+    }
+
+    /**
+     * Ikon kotak merek dan subjudul di bawah nama merek (sidebar & login).
+     */
+    public function brand(?string $icon = null, string | Closure | null $subtitle = null): static
+    {
+        $this->brandIcon = $icon;
+        $this->brandSubtitle = $subtitle;
+
+        return $this;
+    }
+
+    /**
+     * @param  list<array{label: string, url: string}>  $links
+     */
+    public function headerLinks(array $links): static
+    {
+        $this->headerLinks = $links;
+
+        return $this;
+    }
+
     public function showcase(bool | Closure $condition = true): static
     {
         $this->hasShowcase = $condition;
@@ -214,8 +276,41 @@ class ShadcnPlugin implements Plugin
             PanelsRenderHook::HEAD_END,
             fn (): View => view('filament-shadcn::hooks.head', [
                 'css' => TokenBuilder::make($this->settings())->css(),
-                'dataAttributes' => TokenBuilder::make($this->settings())->dataAttributes(),
+                'dataAttributes' => TokenBuilder::make($this->settings())->dataAttributes() + [
+                    'scShell' => $this->hasShell() ? 'on' : 'off',
+                ],
             ]),
+        );
+
+        $panel->sidebarWidth(fn (): string => $this->getSidebarWidth());
+
+        // Shell: topbar Filament dimatikan, header shadcn dipasang di dalam kartu konten.
+        $panel->topbar(fn (): bool => ! $this->hasShell());
+        $panel->userMenu(position: fn (): UserMenuPosition => $this->hasShell() ? UserMenuPosition::Sidebar : UserMenuPosition::Topbar);
+
+        // Halaman aktif dicatat saat view halaman dirender (sebelum layout), untuk judul/breadcrumb header.
+        $panel->renderHook(
+            PanelsRenderHook::PAGE_START,
+            function (): string {
+                request()->attributes->set('filament-shadcn.page', \Livewire\Livewire::current());
+
+                return '';
+            },
+        );
+
+        $panel->renderHook(
+            PanelsRenderHook::CONTENT_BEFORE,
+            fn (): ?View => $this->hasShell() ? view('filament-shadcn::hooks.header', [
+                'links' => $this->getHeaderLinks(),
+            ]) : null,
+        );
+
+        $panel->renderHook(
+            PanelsRenderHook::SIDEBAR_LOGO_AFTER,
+            fn (): ?View => $this->hasShell() ? view('filament-shadcn::hooks.brand', [
+                'icon' => $this->getBrandIcon(),
+                'subtitle' => $this->getBrandSubtitle(),
+            ]) : null,
         );
 
         $panel->renderHook(
@@ -224,7 +319,16 @@ class ShadcnPlugin implements Plugin
         );
     }
 
-    public function boot(Panel $panel): void {}
+    public function boot(Panel $panel): void
+    {
+        // Tanpa topbar Filament menaruh lonceng notifikasi di kaki sidebar. Dengan shell, lonceng
+        // pindah ke header, kecuali posisinya diatur sendiri lewat ->databaseNotifications(position: …).
+        if ($this->hasShell()) {
+            (function (): void {
+                $this->databaseNotificationsPosition ??= DatabaseNotificationsPosition::Topbar;
+            })->call($panel);
+        }
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -267,6 +371,61 @@ class ShadcnPlugin implements Plugin
         $condition = $this->canCustomizeAppearance ?? fn (): bool => app()->isLocal();
 
         return (bool) ($condition instanceof Closure ? app()->call($condition) : $condition);
+    }
+
+    public function hasShell(): bool
+    {
+        $condition = $this->hasShell ?? config('filament-shadcn.layout.shell', true);
+
+        return (bool) ($condition instanceof Closure ? app()->call($condition) : $condition);
+    }
+
+    public function getSidebarWidth(): string
+    {
+        $width = trim((string) ($this->sidebarWidth ?? config('filament-shadcn.layout.sidebar_width', '16rem')));
+
+        return preg_match(static::SIDEBAR_WIDTH_PATTERN, $width) ? $width : '16rem';
+    }
+
+    public function getBrandIcon(): ?string
+    {
+        $icon = $this->brandIcon ?? config('filament-shadcn.layout.brand_icon', 'heroicon-o-home');
+
+        return filled($icon) ? (string) $icon : null;
+    }
+
+    public function getBrandSubtitle(): ?string
+    {
+        $subtitle = $this->brandSubtitle ?? config('filament-shadcn.layout.brand_subtitle');
+        $subtitle = $subtitle instanceof Closure ? app()->call($subtitle) : $subtitle;
+
+        return filled($subtitle) ? __((string) $subtitle) : null;
+    }
+
+    /**
+     * Tautan header yang aman (URL lewat SafeUrl, label lewat terjemahan).
+     *
+     * @return list<array{label: string, url: string, external: bool}>
+     */
+    public function getHeaderLinks(): array
+    {
+        $links = [];
+
+        foreach ((array) ($this->headerLinks ?? config('filament-shadcn.layout.header_links', [])) as $link) {
+            $url = SafeUrl::filter($link['url'] ?? null);
+
+            if ($url === null || blank($link['label'] ?? null)) {
+                continue;
+            }
+
+            $links[] = [
+                'label' => __((string) $link['label']),
+                'url' => $url,
+                'external' => str_starts_with($url, 'http') && ! str_starts_with($url, url('/')),
+            ];
+        }
+
+        return $links;
     }
 
     public function hasShowcase(): bool

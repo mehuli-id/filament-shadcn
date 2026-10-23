@@ -524,11 +524,11 @@ class ComponentShowcase extends Page implements HasTable
     public function table(Table $table): Table
     {
         $statuses = [
-            'new' => ['label' => 'Baru', 'color' => 'info'],
-            'processing' => ['label' => 'Diproses', 'color' => 'warning'],
-            'shipped' => ['label' => 'Dikirim', 'color' => 'primary'],
-            'done' => ['label' => 'Selesai', 'color' => 'success'],
-            'cancelled' => ['label' => 'Dibatalkan', 'color' => 'danger'],
+            'new' => ['label' => 'Baru', 'color' => 'info', 'icon' => Heroicon::OutlinedSparkles],
+            'processing' => ['label' => 'Diproses', 'color' => 'warning', 'icon' => Heroicon::OutlinedArrowPath],
+            'shipped' => ['label' => 'Dikirim', 'color' => 'info', 'icon' => Heroicon::OutlinedTruck],
+            'done' => ['label' => 'Selesai', 'color' => 'success', 'icon' => Heroicon::OutlinedCheckCircle],
+            'cancelled' => ['label' => 'Dibatalkan', 'color' => 'danger', 'icon' => Heroicon::OutlinedXCircle],
         ];
 
         return $table
@@ -549,7 +549,8 @@ class ComponentShowcase extends Page implements HasTable
                     ->label('Status')
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => $statuses[$state]['label'] ?? $state)
-                    ->color(fn (string $state): string => $statuses[$state]['color'] ?? 'gray'),
+                    ->color(fn (string $state): string => $statuses[$state]['color'] ?? 'gray')
+                    ->icon(fn (string $state): ?Heroicon => $statuses[$state]['icon'] ?? null),
                 TextColumn::make('channel')->label('Kanal'),
                 IconColumn::make('paid')->label('Lunas')->boolean(),
                 ProgressColumn::make('fulfilled')->label('Terpenuhi')->color(fn (float $state): string => $state >= 100 ? 'success' : 'primary'),
@@ -575,8 +576,7 @@ class ComponentShowcase extends Page implements HasTable
                 ]),
             ])
             ->paginated([5, 10, 25])
-            ->defaultPaginationPageOption(5)
-            ->striped();
+            ->defaultPaginationPageOption(5);
     }
 
     protected function orders(?string $search, ?string $status, ?string $sortColumn, ?string $sortDirection, int $page, int $perPage): LengthAwarePaginator

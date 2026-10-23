@@ -63,13 +63,13 @@
 
 .fi-ta-table > thead > tr,
 .fi-ta-table-head-groups-row {
-    background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+    background-color: var(--muted);
 }
 
 .fi-ta-header-cell {
     height: 2.5rem;
     padding-block: 0.5rem;
-    color: var(--muted-foreground);
+    color: var(--foreground);
     font-size: 0.8125rem;
     font-weight: 500;
 
@@ -115,13 +115,38 @@
     }
 }
 
-.fi-ta-row.fi-selected:not(.fi-ta-row-not-reorderable) > td:first-child {
-    box-shadow: inset 2px 0 0 0 var(--primary);
-}
-
 .fi-ta-cell {
     color: var(--foreground);
     font-size: var(--sc-text);
+}
+
+/* Tinggi baris mengikuti gaya (--sc-row-padding): nova 48px untuk sel dua baris. */
+.fi-ta-cell > .fi-ta-col > :is(.fi-ta-text, .fi-ta-icon, .fi-ta-color, .fi-ta-image, .fi-ta-select, .fi-ta-toggle, .fi-ta-text-input, .fi-ta-checkbox) {
+    padding-block: var(--sc-row-padding);
+}
+
+.fi-ta-text-item {
+    line-height: 1.25rem;
+}
+
+.fi-ta-text-description {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+/* Badge berikon di tabel: garis netral, warna hanya di ikon (mis. status pesanan). */
+.fi-ta-ctn .fi-ta-cell .fi-badge:has(> .fi-icon) {
+    background-color: transparent;
+    color: var(--foreground);
+    box-shadow: var(--sc-border);
+
+    & > .fi-icon {
+        color: var(--color-600, currentColor);
+    }
+}
+
+.dark .fi-ta-ctn .fi-ta-cell .fi-badge:has(> .fi-icon) > .fi-icon {
+    color: var(--color-400, currentColor);
 }
 
 .fi-ta-text-item-label,
@@ -200,6 +225,7 @@
             justify-content: center;
             border-radius: var(--sc-radius-control);
             color: var(--foreground);
+            box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
 
             &:enabled:hover {
                 background-color: var(--accent);
@@ -220,8 +246,7 @@
         }
 
         &.fi-active .fi-pagination-item-btn {
-            background-color: var(--background);
-            box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
+            background-color: var(--muted);
 
             & .fi-pagination-item-label {
                 color: var(--foreground);

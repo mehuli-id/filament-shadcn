@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Dasbor gaya shadcn/ui</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}a:hover{color:inherit}
+button,input,select{font-family:inherit}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: {{t.sidebar}}; color: {{t.fg}}; font-family: {{font}}; font-size: 14px; line-height: 1.45;">
+
+<aside style="flex: 1 1 256px; box-sizing: border-box; padding: 8px; display: flex; flex-direction: column; gap: 8px;">
+  <button type="button" style="display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 8px; border: 0; border-radius: {{r}}px; background: transparent; color: {{t.fg}}; cursor: pointer; text-align: left;">
+    <span style="width: 32px; height: 32px; border-radius: {{rSm}}px; background: {{t.primary}}; color: {{t.primaryFg}}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM9 21V12h6v9"></path></svg>
+    </span>
+    <span style="display: flex; flex-direction: column; flex-grow: 1; min-width: 0;">
+      <span style="font-weight: 600; font-size: 14px;">{{appName}}</span>
+      <span style="font-size: 12px; color: {{t.muted}};">{{workspace}}</span>
+    </span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"></path></svg>
+  </button>
+
+  <div style="display: flex; gap: 8px; padding: 0 4px;">
+    <button type="button" style="flex-grow: 1; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border: 0; border-radius: {{rBtn}}px; background: {{t.primary}}; color: {{t.primaryFg}}; font-weight: 500; font-size: 13px; cursor: pointer;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8M8 12h8"></path></svg>
+      Buat cepat
+    </button>
+    <button type="button" aria-label="Kotak masuk" style="width: 40px; height: 40px; border: 1px solid {{t.border}}; border-radius: {{rBtn}}px; background: {{t.card}}; color: {{t.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM4 7l8 6 8-6"></path></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Navigasi utama" style="display: flex; flex-direction: column; gap: 14px; flex-grow: 1; padding-top: 6px;">
+    <sc-for list="{{nav}}" as="g" hint-placeholder-count="2">
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <span style="font-size: 12px; font-weight: 500; color: {{t.muted}}; padding: 0 12px 4px;">{{g.label}}</span>
+        <sc-for list="{{g.items}}" as="it" hint-placeholder-count="4">
+          <a href="#" style="display: flex; align-items: center; gap: 10px; min-height: 36px; padding: 0 12px; border-radius: {{rSm}}px; text-decoration: none; font-size: 14px; background: {{it.bg}}; color: {{t.fg}}; font-weight: {{it.weight}};">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.icon}}"></path></svg>
+            {{it.label}}
+          </a>
+        </sc-for>
+      </div>
+    </sc-for>
+  </nav>
+
+  <div style="display: flex; flex-direction: column; gap: 2px;">
+    <sc-for list="{{navBottom}}" as="it" hint-placeholder-count="2">
+      <a href="#" style="display: flex; align-items: center; gap: 10px; min-height: 36px; padding: 0 12px; border-radius: {{rSm}}px; text-decoration: none; font-size: 14px; color: {{t.fg}};">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{it.icon}}"></path></svg>
+        {{it.label}}
+      </a>
+    </sc-for>
+  </div>
+
+  <button type="button" style="display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 8px; border: 0; border-radius: {{r}}px; background: transparent; color: {{t.fg}}; cursor: pointer; text-align: left;">
+    <span style="width: 32px; height: 32px; border-radius: {{rAvatar}}px; background: {{t.mutedBg}}; color: {{t.fg}}; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; flex-shrink: 0;">{{user.initials}}</span>
+    <span style="display: flex; flex-direction: column; flex-grow: 1; min-width: 0;">
+      <span style="font-weight: 500; font-size: 13px;">{{user.name}}</span>
+      <span style="font-size: 12px; color: {{t.muted}}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{user.email}}</span>
+    </span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM12 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM12 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path></svg>
+  </button>
+</aside>
+
+<main style="flex: 999 1 600px; min-width: 0; box-sizing: border-box; margin: 8px 8px 8px 0; background: {{t.bg}}; border: 1px solid {{t.border}}; border-radius: {{rInset}}px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); overflow: hidden; position: relative;">
+  <sc-if value="{{notifOpen}}" hint-placeholder-val="{{false}}">
+    <div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 20; display: flex; background: rgba(0,0,0,0.35);">
+      <button type="button" onClick="{{closeNotif}}" aria-label="Tutup panel notifikasi" style="flex-grow: 1; border: 0; background: transparent; cursor: default;"></button>
+      <aside role="dialog" aria-label="Notifikasi" style="width: 400px; max-width: 100%; box-sizing: border-box; background: {{t.bg}}; border-left: 1px solid {{t.border}}; box-shadow: -10px 0 30px rgba(0,0,0,0.12); display: flex; flex-direction: column;">
+        <div style="display: flex; align-items: center; gap: 10px; padding: 16px 16px 12px;">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600;">Notifikasi</h2>
+          <sc-if value="{{hasUnread}}" hint-placeholder-val="{{true}}">
+            <span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: {{rBadge}}px; background: {{t.primary}}; color: {{t.primaryFg}};">{{unread}} baru</span>
+          </sc-if>
+          <span style="flex-grow: 1;"></span>
+          <button type="button" onClick="{{closeNotif}}" aria-label="Tutup" style="width: 36px; height: 36px; border: 0; border-radius: {{rSm}}px; background: transparent; color: {{t.muted}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div style="display: flex; gap: 4px; padding: 0 12px 12px; border-bottom: 1px solid {{t.border}};">
+          <button type="button" onClick="{{readAll}}" style="height: 32px; padding: 0 10px; border: 0; border-radius: {{rBtn}}px; background: transparent; color: {{t.fg}}; font-size: 13px; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;">Tandai semua dibaca</button>
+          <button type="button" style="height: 32px; padding: 0 10px; border: 0; border-radius: {{rBtn}}px; background: transparent; color: #DC2626; font-size: 13px; font-weight: 500; cursor: pointer;">Hapus semua</button>
+        </div>
+        <ul style="list-style: none; margin: 0; padding: 0; overflow-y: auto; flex-grow: 1;">
+          <sc-for list="{{notifs}}" as="n" hint-placeholder-count="5">
+            <li style="display: flex; gap: 12px; padding: 14px 16px; border-bottom: 1px solid {{n.border}}; background: {{n.bg}};">
+              <span style="width: 32px; height: 32px; border-radius: {{n.rIcon}}px; background: {{n.iconBg}}; color: {{n.iconFg}}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{n.icon}}"></path></svg>
+              </span>
+              <div style="display: flex; flex-direction: column; gap: 3px; flex-grow: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 14px; font-weight: {{n.weight}}; flex-grow: 1;">{{n.title}}</span>
+                  <sc-if value="{{n.unread}}" hint-placeholder-val="{{false}}"><span aria-label="Belum dibaca" style="width: 8px; height: 8px; border-radius: 999px; background: #2563EB; flex-shrink: 0;"></span></sc-if>
+                </div>
+                <span style="font-size: 13px; color: {{n.muted}};">{{n.body}}</span>
+                <span style="font-size: 12px; color: {{n.muted}};">{{n.time}}</span>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;">
+                  <sc-if value="{{n.hasAction}}" hint-placeholder-val="{{true}}">
+                    <button type="button" style="height: 32px; padding: 0 10px; border: 1px solid {{n.border}}; border-radius: {{n.rBtn}}px; background: {{n.btnBg}}; color: {{n.fg}}; font-size: 12px; font-weight: 500; cursor: pointer;">{{n.action}}</button>
+                  </sc-if>
+                  <sc-if value="{{n.unread}}" hint-placeholder-val="{{false}}">
+                    <button type="button" onClick="{{n.markRead}}" style="height: 32px; padding: 0 10px; border: 0; border-radius: {{n.rBtn}}px; background: transparent; color: {{n.muted}}; font-size: 12px; font-weight: 500; cursor: pointer;">Tandai dibaca</button>
+                  </sc-if>
+                </div>
+              </div>
+            </li>
+          </sc-for>
+        </ul>
+      </aside>
+    </div>
+  </sc-if>
+  <header style="display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 16px; border-bottom: 1px solid {{t.border}};">
+    <button type="button" aria-label="Buka tutup sidebar" style="width: 36px; height: 36px; border: 0; border-radius: {{rSm}}px; background: transparent; color: {{t.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18"></path></svg>
+    </button>
+    <span style="width: 1px; height: 16px; background: {{t.border}};"></span>
+    <h1 style="margin: 0 0 0 6px; font-size: 15px; font-weight: 500; flex-grow: 1;">Dasbor</h1>
+    <button type="button" aria-label="Cari di seluruh panel" style="display: flex; align-items: center; gap: 8px; width: 300px; max-width: 45%; height: 36px; padding: 0 6px 0 10px; border: 1px solid {{t.border}}; border-radius: {{rBtn}}px; background: {{t.mutedBg}}; color: {{t.muted}}; font-size: 13px; cursor: pointer; text-align: left;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35"></path></svg>
+      <span style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Cari pesanan, produk, pelanggan…</span>
+      <kbd style="font-family: 'Geist Mono', monospace; font-size: 11px; padding: 1px 6px; border: 1px solid {{t.border}}; border-radius: 4px; background: {{t.bg}}; color: {{t.muted}};">⌘K</kbd>
+    </button>
+    <div role="radiogroup" aria-label="Tema tampilan" style="display: flex; gap: 2px; padding: 2px; border: 1px solid {{t.border}}; border-radius: {{rBtn}}px; background: {{t.bg}};">
+      <sc-for list="{{themeOpts}}" as="th" hint-placeholder-count="3">
+        <button type="button" role="radio" aria-checked="{{th.sel}}" aria-label="{{th.label}}" title="{{th.label}}" onClick="{{th.pick}}" style="width: 32px; height: 30px; border: 0; border-radius: {{th.r}}px; background: {{th.bg}}; color: {{th.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{th.icon}}"></path></svg>
+        </button>
+      </sc-for>
+    </div>
+    <button type="button" onClick="{{openNotif}}" aria-label="Notifikasi, {{unread}} belum dibaca" style="position: relative; width: 36px; height: 36px; border: 1px solid {{t.border}}; border-radius: {{rBtn}}px; background: {{t.bg}}; color: {{t.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+      <sc-if value="{{hasUnread}}" hint-placeholder-val="{{true}}">
+        <span style="position: absolute; top: -6px; right: -6px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 999px; background: #DC2626; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; border: 2px solid {{t.bg}};">{{unread}}</span>
+      </sc-if>
+    </button>
+    <a href="#" style="display: flex; align-items: center; height: 36px; padding: 0 12px; border-radius: {{rBtn}}px; text-decoration: none; font-size: 13px; font-weight: 500; color: {{t.fg}};">Dokumentasi</a>
+  </header>
+
+  <div style="padding: {{pad}}px; display: flex; flex-direction: column; gap: {{gap}}px;">
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: {{gap}}px;">
+      <sc-for list="{{cards}}" as="c" hint-placeholder-count="4">
+        <div style="border: 1px solid {{t.border}}; border-radius: {{r}}px; background: {{t.cardGrad}}; box-shadow: 0 1px 2px rgba(0,0,0,0.04); padding: {{cardPad}}px; display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+            <span style="font-size: 13px; color: {{t.muted}};">{{c.label}}</span>
+            <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 500; padding: 2px 8px; border: 1px solid {{t.border}}; border-radius: {{rBadge}}px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{c.trendIcon}}"></path></svg>
+              {{c.delta}}
+            </span>
+          </div>
+          <span style="font-size: 28px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.2;">{{c.value}}</span>
+          <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 10px; font-size: 13px;">
+            <span style="display: flex; align-items: center; gap: 6px; font-weight: 500;">{{c.foot}}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{c.trendIcon}}"></path></svg>
+            </span>
+            <span style="color: {{t.muted}};">{{c.sub}}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <section style="border: 1px solid {{t.border}}; border-radius: {{r}}px; background: {{t.card}}; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; padding: {{cardPad}}px {{cardPad}}px 0;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 600;">Pendapatan per kanal</h2>
+          <span style="font-size: 13px; color: {{t.muted}};">{{rangeDesc}}</span>
+        </div>
+        <div role="group" aria-label="Rentang waktu" style="display: flex; border: 1px solid {{t.border}}; border-radius: {{rBtn}}px; overflow: hidden;">
+          <sc-for list="{{ranges}}" as="rg" hint-placeholder-count="3">
+            <button type="button" onClick="{{rg.pick}}" aria-pressed="{{rg.pressed}}" style="height: 36px; padding: 0 14px; border: 0; border-left: {{rg.sep}}; background: {{rg.bg}}; color: {{t.fg}}; font-size: 13px; font-weight: 500; cursor: pointer;">{{rg.label}}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding: 12px {{cardPad}}px {{cardPad}}px;">
+        <svg viewBox="0 0 800 220" preserveAspectRatio="none" width="100%" height="220" role="img" aria-label="Grafik area pendapatan website dan marketplace">
+          <defs>
+            <linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stop-color="{{t.chart1}}" stop-opacity="0.8"></stop><stop offset="95%" stop-color="{{t.chart1}}" stop-opacity="0.08"></stop></linearGradient>
+            <linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stop-color="{{t.chart2}}" stop-opacity="0.9"></stop><stop offset="95%" stop-color="{{t.chart2}}" stop-opacity="0.1"></stop></linearGradient>
+          </defs>
+          <sc-for list="{{grid}}" as="gl" hint-placeholder-count="3">
+            <line x1="0" x2="800" y1="{{gl.y}}" y2="{{gl.y}}" stroke="{{t.border}}" stroke-width="1" stroke-dasharray="3 3"></line>
+          </sc-for>
+          <path d="{{areaA}}" fill="url(#gA)" stroke="{{t.chart1}}" stroke-width="1.5" vector-effect="non-scaling-stroke"></path>
+          <path d="{{areaB}}" fill="url(#gB)" stroke="{{t.chart2}}" stroke-width="1.5" vector-effect="non-scaling-stroke"></path>
+        </svg>
+        <div style="display: flex; justify-content: space-between; font-size: 12px; color: {{t.muted}}; padding-top: 6px;">
+          <sc-for list="{{xLabels}}" as="x" hint-placeholder-count="6"><span>{{x}}</span></sc-for>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 18px; padding-top: 12px; font-size: 13px;">
+          <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: {{t.chart1}};"></span>Website</span>
+          <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: {{t.chart2}};"></span>Marketplace</span>
+        </div>
+      </div>
+    </section>
+
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+        <div role="tablist" aria-label="Data" style="display: flex; padding: 3px; border-radius: {{rBtn}}px; background: {{t.mutedBg}}; gap: 2px; flex-grow: 0;">
+          <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="3">
+            <button type="button" role="tab" aria-selected="{{tb.sel}}" onClick="{{tb.pick}}" style="display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 0; border-radius: {{rTab}}px; background: {{tb.bg}}; color: {{tb.fg}}; box-shadow: {{tb.shadow}}; font-size: 13px; font-weight: 500; cursor: pointer;">
+              {{tb.label}}
+              <sc-if value="{{tb.hasCount}}" hint-placeholder-val="{{false}}">
+                <span style="font-size: 11px; font-weight: 600; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 999px; background: {{t.border}}; display: inline-flex; align-items: center; justify-content: center;">{{tb.count}}</span>
+              </sc-if>
+            </button>
+          </sc-for>
+        </div>
+        <span style="flex-grow: 1;"></span>
+        <label style="display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px; border: 1px solid {{t.border}}; border-radius: {{rBtn}}px; background: {{t.bg}}; color: {{t.muted}}; min-width: 220px; box-sizing: border-box; position: relative;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35"></path></svg>
+          <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;">Saring pelanggan</span>
+          <input type="search" placeholder="Saring pelanggan…" style="border: 0; outline: none; flex-grow: 1; min-width: 0; background: transparent; color: {{t.fg}}; font-size: 13px;">
+        </label>
+        <button type="button" style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border: 1px solid {{t.border}}; border-radius: {{rBtn}}px; background: {{t.bg}}; color: {{t.fg}}; font-size: 13px; font-weight: 500; cursor: pointer;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M3 3h18v18H3z"></path></svg>
+          Kolom
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+        </button>
+        <button type="button" style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border: 1px solid {{t.border}}; border-radius: {{rBtn}}px; background: {{t.bg}}; color: {{t.fg}}; font-size: 13px; font-weight: 500; cursor: pointer;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+          Tambah
+        </button>
+      </div>
+
+      <div style="border: 1px solid {{t.border}}; border-radius: {{r}}px; overflow: hidden; background: {{t.bg}};">
+        <div style="overflow-x: auto;">
+          <div style="min-width: 820px;">
+            <div style="display: grid; grid-template-columns: 20px 110px minmax(200px, 2fr) 130px 120px 140px 40px; gap: 14px; align-items: center; padding: 0 16px; min-height: 40px; background: {{t.mutedBg}}; font-size: 13px; font-weight: 500;">
+              <input type="checkbox" aria-label="Pilih semua" checked="{{allChecked}}" onChange="{{toggleAll}}" style="width: 16px; height: 16px; margin: 0; accent-color: {{t.primary}};">
+              <span>No.</span><span>Pelanggan</span><span>Status</span><span>Kanal</span><span style="text-align: right;">Total</span>
+              <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Aksi</span>
+            </div>
+            <sc-for list="{{rows}}" as="o" hint-placeholder-count="7">
+              <div style="display: grid; grid-template-columns: 20px 110px minmax(200px, 2fr) 130px 120px 140px 40px; gap: 14px; align-items: center; padding: 0 16px; min-height: {{rowH}}px; border-top: 1px solid {{t.border}}; background: {{o.bg}};">
+                <input type="checkbox" aria-label="Pilih {{o.id}}" checked="{{o.checked}}" onChange="{{o.toggle}}" style="width: 16px; height: 16px; margin: 0; accent-color: {{o.accent}};">
+                <a href="#" style="font-family: 'Geist Mono', monospace; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: {{o.underline}};">{{o.id}}</a>
+                <span style="display: flex; flex-direction: column; min-width: 0;">
+                  <span style="font-weight: 500;">{{o.name}}</span>
+                  <span style="font-size: 12px; color: {{o.muted}};">{{o.email}}</span>
+                </span>
+                <span><span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; padding: 2px 8px; border: 1px solid {{o.border}}; border-radius: {{o.rBadge}}px; color: {{o.muted}};">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{o.sColor}}" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{o.sIcon}}"></path></svg>
+                  {{o.statusLabel}}</span></span>
+                <span style="color: {{o.muted}};">{{o.channel}}</span>
+                <span style="text-align: right; font-variant-numeric: tabular-nums; font-weight: 500;">{{o.total}}</span>
+                <button type="button" aria-label="Aksi {{o.id}}" style="width: 32px; height: 32px; border: 0; border-radius: {{o.rSm}}px; background: transparent; color: {{o.muted}}; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM12 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM12 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path></svg>
+                </button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 13px;">
+        <span style="color: {{t.muted}}; flex-grow: 1;">{{selText}}</span>
+        <label style="display: flex; align-items: center; gap: 8px; font-weight: 500;">
+          Baris per halaman
+          <select style="height: 32px; padding: 0 8px; border: 1px solid {{t.border}}; border-radius: {{rBtn}}px; background: {{t.bg}}; color: {{t.fg}}; font-size: 13px;"><option>10</option><option>20</option><option>50</option></select>
+        </label>
+        <span style="font-weight: 500;">Halaman 1 dari 129</span>
+        <div style="display: flex; gap: 6px;">
+          <sc-for list="{{pager}}" as="p" hint-placeholder-count="4">
+            <button type="button" aria-label="{{p.label}}" style="width: 32px; height: 32px; border: 1px solid {{p.border}}; border-radius: {{p.r}}px; background: {{p.bg}}; color: {{p.fg}}; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: {{p.op}};">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{p.icon}}"></path></svg>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;style&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;nova&quot;,&quot;options&quot;:[&quot;vega&quot;,&quot;nova&quot;,&quot;maia&quot;,&quot;lyra&quot;],&quot;section&quot;:&quot;shadcn&quot;},&quot;dark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;section&quot;:&quot;shadcn&quot;},&quot;notifikasi&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;section&quot;:&quot;shadcn&quot;},&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1400}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { range: '90', tab: 'pesanan', checked: { 'INV-2040': true, 'INV-2039': true }, notif: null, read: { n4: true, n5: true } };
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state || {};
+    var styleKey = this.props.style ?? 'vega';
+    var themeMode = st.themeMode || 'system';
+    var dark = themeMode === 'system' ? (this.props.dark ?? false) : themeMode === 'dark';
+
+    // ---- Konfigurasi gaya (padanan style shadcn: Vega, Nova, Maia, Lyra) ----
+    var styles = {
+      vega: { r: 12, rSm: 8, rBtn: 8, rBadge: 6, rTab: 6, rAvatar: 8, rInset: 14, pad: 24, gap: 16, cardPad: 24, rowH: 56, font: "'Geist', system-ui, sans-serif" },
+      nova: { r: 10, rSm: 6, rBtn: 6, rBadge: 6, rTab: 5, rAvatar: 6, rInset: 12, pad: 16, gap: 12, cardPad: 16, rowH: 48, font: "'Geist', system-ui, sans-serif" },
+      maia: { r: 22, rSm: 999, rBtn: 999, rBadge: 999, rTab: 999, rAvatar: 999, rInset: 24, pad: 28, gap: 20, cardPad: 28, rowH: 60, font: "'Geist', system-ui, sans-serif" },
+      lyra: { r: 0, rSm: 0, rBtn: 0, rBadge: 0, rTab: 0, rAvatar: 0, rInset: 0, pad: 20, gap: 14, cardPad: 20, rowH: 52, font: "'Geist Mono', ui-monospace, monospace" }
+    };
+    var themes = {
+      light: { bg: '#FFFFFF', sidebar: '#FAFAFA', card: '#FFFFFF', cardGrad: 'linear-gradient(to top, #F4F4F5, #FFFFFF)', border: '#E4E4E7', fg: '#09090B', muted: '#71717A', mutedBg: '#F4F4F5', primary: '#18181B', primaryFg: '#FAFAFA', active: '#EDEDEF', chart1: '#E8590C', chart2: '#0D9488' },
+      dark: { bg: '#0A0A0A', sidebar: '#171717', card: '#141414', cardGrad: 'linear-gradient(to top, #171717, #0A0A0A)', border: '#2A2A2A', fg: '#FAFAFA', muted: '#A1A1A1', mutedBg: '#262626', primary: '#E5E5E5', primaryFg: '#171717', active: '#262626', chart1: '#FB8C3C', chart2: '#2DD4BF' }
+    };
+    // ---- Konfigurasi konten (dari database / setting, bukan hard-code) ----
+    var app = { name: 'Panel Admin', workspace: 'Toko Utama' };
+    var user = { name: 'Admin Demo', email: 'admin@contoh.id', initials: 'AD' };
+    var I = {
+      grid: 'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z',
+      bag: 'M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0',
+      box: 'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z',
+      users: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87',
+      chart: 'M12 20V10M18 20V4M6 20v-4',
+      file: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6',
+      image: 'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM21 15l-5-5L5 21',
+      gear: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.17V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-2.82-1.17l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 3 15.4H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 2.82 1.17l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z',
+      help: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01'
+    };
+    var navConfig = [
+      { label: 'Utama', items: [{ k: 'dasbor', label: 'Dasbor', icon: I.grid }, { k: 'pesanan', label: 'Pesanan', icon: I.bag }, { k: 'produk', label: 'Produk', icon: I.box }, { k: 'pelanggan', label: 'Pelanggan', icon: I.users }, { k: 'laporan', label: 'Laporan', icon: I.chart }] },
+      { label: 'Konten', items: [{ k: 'halaman', label: 'Halaman', icon: I.file }, { k: 'media', label: 'Media', icon: I.image }] }
+    ];
+    var navBottomConfig = [{ label: 'Pengaturan', icon: I.gear }, { label: 'Bantuan', icon: I.help }];
+    var activeNav = 'dasbor';
+    var UP = 'M22 7 13.5 15.5 8.5 10.5 2 17M16 7h6v6', DOWN = 'M22 17 13.5 8.5 8.5 13.5 2 7M16 17h6v-6';
+    var cardsConfig = [
+      { label: 'Total pendapatan', value: 'Rp 248,6 jt', delta: '+12,4%', up: true, foot: 'Naik bulan ini', sub: 'Pendapatan 6 bulan terakhir' },
+      { label: 'Pesanan baru', value: '1.284', delta: '+8,1%', up: true, foot: 'Naik 8,1% periode ini', sub: 'Akuisisi perlu perhatian' },
+      { label: 'Pelanggan aktif', value: '4.672', delta: '−2,0%', up: false, foot: 'Turun 2% periode ini', sub: 'Retensi melebihi target' },
+      { label: 'Rasio konversi', value: '3,8%', delta: '+0,6%', up: true, foot: 'Performa stabil', sub: 'Sesuai proyeksi' }
+    ];
+    var rangesConfig = [{ k: '90', label: '3 bulan', desc: 'Total 3 bulan terakhir' }, { k: '30', label: '30 hari', desc: 'Total 30 hari terakhir' }, { k: '7', label: '7 hari', desc: 'Total 7 hari terakhir' }];
+    var statusMap = {
+      selesai: { label: 'Selesai', color: '#16A34A', icon: 'M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3' },
+      diproses: { label: 'Diproses', color: '#CA8A04', icon: 'M21 12a9 9 0 1 1-6.22-8.56' },
+      dikirim: { label: 'Dikirim', color: '#2563EB', icon: 'M1 3h15v13H1zM16 8h4l3 3v5h-7zM5.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z' },
+      batal: { label: 'Dibatalkan', color: '#DC2626', icon: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM15 9l-6 6M9 9l6 6' }
+    };
+    var tabsConfig = [{ k: 'pesanan', label: 'Pesanan' }, { k: 'retur', label: 'Retur', count: 3 }, { k: 'ulasan', label: 'Ulasan', count: 2 }];
+    var notifTypes = {
+      success: { icon: 'M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3', light: ['#DCFCE7', '#166534'], dark: ['#14532D', '#86EFAC'] },
+      warning: { icon: 'M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01', light: ['#FEF3C7', '#92400E'], dark: ['#451A03', '#FCD34D'] },
+      info: { icon: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 16v-4M12 8h.01', light: ['#DBEAFE', '#1E40AF'], dark: ['#172554', '#93C5FD'] },
+      danger: { icon: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM15 9l-6 6M9 9l6 6', light: ['#FEE2E2', '#991B1B'], dark: ['#450A0A', '#FCA5A5'] }
+    };
+    var notifConfig = [
+      { id: 'n1', type: 'success', title: 'Pembayaran diterima', body: 'INV-2040 · Rp 845.000 via QRIS.', time: '2 menit lalu', action: 'Lihat pesanan' },
+      { id: 'n2', type: 'warning', title: 'Stok menipis', body: 'Kaos Polos Hitam tersisa 4 unit di gudang.', time: '18 menit lalu', action: 'Atur stok' },
+      { id: 'n3', type: 'info', title: 'Pesanan baru masuk', body: 'Rina Sembiring membuat INV-2041.', time: '1 jam lalu', action: 'Proses' },
+      { id: 'n4', type: 'danger', title: 'Pembayaran kedaluwarsa', body: 'INV-2036 dibatalkan otomatis setelah 24 jam.', time: '3 jam lalu' },
+      { id: 'n5', type: 'info', title: 'Ekspor selesai', body: 'laporan-oktober.xlsx siap diunduh.', time: 'Kemarin', action: 'Unduh' }
+    ];
+    var orders = [
+      { id: 'INV-2041', name: 'Rina Sembiring', email: 'rina@contoh.id', status: 'diproses', channel: 'Website', total: 'Rp 1.250.000' },
+      { id: 'INV-2040', name: 'Budi Santoso', email: 'budi@contoh.id', status: 'diproses', channel: 'Marketplace', total: 'Rp 845.000' },
+      { id: 'INV-2039', name: 'Sari Ginting', email: 'sari@contoh.id', status: 'dikirim', channel: 'Website', total: 'Rp 2.310.000' },
+      { id: 'INV-2038', name: 'Yohanes Tarigan', email: 'yohanes@contoh.id', status: 'selesai', channel: 'WhatsApp', total: 'Rp 560.000' },
+      { id: 'INV-2037', name: 'Maria Wijaya', email: 'maria@contoh.id', status: 'selesai', channel: 'Marketplace', total: 'Rp 1.780.000' },
+      { id: 'INV-2036', name: 'Dedi Kurniawan', email: 'dedi@contoh.id', status: 'batal', channel: 'Website', total: 'Rp 320.000' },
+      { id: 'INV-2035', name: 'Lia Sitepu', email: 'lia@contoh.id', status: 'dikirim', channel: 'Offline', total: 'Rp 975.000' }
+    ];
+    // ---------------------------------------------------------------------
+
+    var s = styles[styleKey] || styles.vega;
+    var t = dark ? themes.dark : themes.light;
+    var range = st.range || '90', tab = st.tab || 'pesanan', checked = st.checked || {};
+
+    var nav = navConfig.map(function (g) {
+      return { label: g.label, items: g.items.map(function (it) {
+        var on = it.k === activeNav;
+        return { label: it.label, icon: it.icon, bg: on ? t.active : 'transparent', weight: on ? 500 : 400 };
+      }) };
+    });
+    var cards = cardsConfig.map(function (c) {
+      return { label: c.label, value: c.value, delta: c.delta, foot: c.foot, sub: c.sub, trendIcon: c.up ? UP : DOWN };
+    });
+    var ranges = rangesConfig.map(function (rg, i) {
+      var on = rg.k === range;
+      return { label: rg.label, pressed: on ? 'true' : 'false', bg: on ? t.mutedBg : 'transparent',
+        sep: i ? '1px solid ' + t.border : '0', pick: function () { self.setState({ range: rg.k }); } };
+    });
+    var rangeDesc = rangesConfig.filter(function (x) { return x.k === range; })[0].desc;
+
+    // data harian deterministik (contoh) — di Filament diganti query
+    function series(n, base, amp, seed) {
+      var out = [], v = base;
+      for (var i = 0; i < n; i++) {
+        seed = (seed * 9301 + 49297) % 233280;
+        v = base + amp * Math.sin(i / 6) + (seed / 233280 - 0.5) * amp * 1.2 + i * base * 0.004;
+        out.push(Math.max(1, v));
+      }
+      return out;
+    }
+    var n = parseInt(range, 10);
+    var A = series(90, 60, 18, 7).slice(90 - n), B = series(90, 34, 12, 3).slice(90 - n);
+    var W = 800, H = 220, mx = Math.max.apply(null, A.map(function (v, i) { return v + B[i]; })) * 1.08;
+    function stackPath(top, bottom) {
+      var step = W / (top.length - 1);
+      var up = top.map(function (v, i) { return (i ? 'L' : 'M') + (i * step).toFixed(1) + ' ' + (H - v / mx * H).toFixed(1); }).join(' ');
+      var down = bottom.slice().reverse().map(function (v, j) { var i = bottom.length - 1 - j; return 'L' + (i * step).toFixed(1) + ' ' + (H - v / mx * H).toFixed(1); }).join(' ');
+      return up + ' ' + down + ' Z';
+    }
+    var zero = A.map(function () { return 0; });
+    var sum = A.map(function (v, i) { return v + B[i]; });
+    var areaB = stackPath(B, zero);
+    var areaA = stackPath(sum, B);
+    var grid = [0.25, 0.5, 0.75].map(function (f) { return { y: Math.round(H * f) }; });
+    var xLabelsMap = { '90': ['25 Jul', '10 Agu', '27 Agu', '12 Sep', '29 Sep', '23 Okt'], '30': ['24 Sep', '30 Sep', '6 Okt', '12 Okt', '18 Okt', '23 Okt'], '7': ['17 Okt', '18 Okt', '19 Okt', '20 Okt', '21 Okt', '23 Okt'] };
+
+    var tabs = tabsConfig.map(function (tb) {
+      var on = tb.k === tab;
+      return { label: tb.label, count: tb.count || 0, hasCount: !!tb.count, sel: on ? 'true' : 'false',
+        bg: on ? t.bg : 'transparent', fg: on ? t.fg : t.muted, shadow: on ? '0 1px 2px rgba(0,0,0,0.08)' : 'none',
+        pick: function () { self.setState({ tab: tb.k }); } };
+    });
+    var allChecked = orders.every(function (o) { return checked[o.id]; });
+    var rows = orders.map(function (o) {
+      var on = !!checked[o.id], sm = statusMap[o.status];
+      return { id: o.id, name: o.name, email: o.email, channel: o.channel, total: o.total, checked: on,
+        statusLabel: sm.label, sIcon: sm.icon, sColor: sm.color, bg: on ? t.mutedBg : 'transparent',
+        muted: t.muted, border: t.border, underline: t.border, accent: t.primary, rBadge: s.rBadge, rSm: s.rSm,
+        toggle: function () { var c = Object.assign({}, self.state.checked); c[o.id] = !c[o.id]; self.setState({ checked: c }); } };
+    });
+    var nSel = orders.filter(function (o) { return checked[o.id]; }).length;
+    var pagerIcons = [['Halaman pertama', 'm11 17-5-5 5-5M18 17l-5-5 5-5', 0.5], ['Sebelumnya', 'm15 18-6-6 6-6', 0.5], ['Berikutnya', 'm9 18 6-6-6-6', 1], ['Halaman terakhir', 'm13 17 5-5-5-5M6 17l5-5-5-5', 1]];
+    var pager = pagerIcons.map(function (p) { return { label: p[0], icon: p[1], op: p[2], border: t.border, bg: t.bg, fg: t.fg, r: s.rBtn }; });
+
+    return {
+      t: t, font: s.font, r: s.r, rSm: s.rSm, rBtn: s.rBtn, rBadge: s.rBadge, rTab: s.rTab, rAvatar: s.rAvatar, rInset: s.rInset,
+      pad: s.pad, gap: s.gap, cardPad: s.cardPad, rowH: s.rowH,
+      appName: app.name, workspace: app.workspace, user: user, nav: nav, navBottom: navBottomConfig,
+      cards: cards, ranges: ranges, rangeDesc: rangeDesc, areaA: areaA, areaB: areaB, grid: grid, xLabels: xLabelsMap[range],
+      tabs: tabs, rows: rows, allChecked: allChecked,
+      toggleAll: function () { var c = {}; if (!allChecked) orders.forEach(function (o) { c[o.id] = true; }); self.setState({ checked: c }); },
+      themeOpts: [
+        { k: 'light', label: 'Terang', icon: 'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42' },
+        { k: 'dark', label: 'Gelap', icon: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' },
+        { k: 'system', label: 'Ikuti sistem', icon: 'M2 3h20v14H2zM8 21h8M12 17v4' }
+      ].map(function (o) {
+        var on = o.k === themeMode;
+        return { label: o.label, icon: o.icon, sel: on ? 'true' : 'false', r: s.rSm, bg: on ? t.mutedBg : 'transparent', fg: on ? t.fg : t.muted,
+          pick: function () { self.setState({ themeMode: o.k }); } };
+      }),
+      notifOpen: (st.notif === null || st.notif === undefined) ? !!(this.props.notifikasi ?? false) : st.notif,
+      openNotif: function () { self.setState({ notif: true }); },
+      closeNotif: function () { self.setState({ notif: false }); },
+      readAll: function () { var x = {}; notifConfig.forEach(function (n) { x[n.id] = true; }); self.setState({ read: x }); },
+      unread: notifConfig.filter(function (n) { return !(st.read || {})[n.id]; }).length,
+      hasUnread: notifConfig.some(function (n) { return !(st.read || {})[n.id]; }),
+      notifs: notifConfig.map(function (n) {
+        var isRead = !!(st.read || {})[n.id], ty = notifTypes[n.type], pal = dark ? ty.dark : ty.light;
+        return { title: n.title, body: n.body, time: n.time, action: n.action || '', hasAction: !!n.action, icon: ty.icon,
+          iconBg: pal[0], iconFg: pal[1], unread: !isRead, weight: isRead ? 500 : 600, bg: isRead ? 'transparent' : t.mutedBg,
+          border: t.border, muted: t.muted, fg: t.fg, btnBg: t.bg, rBtn: s.rBtn, rIcon: s.rAvatar,
+          markRead: function () { var x = Object.assign({}, self.state.read); x[n.id] = true; self.setState({ read: x }); } };
+      }),
+      selText: nSel + ' dari ' + orders.length + ' baris dipilih', pager: pager
+    };
+  }
+}
+</script>
+</body>
+</html>

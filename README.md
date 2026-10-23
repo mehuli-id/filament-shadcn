@@ -34,7 +34,7 @@ filament-shadcn/
 ├── stubs/
 │   ├── theme.css                 file tema panel (salin ke proyek)
 │   └── AdminPanelProvider.php    contoh panel provider
-└── docs/                         pratinjau
+└── docs/                         pratinjau & mockup desain acuan (docs/mockup)
 ```
 
 ---
@@ -182,7 +182,7 @@ Nama token sama dengan shadcn/ui, jadi bisa dipakai juga di CSS dan Blade sendir
 Tambahan dari template ini:
 
 - **Warna status:** `--success`, `--warning`, `--info` beserta `-foreground`.
-- **Ukuran:** `--sc-radius-control`, `--sc-radius-card`, `--sc-radius-item`, `--sc-radius-badge`, `--sc-control-height`, `--sc-card-padding`.
+- **Ukuran:** `--sc-radius-control`, `--sc-radius-card`, `--sc-radius-inset`, `--sc-radius-item`, `--sc-radius-badge`, `--sc-control-height`, `--sc-card-padding`, `--sc-page-padding`, `--sc-gap`, `--sc-row-padding`.
 - **Efek:** `--sc-shadow-xs/sm/md/lg`, `--sc-focus`.
 
 Contoh di `theme.css` proyek:
@@ -190,6 +190,51 @@ Contoh di `theme.css` proyek:
 ```css
 .fi-header-heading { color: var(--primary); }
 ```
+
+---
+
+## Tata letak (shell)
+
+Bawaannya panel memakai *shell* yang mengikuti mockup di `docs/mockup/`:
+
+- **Sidebar** 16rem: blok merek (kotak ikon + nama + subjudul) di atas, menu pengguna di kaki sidebar.
+- **Header di dalam kartu konten**: tombol buka/tutup sidebar, judul halaman atau breadcrumb, pencarian global, pilihan tema ☀/☾/🖥, lonceng notifikasi, dan tautan tambahan.
+- **Ponsel**: header berisi ☰, nama merek, lonceng, dan avatar; sidebar jadi laci.
+
+Topbar bawaan Filament dimatikan selama shell aktif. Pengaturannya:
+
+```php
+ShadcnPlugin::make()
+    ->shell()                                   // false = topbar bawaan Filament
+    ->sidebarWidth('16rem')
+    ->brand(icon: 'heroicon-o-home', subtitle: 'Toko Utama')
+    ->headerLinks([['label' => 'Dokumentasi', 'url' => 'https://…']]);
+```
+
+Atau lewat `.env`: `SHADCN_SHELL`, `SHADCN_SIDEBAR_WIDTH`, `SHADCN_BRAND_ICON`, `SHADCN_BRAND_SUBTITLE` (tautan header di `config/filament-shadcn.php` → `layout.header_links`).
+
+Catatan:
+
+- Dengan `->brandLogo()`, logo Filament dipakai apa adanya sebagai ganti kotak ikon.
+- Tombol buka/tutup sidebar di desktop hanya muncul bila panel memakai `->sidebarCollapsibleOnDesktop()`.
+- Lonceng tampil di header bila `->databaseNotifications()` aktif (kecuali posisinya diatur sendiri).
+- Pencarian global muncul bila ada resource yang bisa dicari.
+
+### Widget bergaya shadcn
+
+```php
+use Mehuli\FilamentShadcn\Widgets\Stat;          // pengganti Filament\Widgets\StatsOverviewWidget\Stat
+use Mehuli\FilamentShadcn\Widgets\ChartWidget;   // pengganti Filament\Widgets\ChartWidget
+
+Stat::make('Total pendapatan', 'Rp 248,6 jt')
+    ->trend('+12,4%', up: true)                   // badge di kanan atas
+    ->description('Naik bulan ini')                // baris tebal + ikon tren
+    ->hint('Pendapatan 6 bulan terakhir');         // baris kecil abu-abu
+
+class RevenueChart extends ChartWidget { /* getData(), getFilters(), getType() seperti biasa */ }
+```
+
+`ChartWidget` memberi warna tiap seri dari `--chart-1…5` (ikut mode gelap), garis halus dengan isian gradasi, legenda kotak di bawah, dan filter sebagai tombol bersegmen. Warna yang ditulis sendiri di dataset tetap dipakai.
 
 ---
 

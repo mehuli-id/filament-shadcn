@@ -18,6 +18,9 @@ class Presets
      * density      : pengali skala jarak Tailwind (--spacing)
      * control      : tinggi tombol & input (rem)
      * card_padding : padding kartu/section (rem)
+     * page_padding : padding area konten (rem)
+     * gap          : jarak antar-blok konten (rem)
+     * row_padding  : padding atas/bawah sel tabel (rem)
      * pill         : tombol, input & badge berbentuk pil
      * font / mono  : font bawaan gaya
      * text         : ukuran teks dasar komponen (rem)
@@ -34,6 +37,9 @@ class Presets
                 'density' => 1.0,
                 'control' => 2.25,
                 'card_padding' => 1.5,
+                'page_padding' => 1.5,
+                'gap' => 1.0,
+                'row_padding' => 0.625,
                 'pill' => false,
                 'font' => 'Geist',
                 'mono' => 'Geist Mono',
@@ -44,6 +50,9 @@ class Presets
                 'density' => 0.92,
                 'control' => 2.0,
                 'card_padding' => 1.0,
+                'page_padding' => 1.0,
+                'gap' => 0.75,
+                'row_padding' => 0.4375,
                 'pill' => false,
                 'font' => 'Geist',
                 'mono' => 'Geist Mono',
@@ -54,6 +63,9 @@ class Presets
                 'density' => 1.0,
                 'control' => 2.25,
                 'card_padding' => 1.5,
+                'page_padding' => 1.75,
+                'gap' => 1.25,
+                'row_padding' => 0.8125,
                 'pill' => true,
                 'font' => 'Geist',
                 'mono' => 'Geist Mono',
@@ -64,6 +76,9 @@ class Presets
                 'density' => 0.95,
                 'control' => 2.0,
                 'card_padding' => 1.0,
+                'page_padding' => 1.25,
+                'gap' => 0.875,
+                'row_padding' => 0.5625,
                 'pill' => false,
                 'font' => 'Geist Mono',
                 'mono' => 'Geist Mono',
@@ -74,6 +89,9 @@ class Presets
                 'density' => 0.85,
                 'control' => 1.75,
                 'card_padding' => 0.75,
+                'page_padding' => 0.75,
+                'gap' => 0.5,
+                'row_padding' => 0.25,
                 'pill' => false,
                 'font' => 'Geist',
                 'mono' => 'Geist Mono',
@@ -135,17 +153,18 @@ class Presets
     public static function charts(): array
     {
         return [
+            // Seri 1–2 mengikuti docs/mockup (oranye #E8590C / teal #0D9488; gelap #FB8C3C / #2DD4BF).
             'light' => [
-                'oklch(0.646 0.222 41.116)',
-                'oklch(0.6 0.118 184.704)',
+                'oklch(0.644 0.192 41.687)',
+                'oklch(0.6 0.104 184.704)',
                 'oklch(0.398 0.07 227.392)',
                 'oklch(0.828 0.189 84.429)',
                 'oklch(0.769 0.188 70.08)',
             ],
             'dark' => [
+                'oklch(0.748 0.162 52.706)',
+                'oklch(0.785 0.133 181.912)',
                 'oklch(0.488 0.243 264.376)',
-                'oklch(0.696 0.17 162.48)',
-                'oklch(0.769 0.188 70.08)',
                 'oklch(0.627 0.265 303.9)',
                 'oklch(0.645 0.246 16.439)',
             ],

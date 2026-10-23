@@ -152,6 +152,7 @@ class TokenBuilder
 
         // Skala radius Tailwind dipetakan ke --radius ala shadcn
         // (sm = r-4px, md = r-2px, lg = r, xl = r+4px). Radius 0 = semua 0.
+        // Kartu = r+2px, kartu konten inset = r+4px (sesuai docs/mockup).
         $scale = fn (float $offset): string => $px <= 0 ? '0px' : max(0, round($px + $offset, 2)) . 'px';
 
         $control = $style['pill'] ? '9999px' : $scale(-2);
@@ -169,9 +170,13 @@ class TokenBuilder
             'sc-radius-control' => $control,
             'sc-radius-badge' => $style['pill'] ? '9999px' : $scale(-4),
             'sc-radius-item' => $scale(-2),
-            'sc-radius-card' => $scale(4),
+            'sc-radius-card' => $scale(2),
+            'sc-radius-inset' => $scale(4),
             'sc-control-height' => $style['control'] . 'rem',
             'sc-card-padding' => $style['card_padding'] . 'rem',
+            'sc-page-padding' => ($style['page_padding'] ?? 1.5) . 'rem',
+            'sc-gap' => ($style['gap'] ?? 1) . 'rem',
+            'sc-row-padding' => ($style['row_padding'] ?? 0.5) . 'rem',
             'sc-text' => $style['text'] . 'rem',
         ];
 

@@ -2,11 +2,12 @@
 
 namespace Mehuli\FilamentShadcn\Widgets;
 
-use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Carbon;
 
 /**
- * Contoh grafik untuk halaman Showcase. Warna garis mengikuti token
- * --chart-1 … --chart-5 lewat CSS tema (warna 'primary', 'success', …).
+ * Contoh grafik untuk halaman Showcase (docs/mockup/gambar/Shadcn.png).
+ * Memakai Widgets\ChartWidget: warna tiap seri dari --chart-1 … --chart-5,
+ * isian gradasi, dan filter rentang bersegmen.
  */
 class ShowcaseChart extends ChartWidget
 {
@@ -14,20 +15,28 @@ class ShowcaseChart extends ChartWidget
 
     protected ?string $heading = 'Pendapatan per kanal';
 
-    protected ?string $description = '12 bulan terakhir, dalam juta rupiah';
-
-    protected ?string $maxHeight = '280px';
+    protected ?string $maxHeight = '240px';
 
     protected int | string | array $columnSpan = 'full';
 
-    public ?string $filter = 'year';
+    public ?string $filter = '90';
 
     protected function getFilters(): ?array
     {
         return [
-            'quarter' => '3 bulan',
-            'year' => '12 bulan',
+            '90' => '3 bulan',
+            '30' => '30 hari',
+            '7' => '7 hari',
         ];
+    }
+
+    public function getDescription(): ?string
+    {
+        return match ($this->filter) {
+            '30' => 'Total 30 hari terakhir',
+            '7' => 'Total 7 hari terakhir',
+            default => 'Total 3 bulan terakhir',
+        };
     }
 
     protected function getType(): string
@@ -37,30 +46,23 @@ class ShowcaseChart extends ChartWidget
 
     protected function getData(): array
     {
-        $labels = ['Nov', 'Des', 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt'];
-        $website = [92, 108, 97, 101, 113, 108, 121, 129, 125, 137, 146, 160];
-        $marketplace = [50, 60, 54, 58, 63, 61, 67, 72, 70, 77, 82, 89];
+        $days = (int) ($this->filter ?: 90);
+        $labels = [];
+        $website = [];
+        $marketplace = [];
 
-        if ($this->filter === 'quarter') {
-            $labels = array_slice($labels, -3);
-            $website = array_slice($website, -3);
-            $marketplace = array_slice($marketplace, -3);
+        // Data contoh yang stabil (tanpa acak) supaya tampilan bisa dibandingkan dengan mockup.
+        for ($i = $days - 1; $i >= 0; $i--) {
+            $n = 90 - $i;
+            $labels[] = Carbon::today()->subDays($i)->translatedFormat('j M');
+            $website[] = round(260 + 70 * sin($n / 6) + 40 * sin($n / 2.3) + $n * 1.6);
+            $marketplace[] = round(110 + 25 * sin($n / 5 + 1) + 18 * sin($n / 1.7) + $n * 0.5);
         }
 
         return [
             'datasets' => [
-                [
-                    'label' => 'Website',
-                    'data' => $website,
-                    'fill' => true,
-                    'tension' => 0.35,
-                ],
-                [
-                    'label' => 'Marketplace',
-                    'data' => $marketplace,
-                    'fill' => true,
-                    'tension' => 0.35,
-                ],
+                ['label' => 'Website', 'data' => $website],
+                ['label' => 'Marketplace', 'data' => $marketplace],
             ],
             'labels' => $labels,
         ];

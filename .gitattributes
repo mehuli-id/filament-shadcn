@@ -1,0 +1,5 @@
+# Tidak ikut ke paket composer (dist), hanya ada di repo.
+/docs export-ignore
+/CLAUDE.md export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore

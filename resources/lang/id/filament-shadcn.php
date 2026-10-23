@@ -75,6 +75,11 @@ return [
         ],
     ],
 
+    'shell' => [
+        'toggle_sidebar' => 'Buka/tutup sidebar',
+        'breadcrumbs' => 'Jejak navigasi',
+    ],
+
     'showcase' => [
         'navigation_label' => 'Showcase komponen',
         'title' => 'Showcase komponen',

@@ -19,6 +19,7 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - `src/Commands/InstallCommand.php` — `php artisan shadcn:install [--panel=] [--config] [--force]`.
 - `resources/views/components/` — 28 komponen Blade `<x-shadcn::…>` (Alpine.js).
 - `stubs/` — theme.css & contoh AdminPanelProvider.
+- `docs/mockup/` — mockup desain acuan: `gambar/*.png` (cepat dilihat) dan `sumber/*.dc.html` (interaktif, buka di browser). Tampilan package harus mengikuti mockup ini.
 
 ## Keamanan (jangan dilonggarkan)
 - Nama font divalidasi `ThemeSettings::FONT_NAME_PATTERN` (Filament mencetaknya tanpa escape di `<style>`).
@@ -32,6 +33,7 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - v1.0.2 (lihat CHANGELOG.md). Sudah diuji di proyek uji `../shadcn-playground` (Laravel 13.38, Filament 5.10.3, path repository symlink): `shadcn:install`, `npm run build`, halaman Tampilan (simpan/reset/validasi font), login `split` + upload (SVG ditolak, gambar lama dihapus saat diganti/reset), akses production (`canCustomizeAppearance`), ponsel 390px & tablet 820px tanpa overflow.
 - Repo GitHub: `mehuli-id/filament-shadcn` (privat), branch `main`, tag `v1.0.2`.
 - Starter kit terpisah: `mehuli-id/starter-kit` (privat, template repository, lokal di `../starter-kit`; Laravel 13 + Filament 5 + package ini, locale id, Asia/Jakarta, admin via seeder `ADMIN_*`, akses panel `is_admin`).
+- Sedang dikerjakan (v1.1.0): menyamakan tampilan dengan `docs/mockup/` — sidebar 256px + kepala/kaki sidebar, topbar, kartu statistik, tabel, pilihan tema, lalu login muted/gambar, lalu Showcase.
 
 ## Pekerjaan lanjutan yang tercatat
 - `composer require` lewat repo `vcs` sudah diuji (v1.0.2) dan dipakai starter kit `^1.0.2`. Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit.

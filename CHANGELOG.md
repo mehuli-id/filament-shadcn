@@ -1,5 +1,19 @@
 # Changelog
 
+## Belum dirilis (v1.1.0)
+
+Tampilan mengikuti `docs/mockup/`:
+- Shell baru (bawaan aktif, `->shell(false)` / `SHADCN_SHELL=false` untuk topbar Filament): sidebar 16rem dengan blok merek dan menu pengguna di kaki sidebar, header di dalam kartu konten (judul/breadcrumb, pencarian, pilihan tema, lonceng, tautan), header ponsel dengan avatar.
+- Opsi baru: `->sidebarWidth()`, `->brand(icon:, subtitle:)`, `->headerLinks()` (+ `SHADCN_SIDEBAR_WIDTH`, `SHADCN_BRAND_ICON`, `SHADCN_BRAND_SUBTITLE`). Lebar sidebar divalidasi (`ShadcnPlugin::SIDEBAR_WIDTH_PATTERN`).
+- `Widgets\Stat`: badge tren, baris keterangan + petunjuk; versi ringkas dua kolom di ponsel.
+- `Widgets\ChartWidget`: warna per seri dari `--chart-1…5`, isian gradasi, filter bersegmen.
+- Token baru per gaya: `--sc-page-padding`, `--sc-gap`, `--sc-row-padding`, `--sc-radius-inset`; `--sc-radius-card` kini radius + 2px.
+- Warna grafik 1–2 mengikuti mockup (oranye/teal, juga di mode gelap).
+- Tabel: kepala tabel berlatar `--muted`, baris lebih rapat, badge berikon bergaris netral, tombol pagination bergaris.
+
+Perbaikan:
+- Kartu konten inset tanpa topbar kini punya jarak atas (aturan `margin-top` sebelumnya kalah spesifisitas).
+
 ## v1.0.2 — 2026-10-23
 
 Perbaikan (hasil uji di Laravel 13.38 + Filament 5.10.3 + Livewire 4.4.8):

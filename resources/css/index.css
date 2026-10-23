@@ -13,6 +13,7 @@
 @import './tokens.css';
 @import './base.css';
 @import './layout.css';
+@import './shell.css';
 @import './buttons.css';
 @import './inputs.css';
 @import './forms-advanced.css';

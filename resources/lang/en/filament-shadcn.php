@@ -75,6 +75,11 @@ return [
         ],
     ],
 
+    'shell' => [
+        'toggle_sidebar' => 'Toggle sidebar',
+        'breadcrumbs' => 'Breadcrumbs',
+    ],
+
     'showcase' => [
         'navigation_label' => 'Component showcase',
         'title' => 'Component showcase',

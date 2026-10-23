@@ -176,14 +176,14 @@ html[data-sc-sidebar='floating'] {
     html[data-sc-sidebar='inset'] .fi-body.fi-body-has-navigation:not(.fi-body-has-top-navigation) .fi-main-ctn,
     html[data-sc-sidebar='floating'] .fi-body.fi-body-has-navigation:not(.fi-body-has-top-navigation) .fi-main-ctn {
         margin: 0 0.5rem 0.5rem 0;
-        border-radius: var(--sc-radius-card);
+        border-radius: var(--sc-radius-inset);
         box-shadow: var(--sc-shadow-xs), var(--sc-border);
         background-color: var(--background);
         min-height: calc(100dvh - var(--topbar-height) - 0.5rem);
     }
 
-    html[data-sc-sidebar='inset'] .fi-body:not(.fi-body-has-topbar) .fi-main-ctn,
-    html[data-sc-sidebar='floating'] .fi-body:not(.fi-body-has-topbar) .fi-main-ctn {
+    html[data-sc-sidebar='inset'] .fi-body.fi-body-has-navigation:not(.fi-body-has-top-navigation):not(.fi-body-has-topbar) .fi-main-ctn,
+    html[data-sc-sidebar='floating'] .fi-body.fi-body-has-navigation:not(.fi-body-has-top-navigation):not(.fi-body-has-topbar) .fi-main-ctn {
         margin-top: 0.5rem;
         min-height: calc(100dvh - 1rem);
     }
@@ -199,7 +199,7 @@ html[data-sc-sidebar='floating'] {
 @media (min-width: 64rem) {
     html[data-sc-sidebar='floating'] .fi-sidebar-nav {
         margin: 0 0.5rem 0.5rem;
-        border-radius: var(--sc-radius-card);
+        border-radius: var(--sc-radius-inset);
         background-color: var(--background);
         box-shadow: var(--sc-shadow-sm), var(--sc-border);
     }

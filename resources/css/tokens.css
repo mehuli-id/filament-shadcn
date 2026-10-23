@@ -51,9 +51,13 @@
     --sc-radius-control: 6px;
     --sc-radius-badge: 4px;
     --sc-radius-item: 6px;
-    --sc-radius-card: 12px;
+    --sc-radius-card: 10px;
+    --sc-radius-inset: 12px;
     --sc-control-height: 2rem;
     --sc-card-padding: 1rem;
+    --sc-page-padding: 1rem;
+    --sc-gap: 0.75rem;
+    --sc-row-padding: 0.4375rem;
     --sc-text: 0.875rem;
 
     --sc-check-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='%23fafafa' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");
