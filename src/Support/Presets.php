@@ -195,10 +195,7 @@ class Presets
 
     public static function isColorValue(string $color): bool
     {
-        $color = strtolower(trim($color));
-
-        return str_starts_with($color, '#')
-            || str_starts_with($color, 'rgb(')
-            || str_starts_with($color, 'oklch(');
+        // Pola lengkap (bukan hanya awalan) supaya nilai rusak dari config/JSON tidak diproses sebagai warna.
+        return (bool) preg_match(ThemeSettings::COLOR_VALUE_PATTERN, trim($color));
     }
 }

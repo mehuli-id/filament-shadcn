@@ -182,8 +182,9 @@ class TokenBuilder
 
         // Token bersama yang ditimpa lewat config (mis. 'radius').
         foreach (['radius'] as $key) {
-            if (filled($override = $this->settings->get('tokens')['light'][$key] ?? null)) {
-                $tokens[$key] = (string) $override;
+            // Dicek ulang saat render: nilai bisa berasal dari config atau JSON yang diedit tangan.
+            if (filled($override = $this->settings->get('tokens')['light'][$key] ?? null) && ($safe = static::safeTokenValue((string) $override)) !== null) {
+                $tokens[$key] = $safe;
             }
         }
 
@@ -311,7 +312,8 @@ class TokenBuilder
             return null;
         }
 
-        if (preg_match('/\b(url|image|image-set|cross-fade|element|expression|env|attr)\s*\(/i', $value) || str_contains($value, '//')) {
+        // Tanpa fungsi pemuat sumber daya, tanpa `//`, dan tanpa komentar CSS (`/*` bisa mematikan sisa token).
+        if (preg_match('/\b(url|image|image-set|cross-fade|element|expression|env|attr)\s*\(/i', $value) || str_contains($value, '//') || str_contains($value, '/*') || str_contains($value, '*/')) {
             return null;
         }
 

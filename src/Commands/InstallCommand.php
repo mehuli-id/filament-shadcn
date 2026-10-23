@@ -40,8 +40,21 @@ class InstallCommand extends Command
             ?: ($this->input->isInteractive() ? $this->ask('ID panel Filament', 'admin') : 'admin');
         $panel = Str::kebab($panel);
 
+        // ID panel dipakai di path file dan disisipkan ke kode PHP: hanya huruf kecil, angka, tanda hubung.
+        if (! preg_match('/^[a-z0-9]+(-[a-z0-9]+)*$/', $panel)) {
+            $this->components->error("ID panel tidak valid: {$panel}. Gunakan huruf kecil, angka, dan tanda hubung.");
+
+            return self::FAILURE;
+        }
+
         $providerPath = $this->option('provider')
             ?: app_path('Providers/Filament/' . Str::studly($panel) . 'PanelProvider.php');
+
+        if (! str_ends_with($providerPath, '.php')) {
+            $this->components->error('--provider harus menunjuk file .php.');
+
+            return self::FAILURE;
+        }
 
         if (! $this->files->exists($providerPath)) {
             $this->components->warn("Panel Provider tidak ditemukan: {$this->relative($providerPath)}");

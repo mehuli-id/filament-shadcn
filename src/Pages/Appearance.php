@@ -188,6 +188,9 @@ class Appearance extends Page
                             ->directory(static::imageDirectory())
                             ->visibility('public')
                             ->imageEditor()
+                            // Path dari browser hanya diterima bila sama dengan gambar yang tersimpan
+                            // (unggahan baru selalu lewat file sementara Livewire).
+                            ->preventFilePathTampering(allowFilePathUsing: fn (string $file): bool => $file === (app(AppearanceRepository::class)->all()['auth_image_path'] ?? null))
                             ->visible(fn (Get $get): bool => $get('auth_layout') === 'split'),
                     ]),
 
@@ -282,16 +285,22 @@ class Appearance extends Page
             default => 'default',
         };
 
-        $imagePath = $state['auth_image_path'] ?? null;
+        $repository = app(AppearanceRepository::class);
+        $oldImagePath = $repository->all()['auth_image_path'] ?? null;
+
+        // Field gambar tersembunyi (layout bukan split) tidak ikut getState(): gambar lama dipertahankan.
+        $imagePath = array_key_exists('auth_image_path', $state) ? $state['auth_image_path'] : $oldImagePath;
 
         if (is_array($imagePath)) {
             $imagePath = array_values($imagePath)[0] ?? null;
         }
 
-        $repository = app(AppearanceRepository::class);
+        // Hanya path di folder milik package yang disimpan.
+        if (filled($imagePath) && ! static::isOwnImagePath($imagePath)) {
+            $imagePath = $oldImagePath;
+        }
 
         // Hapus gambar login lama kalau diganti/dihapus (hanya file di folder milik package).
-        $oldImagePath = $repository->all()['auth_image_path'] ?? null;
 
         if ($oldImagePath !== $imagePath) {
             static::deleteOwnImage($oldImagePath);
@@ -331,9 +340,14 @@ class Appearance extends Page
     /**
      * Hapus gambar login lama, hanya file di folder milik package.
      */
+    protected static function isOwnImagePath(mixed $path): bool
+    {
+        return is_string($path) && str_starts_with($path, static::imageDirectory() . '/') && ! str_contains($path, '..');
+    }
+
     protected static function deleteOwnImage(mixed $path): void
     {
-        if (is_string($path) && str_starts_with($path, static::imageDirectory() . '/') && ! str_contains($path, '..')) {
+        if (static::isOwnImagePath($path)) {
             Storage::disk('public')->delete($path);
         }
     }

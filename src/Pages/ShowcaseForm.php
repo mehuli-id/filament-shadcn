@@ -38,6 +38,7 @@ use Filament\Schemas\Components\Text;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
+use Mehuli\FilamentShadcn\Pages\Concerns\AuthorizesShowcase;
 use UnitEnum;
 
 /**
@@ -47,6 +48,8 @@ use UnitEnum;
  */
 class ShowcaseForm extends Page
 {
+    use AuthorizesShowcase;
+
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     protected static ?string $slug = 'showcase-form';

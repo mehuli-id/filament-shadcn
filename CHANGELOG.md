@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.1.7 — 2026-10-24
+
+Keamanan (hasil tinjauan keamanan):
+- Halaman Showcase (4 halaman) hanya untuk yang boleh mengatur tampilan (`canCustomizeAppearance`) dan hanya bila showcase aktif. Sebelumnya semua pengguna panel bisa membukanya.
+- Upload di Showcase menolak SVG (hanya `appearance_page.image_types`) dan dibatasi ukurannya. Sebelumnya `->image()` menerima SVG, yang bisa dipakai untuk XSS tersimpan.
+- Gambar login di halaman Tampilan: path dari browser tidak dipercaya (`preventFilePathTampering`) dan hanya path di folder milik package yang disimpan.
+- `SafeUrl` kini daftar izin (`allowed_url_schemes`: http, https, mailto, tel, plus URL relatif). Sebelumnya daftar larangan, sehingga skema seperti `blob:` lolos.
+- Token CSS menolak komentar `/*` `*/`; radius dari config/JSON dicek ulang saat render; validasi warna memakai pola lengkap.
+- `shadcn:install` menolak ID panel selain huruf kecil, angka, dan tanda hubung.
+
+Perbaikan:
+- Menyimpan halaman Tampilan dengan layout selain `split` tidak lagi menghapus gambar login.
+
+Catatan peningkatan versi: config `blocked_url_schemes` diganti `allowed_url_schemes`.
+
 ## v1.1.6 — 2026-10-24
 
 - Kolom tanggal kosong menampilkan petunjuk ("Pilih tanggal & jam"); format tampilan mengikuti bahasa ("23 Okt 2026 09:30"). `->placeholder()` / `->displayFormat()` di field tetap menang.

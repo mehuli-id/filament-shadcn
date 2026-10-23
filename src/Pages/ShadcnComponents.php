@@ -7,6 +7,7 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
+use Mehuli\FilamentShadcn\Pages\Concerns\AuthorizesShowcase;
 use UnitEnum;
 
 /**
@@ -18,6 +19,8 @@ use UnitEnum;
  */
 class ShadcnComponents extends Page
 {
+    use AuthorizesShowcase;
+
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedPuzzlePiece;
 
     protected static ?string $slug = 'shadcn-components';

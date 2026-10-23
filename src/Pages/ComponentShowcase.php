@@ -70,6 +70,7 @@ use Mehuli\FilamentShadcn\Schemas\Components\AccordionItem;
 use Mehuli\FilamentShadcn\Tables\Columns\ProgressColumn;
 use Mehuli\FilamentShadcn\Widgets\ShowcaseChart;
 use Mehuli\FilamentShadcn\Widgets\ShowcaseStats;
+use Mehuli\FilamentShadcn\Pages\Concerns\AuthorizesShowcase;
 use UnitEnum;
 
 /**
@@ -83,6 +84,7 @@ use UnitEnum;
  */
 class ComponentShowcase extends Page implements HasTable
 {
+    use AuthorizesShowcase;
     use HasSampleOrders;
     use InteractsWithTable;
 
@@ -446,7 +448,7 @@ class ComponentShowcase extends Page implements HasTable
                                     ColorPicker::make('label_color')->label('Warna label'),
                                     TagsInput::make('tags')->label('Kata kunci'),
                                 ]),
-                                FileUpload::make('images')->label('Gambar produk')->image()->multiple()->reorderable()->imageEditor()->disk('public')->directory('showcase'),
+                                FileUpload::make('images')->label('Gambar produk')->image()->acceptedFileTypes(config('filament-shadcn.appearance_page.image_types', ['image/png', 'image/jpeg', 'image/webp', 'image/avif']))->maxSize(config('filament-shadcn.appearance_page.image_max_kb', 4096))->multiple()->reorderable()->imageEditor()->disk('public')->directory('showcase'),
                             ]),
 
                         Tab::make('Struktur')
@@ -473,7 +475,7 @@ class ComponentShowcase extends Page implements HasTable
                                             Textarea::make('text')->label('Teks'),
                                         ]),
                                         Block::make('image')->label('Gambar')->icon(Heroicon::OutlinedPhoto)->schema([
-                                            FileUpload::make('url')->label('Gambar')->image()->disk('public')->directory('showcase'),
+                                            FileUpload::make('url')->label('Gambar')->image()->acceptedFileTypes(config('filament-shadcn.appearance_page.image_types', ['image/png', 'image/jpeg', 'image/webp', 'image/avif']))->maxSize(config('filament-shadcn.appearance_page.image_max_kb', 4096))->disk('public')->directory('showcase'),
                                         ]),
                                     ])
                                     ->collapsible(),

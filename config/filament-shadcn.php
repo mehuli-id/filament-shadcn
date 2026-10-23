@@ -175,8 +175,9 @@ return [
     ],
 
     /*
-    | Skema URL yang ditolak di atribut href komponen <x-shadcn::…>.
+    | Skema URL yang diizinkan di href (komponen <x-shadcn::…>, tautan header, tombol masuk sosial,
+    | teks persetujuan). URL relatif selalu boleh; skema lain (javascript:, data:, …) ditolak.
     */
-    'blocked_url_schemes' => ['javascript', 'vbscript', 'data', 'file'],
+    'allowed_url_schemes' => ['http', 'https', 'mailto', 'tel'],
 
 ];

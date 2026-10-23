@@ -388,7 +388,7 @@ Syntax highlighting di Code Block belum ada (teks polos). Kalau perlu, bisa disa
 - **Token kustom** hanya boleh berisi warna, ukuran, `calc()`, dan `var()`. `url()`, `image-set()`, tanda kutip, titik dua, dan `//` ditolak.
 - **Warna utama kustom** harus `#hex`, `rgb(r, g, b)`, atau `oklch(l c h)`. Nilai lain kembali ke bawaan.
 - **Gambar login** hanya PNG/JPEG/WebP/AVIF (tanpa SVG), maksimal 4 MB. Atur lewat `appearance_page.image_types` dan `image_max_kb`.
-- **Link di komponen** (`href`, URL item `command`) menolak skema `javascript:`, `vbscript:`, `data:`, dan `file:`. Atur lewat `blocked_url_schemes`.
+- **Link** (komponen `href`, URL item `command`, tautan header, tombol masuk sosial, teks persetujuan) hanya menerima `http`, `https`, `mailto`, `tel`, dan URL relatif; skema lain (`javascript:`, `data:`, `blob:`, …) ditolak. Atur lewat `allowed_url_schemes`.
 - **Showcase** mati secara bawaan. Jangan aktifkan di production.
 
 ## Catatan

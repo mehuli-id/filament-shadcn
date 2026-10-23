@@ -23,6 +23,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Mehuli\FilamentShadcn\Pages\Concerns\HasSampleOrders;
 use Mehuli\FilamentShadcn\Widgets\ShowcaseChart;
 use Mehuli\FilamentShadcn\Widgets\ShowcaseStats;
+use Mehuli\FilamentShadcn\Pages\Concerns\AuthorizesShowcase;
 use UnitEnum;
 
 /**
@@ -32,6 +33,7 @@ use UnitEnum;
  */
 class ShowcaseDashboard extends Page implements HasTable
 {
+    use AuthorizesShowcase;
     use HasSampleOrders;
     use InteractsWithTable;
 

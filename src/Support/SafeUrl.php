@@ -3,16 +3,16 @@
 namespace Mehuli\FilamentShadcn\Support;
 
 /**
- * Menyaring URL untuk atribut href di komponen <x-shadcn::…>.
- * Blade sudah meng-escape karakter HTML, tetapi tidak menolak skema
+ * Menyaring URL untuk atribut href (komponen <x-shadcn::…>, tautan header, tombol masuk sosial,
+ * teks persetujuan login). Blade sudah meng-escape karakter HTML, tetapi tidak menolak skema
  * berbahaya seperti `javascript:` yang bisa datang dari data user.
+ *
+ * Daftar izin: hanya skema di `allowed_url_schemes` (bawaan http, https, mailto, tel) dan URL
+ * relatif (`/…`, `#…`, `?…`, `halaman`). Skema lain apa pun ditolak.
  */
 class SafeUrl
 {
-    /**
-     * Skema yang ditolak. Bisa ditambah lewat config `filament-shadcn.blocked_url_schemes`.
-     */
-    protected const BLOCKED = ['javascript', 'vbscript', 'data', 'file'];
+    protected const ALLOWED = ['http', 'https', 'mailto', 'tel'];
 
     public static function filter(mixed $url): ?string
     {
@@ -24,11 +24,17 @@ class SafeUrl
         $normalized = strtolower(preg_replace('/[\x00-\x20\x7f]+/', '', $url) ?? '');
 
         if (preg_match('/^([a-z][a-z0-9+.\-]*):/', $normalized, $match)) {
-            $blocked = (array) (function_exists('config') ? config('filament-shadcn.blocked_url_schemes', static::BLOCKED) : static::BLOCKED);
+            $allowed = array_map(
+                fn (mixed $scheme): string => strtolower(trim((string) $scheme)),
+                (array) (function_exists('config') ? config('filament-shadcn.allowed_url_schemes', static::ALLOWED) : static::ALLOWED),
+            );
 
-            if (in_array($match[1], $blocked, true)) {
-                return null;
-            }
+            return in_array($match[1], $allowed, true) ? $url : null;
+        }
+
+        // Tanpa skema: hanya bentuk relatif yang jelas. Karakter ':' sebelum '/', '?', '#' berarti skema tersamar.
+        if (preg_match('/^[^\/?#]*:/', $normalized)) {
+            return null;
         }
 
         return $url;
