@@ -120,11 +120,16 @@ html[data-sc-shell='on'] {
             background-color: var(--sidebar-accent);
         }
 
+        /* Ukuran dikunci dari semua sisi: Safari bisa meregangkan <img> SVG di dalam flex. */
         & .fi-avatar {
             flex: none;
+            align-self: center;
             width: 2rem;
+            min-width: 2rem;
+            max-width: 2rem;
             height: 2rem;
-            aspect-ratio: 1;
+            min-height: 2rem;
+            max-height: 2rem;
             object-fit: cover;
         }
 
@@ -177,10 +182,14 @@ html[data-sc-shell='on'] {
         }
 
         & .fi-sidebar-footer .fi-user-menu-trigger {
+            flex: none;
             justify-content: center;
-            width: auto;
+            width: 2.5rem;
+            height: 2.5rem;
             min-height: 0;
-            padding: 0.25rem;
+            padding: 0;
+            gap: 0;
+            border-radius: 9999px;
         }
     }
 }
@@ -405,14 +414,26 @@ html[data-sc-shell='on'] {
     border-radius: 9999px;
 
     & .fi-avatar {
+        flex: none;
         width: 2.25rem;
+        min-width: 2.25rem;
+        max-width: 2.25rem;
         height: 2.25rem;
+        min-height: 2.25rem;
+        max-height: 2.25rem;
         border-radius: 9999px;
+        object-fit: cover;
     }
 
     &:focus-visible {
         box-shadow: 0 0 0 2px var(--ring);
     }
+}
+
+/* Badge jumlah notifikasi selalu merah (di header, topbar, sidebar, maupun layout sederhana). */
+:is(.fi-topbar-database-notifications-btn, .fi-sidebar-database-notifications-btn) .fi-badge {
+    background-color: var(--destructive);
+    color: #fff;
 }
 
 /* Pembungkus Livewire lonceng mengikuti ukuran tombolnya. */

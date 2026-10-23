@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.2 — 2026-10-23
+
+- Avatar di kaki sidebar & header dikunci 32/36px dari semua sisi (Safari bisa meregangkan avatar SVG jadi lonjong); tombol pengguna saat sidebar ciut bulat 40×40.
+- `shadcn:install` mengganti `->profile()` dengan `->profile(isSimple: false)` supaya halaman profil tampil di dalam layout panel (sidebar + header). Stub ikut diperbarui.
+- Badge jumlah notifikasi selalu merah, termasuk di topbar Filament dan layout sederhana.
+
 ## v1.1.1 — 2026-10-23
 
 Perbaikan sidebar yang diciutkan (`->sidebarCollapsibleOnDesktop()`):

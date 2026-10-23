@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
  *   2. menambahkan file itu ke input vite.config.js
  *   3. menambahkan ->viteTheme() dan ->plugin(ShadcnPlugin::make()) ke Panel Provider
  *      (dan menghapus ->colors([...]) bawaan, karena warnanya diatur plugin;
- *      ->login() diganti halaman login package)
+ *      ->login() diganti halaman login package, ->profile() tampil di dalam layout panel)
  *   4. (opsional) menerbitkan config/filament-shadcn.php
  *
  * Aman dijalankan berulang: langkah yang sudah terpasang dilewati.
@@ -169,6 +169,9 @@ class InstallCommand extends Command
 
         // Halaman login bergaya mockup (judul "Selamat datang kembali", tautan daftar di bawah form).
         $contents = preg_replace('/->login\(\s*\)/', '->login(\\Mehuli\\FilamentShadcn\\Pages\\Auth\\Login::class)', $contents, 1);
+
+        // Profil di dalam layout panel (sidebar + header), bukan halaman "simple" terpisah.
+        $contents = preg_replace('/->profile\(\s*\)/', '->profile(isSimple: false)', $contents, 1);
 
         $additions = [];
 

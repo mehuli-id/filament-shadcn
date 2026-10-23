@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login(\Mehuli\FilamentShadcn\Pages\Auth\Login::class)
             ->passwordReset()
-            ->profile()
+            ->profile(isSimple: false)
             ->brandName('Panel Admin')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->darkMode(true)
