@@ -287,7 +287,7 @@ Tinggi kontrol mengikuti `docs/mockup`; di ponsel (<640px) minimal 44px. Radius 
 - **Widget:** Stats overview, Chart (warna `--chart-1…5`), Account.
 - **Halaman login, daftar, lupa sandi:** layout muted, split dengan gambar, atau polos.
 
-Buka **Showcase komponen** (`SHADCN_SHOWCASE=true`) untuk melihat semuanya di satu halaman.
+Buka **Showcase komponen** (`SHADCN_SHOWCASE=true`) untuk melihat semuanya di satu halaman. **Contoh dasbor** dan **Contoh form** disusun seperti artboard di `docs/mockup/` untuk dibandingkan langsung.
 
 ![Login split](docs/preview-login-split.png)
 

@@ -93,6 +93,8 @@ return [
     ],
 
     'showcase' => [
+        'dashboard_label' => 'Sample dashboard',
+        'form_label' => 'Sample form',
         'navigation_label' => 'Component showcase',
         'title' => 'Component showcase',
         'subheading' => 'Every Filament component on one page, for checking the theme.',

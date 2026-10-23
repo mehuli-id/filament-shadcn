@@ -93,6 +93,8 @@ return [
     ],
 
     'showcase' => [
+        'dashboard_label' => 'Contoh dasbor',
+        'form_label' => 'Contoh form',
         'navigation_label' => 'Showcase komponen',
         'title' => 'Showcase komponen',
         'subheading' => 'Semua komponen Filament dalam satu halaman untuk mengecek tema.',

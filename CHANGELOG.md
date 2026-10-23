@@ -14,6 +14,8 @@ Tampilan mengikuti `docs/mockup/`:
 - `Pages\Auth\Login`: "Selamat datang kembali", subjudul dengan nama merek, tautan daftar di bawah form. `shadcn:install` mengganti `->login()` dengan halaman ini.
 - Tinggi kontrol mengikuti mockup: vega 40px, nova 36px, maia 40px, lyra 36px; minimal 44px di ponsel. Padding kartu vega 20px.
 - Label field berwarna foreground; tombol tampilkan kata sandi menyatu di dalam input.
+- Halaman contoh baru (aktif bersama Showcase): **Contoh dasbor** dan **Contoh form**, disusun seperti artboard mockup untuk perbandingan di 1440/820/390px.
+- Tabs rata kiri (seperti shadcn); angka di tab memakai badge abu-abu.
 
 Perbaikan:
 - `shadcn:install` menyisipkan `use …ShadcnPlugin;` setelah import terakhir (sebelumnya sebelum import pertama).

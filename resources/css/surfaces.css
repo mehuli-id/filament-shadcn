@@ -79,6 +79,8 @@
     &:not(.fi-vertical) {
         width: max-content;
         max-width: 100%;
+        /* Rata kiri seperti Tabs shadcn (Filament memusatkan tab tanpa wadah). */
+        margin-inline: 0 auto;
         padding: 0.1875rem;
         border-radius: var(--sc-radius-control);
         background-color: var(--muted);
@@ -132,6 +134,19 @@
             color: var(--foreground);
         }
     }
+}
+
+/* Angka di tab (mis. "Retur 3"): badge abu-abu kecil, bukan warna utama. */
+.fi-tabs-item .fi-badge:is(.fi-color-primary, :not(.fi-color)) {
+    min-width: 1.125rem;
+    min-height: 1.125rem;
+    padding: 0 0.3125rem;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: var(--border);
+    color: var(--foreground);
+    font-size: 0.6875rem;
+    font-weight: 600;
 }
 
 .dark .fi-tabs-item.fi-active {

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use Mehuli\FilamentShadcn\Pages\Appearance;
 use Mehuli\FilamentShadcn\Pages\ComponentShowcase;
 use Mehuli\FilamentShadcn\Pages\ShadcnComponents;
+use Mehuli\FilamentShadcn\Pages\ShowcaseDashboard;
+use Mehuli\FilamentShadcn\Pages\ShowcaseForm;
 use Mehuli\FilamentShadcn\Support\AppearanceRepository;
 use Mehuli\FilamentShadcn\Support\SafeUrl;
 use Mehuli\FilamentShadcn\Support\ThemeSettings;
@@ -266,6 +268,8 @@ class ShadcnPlugin implements Plugin
         if ($this->hasShowcase()) {
             $pages[] = ComponentShowcase::class;
             $pages[] = ShadcnComponents::class;
+            $pages[] = ShowcaseDashboard::class;
+            $pages[] = ShowcaseForm::class;
         }
 
         if ($pages !== []) {
