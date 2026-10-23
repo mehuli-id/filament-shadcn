@@ -1,0 +1,338 @@
+/*
+ * Field form: label, wrapper input, input, select, checkbox, radio, toggle,
+ * pesan error, fieldset.
+ */
+
+/* ---------- Label & pesan ---------- */
+
+.fi-fo-field-label,
+.fi-in-entry-label {
+    color: var(--foreground);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.fi-fo-field-label-required-mark,
+.fi-fieldset-label-required-mark {
+    color: var(--destructive);
+}
+
+.fi-fo-field-wrp-error-message {
+    color: var(--destructive);
+    font-size: 0.8125rem;
+}
+
+.fi-fo-field-label-ctn .fi-fo-field-label-content,
+.fi-fo-field-wrp-hint {
+    color: var(--muted-foreground);
+}
+
+/* ---------- Wrapper input (TextInput, Select, DatePicker, …) ---------- */
+
+.fi-input-wrp {
+    min-height: var(--sc-control-height);
+    border-radius: var(--sc-radius-control);
+    background-color: transparent;
+    box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
+    transition: var(--sc-transition);
+
+    &:not(.fi-disabled):not(:has(.fi-ac-action:focus)):focus-within {
+        box-shadow: 0 0 0 1px var(--ring), var(--sc-focus);
+    }
+
+    &.fi-invalid,
+    &.fi-invalid:not(.fi-disabled):not(:has(.fi-ac-action:focus)):focus-within {
+        box-shadow: 0 0 0 1px var(--destructive), var(--sc-focus-destructive);
+    }
+
+    &.fi-disabled {
+        background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+        opacity: 0.7;
+    }
+
+    & .fi-input-wrp-prefix,
+    & .fi-input-wrp-suffix {
+        color: var(--muted-foreground);
+
+        &:not(.fi-inline) {
+            border-color: var(--input);
+            background-color: color-mix(in oklab, var(--muted) 60%, transparent);
+        }
+    }
+
+    & .fi-input-wrp-label {
+        color: var(--muted-foreground);
+        font-size: 0.875rem;
+    }
+
+    & .fi-input-wrp-prefix > .fi-icon,
+    & .fi-input-wrp-suffix > .fi-icon {
+        color: var(--muted-foreground);
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+/* Wrapper multi-baris tidak ikut bentuk pil (gaya Maia): pakai radius kartu. */
+.fi-input-wrp:is(.fi-fo-key-value, .fi-fo-rich-editor, .fi-fo-markdown-editor),
+.fi-input-wrp:has(textarea) {
+    border-radius: var(--sc-radius-card);
+}
+
+.dark .fi-input-wrp {
+    background-color: color-mix(in oklab, var(--input) 30%, transparent);
+}
+
+/* ---------- Input & select native ---------- */
+
+input.fi-input,
+select.fi-select-input,
+textarea.fi-input {
+    color: var(--foreground);
+    font-size: var(--sc-text);
+
+    &::placeholder {
+        color: var(--muted-foreground);
+    }
+
+    &:disabled {
+        color: var(--muted-foreground);
+        -webkit-text-fill-color: var(--muted-foreground);
+    }
+}
+
+input.fi-input,
+select.fi-select-input {
+    padding-block: 0.25rem;
+}
+
+select.fi-select-input {
+    & option,
+    & optgroup {
+        background-color: var(--popover);
+        color: var(--popover-foreground);
+    }
+}
+
+/* ---------- Select kustom (searchable / multiple) ---------- */
+
+.fi-select-input {
+    & .fi-select-input-btn {
+        min-height: var(--sc-control-height);
+        color: var(--foreground);
+    }
+
+    & .fi-select-input-placeholder {
+        color: var(--muted-foreground);
+    }
+
+    & .fi-select-input-option {
+        border-radius: var(--sc-radius-item);
+    }
+
+    & .fi-select-input-search-ctn {
+        border-color: var(--border);
+    }
+
+    & .fi-select-input-message {
+        color: var(--muted-foreground);
+    }
+}
+
+/* ---------- Checkbox ---------- */
+
+input[type='checkbox'].fi-checkbox-input {
+    width: 1rem;
+    height: 1rem;
+    border-radius: max(0px, calc(var(--sc-radius-badge) - 0px));
+    background-color: var(--background);
+    box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
+    color: var(--primary);
+    transition: var(--sc-transition);
+
+    &:checked {
+        background-color: var(--primary);
+        background-image: var(--sc-check-image);
+        box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    &:indeterminate {
+        background-color: var(--primary);
+        background-image: var(--sc-indeterminate-image);
+        box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 1px var(--ring), var(--sc-focus);
+    }
+
+    &.fi-invalid {
+        box-shadow: 0 0 0 1px var(--destructive);
+
+        &:checked,
+        &:indeterminate {
+            background-color: var(--destructive);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+html[data-sc-style='maia'] input[type='checkbox'].fi-checkbox-input {
+    border-radius: 0.375rem;
+}
+
+.dark input[type='checkbox'].fi-checkbox-input:not(:checked):not(:indeterminate) {
+    background-color: color-mix(in oklab, var(--input) 30%, transparent);
+}
+
+/* ---------- Radio ---------- */
+
+input[type='radio'].fi-radio-input {
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--background);
+    box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
+    color: var(--primary);
+
+    &:checked {
+        background-color: var(--primary);
+        background-image: var(--sc-radio-image);
+        box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 1px var(--ring), var(--sc-focus);
+    }
+
+    &.fi-invalid {
+        box-shadow: 0 0 0 1px var(--destructive);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+html[data-sc-style='lyra'] input[type='radio'].fi-radio-input {
+    border-radius: 0;
+}
+
+.dark input[type='radio'].fi-radio-input:not(:checked) {
+    background-color: color-mix(in oklab, var(--input) 30%, transparent);
+}
+
+.fi-fo-radio-label-text,
+.fi-fo-checkbox-list-option-label {
+    color: var(--foreground);
+    font-weight: 500;
+}
+
+.fi-fo-radio-label-description,
+.fi-fo-checkbox-list-option-description {
+    color: var(--muted-foreground);
+}
+
+/* ---------- Toggle (switch) ---------- */
+
+.fi-toggle {
+    width: 2rem;
+    height: 1.15rem;
+    border-width: 1px;
+    border-color: transparent;
+    background-color: var(--input);
+    box-shadow: var(--sc-shadow-xs);
+
+    & > :first-child {
+        width: 1rem;
+        height: 1rem;
+        background-color: var(--background);
+        box-shadow: none;
+    }
+
+    /* Tailwind v4 memakai properti `translate`, bukan `transform`. */
+    &.fi-toggle-on > :first-child {
+        translate: calc(100% - 2px) 0;
+    }
+
+    &.fi-toggle-off > :first-child {
+        translate: 0 0;
+    }
+
+    &.fi-toggle-on.fi-color {
+        background-color: var(--primary);
+
+        & > :first-child {
+            background-color: var(--primary-foreground);
+        }
+
+        & .fi-icon {
+            color: var(--primary);
+        }
+    }
+
+    &.fi-toggle-on.fi-color-danger {
+        background-color: var(--destructive);
+    }
+
+    &.fi-toggle-on.fi-color-success {
+        background-color: var(--success);
+    }
+
+    &.fi-toggle-on.fi-color-warning {
+        background-color: var(--warning);
+    }
+
+    &.fi-toggle-on.fi-color-info {
+        background-color: var(--info);
+    }
+
+    &:focus-visible {
+        box-shadow: var(--sc-focus);
+    }
+
+    & .fi-icon {
+        width: 0.625rem;
+        height: 0.625rem;
+        color: var(--muted-foreground);
+    }
+}
+
+html[dir='rtl'] .fi-toggle.fi-toggle-on > :first-child {
+    translate: calc(-100% + 2px) 0;
+}
+
+html[data-sc-style='lyra'] .fi-toggle,
+html[data-sc-style='lyra'] .fi-toggle > :first-child {
+    border-radius: 0;
+}
+
+.dark .fi-toggle:not(.fi-toggle-on) {
+    background-color: color-mix(in oklab, var(--input) 80%, transparent);
+
+    & > :first-child {
+        background-color: var(--foreground);
+    }
+}
+
+/* ---------- Fieldset ---------- */
+
+.fi-fieldset {
+    border-color: var(--border);
+    border-radius: var(--sc-radius-card);
+
+    & > legend {
+        color: var(--foreground);
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+}
+
+/* ---------- One-time code (OTP) ---------- */
+
+.fi-one-time-code-input-ctn .fi-input-wrp,
+.fi-otp-input-ctn .fi-input-wrp {
+    border-radius: var(--sc-radius-control);
+}

@@ -1,0 +1,332 @@
+/*
+ * Permukaan: Section (Card), Tabs, Wizard, Callout, Empty state, Infolist,
+ * dan kontainer lain yang berbentuk kartu.
+ */
+
+/* ---------- Section = Card shadcn ---------- */
+
+.fi-section:not(.fi-section-not-contained):not(.fi-aside) {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: var(--sc-shadow-xs), var(--sc-border);
+
+    &.fi-secondary {
+        background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+    }
+
+    &.fi-compact {
+        border-radius: var(--sc-radius-control);
+    }
+
+    & > .fi-section-header {
+        padding: var(--sc-card-padding) var(--sc-card-padding) 0;
+    }
+
+    &.fi-section-has-header:not(.fi-collapsed) > .fi-section-content-ctn {
+        border-top-color: transparent;
+    }
+}
+
+.fi-section:not(.fi-section-not-contained):not(.fi-divided) > .fi-section-content-ctn > .fi-section-content {
+    padding: var(--sc-card-padding);
+}
+
+.fi-section:not(.fi-section-not-contained) > .fi-section-content-ctn > .fi-section-footer {
+    padding: 0.75rem var(--sc-card-padding);
+    border-color: var(--border);
+}
+
+/* Section ->aside() : judul di kiri, kartu di kanan */
+.fi-section.fi-aside:not(.fi-section-not-contained) > .fi-section-content-ctn {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    box-shadow: var(--sc-shadow-xs), var(--sc-border);
+}
+
+.fi-section.fi-divided > .fi-section-content-ctn > .fi-section-content > * {
+    border-color: var(--border);
+}
+
+.fi-section-header-heading {
+    color: var(--card-foreground);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.5rem;
+}
+
+.fi-section-header-description {
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+}
+
+.fi-section-header .fi-icon {
+    color: var(--muted-foreground);
+}
+
+.fi-sc-section-label {
+    color: var(--foreground);
+    font-weight: 500;
+}
+
+/* ---------- Tabs ---------- */
+
+/* Tab bawaan Filament → gaya "pill" shadcn di atas latar --muted */
+.fi-tabs {
+    gap: 0.125rem;
+
+    &:not(.fi-vertical) {
+        width: max-content;
+        max-width: 100%;
+        padding: 0.1875rem;
+        border-radius: var(--sc-radius-control);
+        background-color: var(--muted);
+        box-shadow: none;
+    }
+
+    &.fi-contained {
+        border-bottom: 0;
+        border-radius: var(--sc-radius-control);
+        margin: var(--sc-card-padding) var(--sc-card-padding) 0;
+    }
+
+    &.fi-vertical {
+        padding: 0.25rem;
+        border-radius: var(--sc-radius-card);
+        background-color: color-mix(in oklab, var(--muted) 60%, transparent);
+    }
+}
+
+.fi-tabs-item {
+    min-height: calc(var(--sc-control-height) - 0.375rem);
+    padding: 0.25rem 0.75rem;
+    border-radius: max(0px, calc(var(--sc-radius-control) - 2px));
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: var(--sc-transition);
+
+    &:hover,
+    &:focus-visible {
+        background-color: transparent;
+        color: var(--foreground);
+    }
+
+    &:focus-visible {
+        box-shadow: var(--sc-focus);
+    }
+
+    & .fi-tabs-item-label,
+    & .fi-icon {
+        color: inherit;
+    }
+
+    &.fi-active {
+        background-color: var(--background);
+        color: var(--foreground);
+        box-shadow: var(--sc-shadow-xs);
+
+        & .fi-tabs-item-label,
+        & .fi-icon {
+            color: var(--foreground);
+        }
+    }
+}
+
+.dark .fi-tabs-item.fi-active {
+    background-color: color-mix(in oklab, var(--input) 30%, transparent);
+    box-shadow: 0 0 0 1px var(--input);
+}
+
+/* Tabs di dalam schema (form/infolist) */
+.fi-sc-tabs.fi-contained {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    box-shadow: var(--sc-shadow-xs), var(--sc-border);
+}
+
+/* ---------- Wizard ---------- */
+
+.fi-sc-wizard.fi-contained {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    box-shadow: var(--sc-shadow-xs), var(--sc-border);
+}
+
+.fi-sc-wizard-header {
+    border-color: var(--border);
+}
+
+.fi-sc-wizard-header-step {
+    & .fi-sc-wizard-header-step-icon-ctn {
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid var(--border);
+        background-color: var(--background);
+        color: var(--muted-foreground);
+    }
+
+    & .fi-sc-wizard-header-step-number {
+        color: var(--muted-foreground);
+        font-size: 0.8125rem;
+    }
+
+    & .fi-sc-wizard-header-step-label {
+        color: var(--muted-foreground);
+    }
+
+    & .fi-sc-wizard-header-step-description {
+        color: var(--muted-foreground);
+        font-size: 0.8125rem;
+    }
+
+    & .fi-sc-wizard-header-step-separator {
+        color: var(--border);
+    }
+
+    &.fi-active {
+        & .fi-sc-wizard-header-step-icon-ctn {
+            border-color: var(--primary);
+            background-color: var(--background);
+        }
+
+        & .fi-sc-wizard-header-step-number,
+        & .fi-sc-wizard-header-step-icon-ctn .fi-icon {
+            color: var(--foreground);
+        }
+
+        & .fi-sc-wizard-header-step-label {
+            color: var(--foreground);
+            font-weight: 600;
+        }
+    }
+
+    &.fi-completed {
+        & .fi-sc-wizard-header-step-icon-ctn {
+            border-color: var(--primary);
+            background-color: var(--primary);
+        }
+
+        & .fi-sc-wizard-header-step-icon-ctn .fi-icon {
+            color: var(--primary-foreground);
+        }
+
+        & .fi-sc-wizard-header-step-label {
+            color: var(--foreground);
+        }
+    }
+}
+
+/* ---------- Callout (Alert shadcn) ---------- */
+
+.fi-callout {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: var(--sc-border);
+
+    & .fi-callout-heading {
+        color: var(--card-foreground);
+        font-weight: 500;
+    }
+
+    & .fi-callout-description {
+        color: var(--muted-foreground);
+    }
+
+    &.fi-color-danger {
+        & .fi-callout-heading,
+        & .fi-callout-icon {
+            color: var(--destructive);
+        }
+
+        & .fi-callout-description {
+            color: color-mix(in oklab, var(--destructive) 85%, var(--foreground));
+        }
+    }
+}
+
+/* ---------- Empty state ---------- */
+
+.fi-empty-state,
+.fi-ta-empty-state {
+    & .fi-empty-state-icon-bg,
+    & .fi-ta-empty-state-icon-bg {
+        border-radius: var(--sc-radius-control);
+        background-color: var(--muted);
+
+        & .fi-icon {
+            color: var(--foreground);
+        }
+    }
+
+    & .fi-empty-state-heading,
+    & .fi-ta-empty-state-heading {
+        color: var(--foreground);
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    & .fi-empty-state-description,
+    & .fi-ta-empty-state-description {
+        color: var(--muted-foreground);
+    }
+}
+
+.fi-empty-state:not(.fi-empty-state-not-contained) {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    box-shadow: var(--sc-border);
+    border: 1px dashed var(--border);
+}
+
+/* ---------- Infolist ---------- */
+
+.fi-in-entry-label {
+    color: var(--muted-foreground);
+    font-weight: 500;
+}
+
+.fi-in-text,
+.fi-in-entry-content {
+    color: var(--foreground);
+}
+
+.fi-in-placeholder {
+    color: var(--muted-foreground);
+}
+
+.fi-in-key-value {
+    border-radius: var(--sc-radius-control);
+    box-shadow: var(--sc-border);
+
+    & th {
+        background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+        color: var(--muted-foreground);
+        font-weight: 500;
+    }
+
+    & tr,
+    & td,
+    & th {
+        border-color: var(--border);
+    }
+}
+
+.fi-in-repeatable-item {
+    border-radius: var(--sc-radius-card);
+    box-shadow: var(--sc-border);
+}
+
+.fi-in-code {
+    border-radius: var(--sc-radius-control);
+    font-family: var(--font-mono);
+}
+
+/* ---------- Grid & divider ---------- */
+
+.fi-sc-divider,
+.fi-divider {
+    border-color: var(--border);
+}

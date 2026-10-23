@@ -1,0 +1,153 @@
+/*
+ * Halaman sederhana: login, daftar, lupa sandi, verifikasi email.
+ *
+ *   data-sc-auth="muted" – latar --muted, kartu di tengah (block login-03)
+ *   data-sc-auth="split" – form + gambar berdampingan (block login-02)
+ *   data-sc-auth="plain" – latar --background polos
+ */
+
+.fi-simple-layout {
+    background-color: var(--background);
+}
+
+.fi-simple-main {
+    margin-block: 2.5rem;
+    padding: calc(var(--sc-card-padding) + 1rem);
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: var(--sc-shadow-sm), var(--sc-border);
+}
+
+.fi-simple-header {
+    gap: 0.25rem;
+
+    & .fi-logo {
+        margin-bottom: 1rem;
+    }
+}
+
+.fi-simple-page-content .fi-sc-text,
+.fi-simple-page .fi-link {
+    font-size: 0.875rem;
+}
+
+/* Tombol utama formulir login dibuat selebar kartu */
+.fi-simple-page .fi-ac.fi-width-full .fi-btn,
+.fi-simple-page .fi-form-actions .fi-btn {
+    width: 100%;
+}
+
+/* ---------- muted ---------- */
+
+html[data-sc-auth='muted'] .fi-simple-layout {
+    background-color: var(--muted);
+}
+
+html[data-sc-auth='muted'] .fi-simple-main {
+    box-shadow: var(--sc-shadow-sm), var(--sc-border);
+}
+
+/* ---------- plain ---------- */
+
+html[data-sc-auth='plain'] .fi-simple-main {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+/* ---------- split (form + gambar) ---------- */
+
+.sc-auth-aside {
+    display: none;
+}
+
+@media (min-width: 64rem) {
+    html[data-sc-auth='split'] .fi-simple-layout:has(> .sc-auth-aside) {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto 1fr;
+        align-items: stretch;
+        min-height: 100dvh;
+
+        & > .fi-simple-main-ctn {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+            padding: 1.5rem;
+        }
+
+        & > .sc-auth-aside {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+        }
+
+        & .fi-simple-main {
+            max-width: 24rem;
+            background-color: transparent;
+            box-shadow: none;
+            padding: 0;
+        }
+    }
+
+    html[data-sc-auth='split'][data-sc-auth-image='start'] .fi-simple-layout:has(> .sc-auth-aside) {
+        & > .fi-simple-main-ctn {
+            grid-column: 2;
+        }
+
+        & > .sc-auth-aside {
+            grid-column: 1;
+        }
+    }
+
+    html[data-sc-auth='split'] .sc-auth-aside {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        background-color: var(--muted);
+        color: var(--muted-foreground);
+    }
+}
+
+.sc-auth-aside-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dark .sc-auth-aside-image {
+    filter: brightness(0.6) grayscale(0.2);
+}
+
+.sc-auth-aside-placeholder {
+    position: absolute;
+    inset: 0;
+
+    & svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.sc-auth-aside-quote {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 2.5rem;
+    color: var(--foreground);
+    background: linear-gradient(to top, color-mix(in oklab, var(--muted) 92%, transparent) 40%, transparent);
+
+    & blockquote {
+        margin: 0;
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1.6;
+    }
+
+    & figcaption {
+        margin-top: 0.5rem;
+        color: var(--muted-foreground);
+        font-size: 0.875rem;
+    }
+}

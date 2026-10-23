@@ -1,0 +1,241 @@
+/*
+ * Tabel (Data Table shadcn) & pagination.
+ */
+
+/* ---------- Kontainer ---------- */
+
+.fi-ta-ctn {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: var(--sc-shadow-xs), var(--sc-border);
+
+    & :is(table, thead, tbody, tfoot, tr, th, td) {
+        border-color: var(--border);
+    }
+
+    & .fi-ta-header {
+        border-color: var(--border);
+    }
+
+    & .fi-ta-header-heading {
+        color: var(--card-foreground);
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    & .fi-ta-header-description {
+        color: var(--muted-foreground);
+    }
+
+    & .fi-ta-header-toolbar {
+        padding: 0.75rem var(--sc-card-padding);
+        border-color: var(--border);
+    }
+
+    & .fi-ta-filter-indicators {
+        border-color: var(--border);
+    }
+
+    & .fi-ta-filter-indicators-label {
+        color: var(--muted-foreground);
+    }
+
+    & .fi-ta-selection-indicator {
+        border-color: var(--border);
+        background-color: color-mix(in oklab, var(--muted) 60%, transparent);
+        color: var(--foreground);
+        font-size: 0.875rem;
+    }
+
+    & .fi-ta-filters-above-content-ctn,
+    & .fi-ta-filters-below-content {
+        border-color: var(--border);
+    }
+
+    & .fi-pagination {
+        padding: 0.75rem var(--sc-card-padding);
+        border-color: var(--border);
+    }
+}
+
+/* ---------- Header kolom ---------- */
+
+.fi-ta-table > thead > tr,
+.fi-ta-table-head-groups-row {
+    background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+}
+
+.fi-ta-header-cell {
+    height: 2.5rem;
+    padding-block: 0.5rem;
+    color: var(--muted-foreground);
+    font-size: 0.8125rem;
+    font-weight: 500;
+
+    & .fi-ta-header-cell-sort-btn {
+        color: inherit;
+
+        &:hover {
+            color: var(--foreground);
+        }
+    }
+
+    &.fi-ta-header-cell-sorted {
+        color: var(--foreground);
+    }
+
+    & .fi-icon {
+        color: var(--muted-foreground);
+    }
+}
+
+.fi-ta-header-group-cell {
+    color: var(--muted-foreground);
+    font-weight: 500;
+}
+
+/* ---------- Baris & sel ---------- */
+
+.fi-ta-row {
+    transition: background-color 0.15s;
+
+    &.fi-clickable:hover,
+    &:hover {
+        background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+    }
+
+    &.fi-striped {
+        background-color: color-mix(in oklab, var(--muted) 30%, transparent);
+    }
+
+    &.fi-selected,
+    &.fi-selected:hover {
+        background-color: var(--muted);
+    }
+}
+
+.fi-ta-row.fi-selected:not(.fi-ta-row-not-reorderable) > td:first-child {
+    box-shadow: inset 2px 0 0 0 var(--primary);
+}
+
+.fi-ta-cell {
+    color: var(--foreground);
+    font-size: var(--sc-text);
+}
+
+.fi-ta-text-item-label,
+.fi-ta-text {
+    color: var(--foreground);
+}
+
+.fi-ta-text-description,
+.fi-ta-placeholder {
+    color: var(--muted-foreground);
+}
+
+.fi-ta-group-header,
+.fi-ta-group-header-row {
+    background-color: color-mix(in oklab, var(--muted) 40%, transparent);
+    color: var(--foreground);
+}
+
+.fi-ta-summary-row,
+.fi-ta-summary-header-row {
+    background-color: color-mix(in oklab, var(--muted) 30%, transparent);
+}
+
+.fi-ta-reorder-handle {
+    color: var(--muted-foreground);
+}
+
+/* ---------- Tata letak grid / panel (content layout) ---------- */
+
+.fi-ta-record {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    box-shadow: var(--sc-border);
+
+    &:hover {
+        background-color: color-mix(in oklab, var(--muted) 40%, transparent);
+    }
+
+    &.fi-selected {
+        box-shadow: 0 0 0 2px var(--primary);
+    }
+}
+
+.fi-ta-col-layout-panel,
+.fi-ta-panel {
+    border-radius: var(--sc-radius-control);
+    background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+}
+
+/* ---------- Empty state tabel ---------- */
+
+.fi-ta-empty-state {
+    padding-block: 3rem;
+}
+
+/* ---------- Pagination ---------- */
+
+.fi-pagination {
+    & .fi-pagination-overview {
+        color: var(--muted-foreground);
+        font-weight: 400;
+    }
+
+    & .fi-pagination-items {
+        gap: 0.25rem;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    & .fi-pagination-item {
+        border: 0;
+
+        & .fi-pagination-item-btn {
+            min-width: var(--sc-control-height);
+            height: var(--sc-control-height);
+            justify-content: center;
+            border-radius: var(--sc-radius-control);
+            color: var(--foreground);
+
+            &:enabled:hover {
+                background-color: var(--accent);
+            }
+
+            &:focus-visible {
+                box-shadow: var(--sc-focus);
+            }
+
+            & .fi-icon {
+                color: var(--foreground);
+            }
+        }
+
+        &:first-of-type .fi-pagination-item-btn,
+        &:last-of-type .fi-pagination-item-btn {
+            border-radius: var(--sc-radius-control);
+        }
+
+        &.fi-active .fi-pagination-item-btn {
+            background-color: var(--background);
+            box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
+
+            & .fi-pagination-item-label {
+                color: var(--foreground);
+                font-weight: 500;
+            }
+        }
+
+        &.fi-disabled .fi-pagination-item-label {
+            color: var(--muted-foreground);
+        }
+    }
+
+    & .fi-pagination-item-label {
+        color: var(--foreground);
+        font-size: 0.875rem;
+    }
+}

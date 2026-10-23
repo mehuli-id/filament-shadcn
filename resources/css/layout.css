@@ -1,0 +1,269 @@
+/*
+ * Tata letak panel: sidebar, topbar, area konten.
+ *
+ * Varian dipilih lewat atribut di <html> yang dipasang plugin:
+ *   data-sc-sidebar="inset"    konten utama jadi kartu di atas latar sidebar
+ *   data-sc-sidebar="sidebar"  sidebar klasik dengan garis pemisah
+ *   data-sc-sidebar="floating" sidebar & konten sama-sama kartu
+ */
+
+.fi-body {
+    --topbar-height: 3.5rem;
+}
+
+/* ---------- Sidebar ---------- */
+
+.fi-sidebar {
+    color: var(--sidebar-foreground);
+
+    &.fi-sidebar-open {
+        background-color: var(--sidebar);
+    }
+}
+
+@media (min-width: 64rem) {
+    .fi-sidebar,
+    .fi-sidebar.fi-sidebar-open {
+        background-color: transparent;
+        box-shadow: none;
+    }
+}
+
+.fi-sidebar-header {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.fi-sidebar-nav {
+    gap: 1.25rem;
+}
+
+.fi-sidebar-nav-groups {
+    gap: 1rem;
+}
+
+.fi-sidebar-group-label {
+    color: color-mix(in oklab, var(--sidebar-foreground) 70%, transparent);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.fi-sidebar-group-btn .fi-icon,
+.fi-sidebar-group-collapse-btn .fi-icon {
+    color: color-mix(in oklab, var(--sidebar-foreground) 60%, transparent);
+}
+
+.fi-sidebar-item-btn {
+    min-height: 2rem;
+    padding: 0.375rem 0.5rem;
+    gap: 0.5rem;
+    border-radius: var(--sc-radius-item);
+    color: var(--sidebar-foreground);
+    font-size: 0.875rem;
+    transition: var(--sc-transition);
+
+    & > .fi-icon {
+        color: var(--sidebar-foreground);
+        opacity: 0.8;
+        width: 1rem;
+        height: 1rem;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 2px var(--sidebar-ring);
+    }
+}
+
+.fi-sidebar-item-label {
+    color: inherit;
+    font-weight: 400;
+}
+
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:hover,
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:focus-visible {
+    background-color: var(--sidebar-accent);
+    color: var(--sidebar-accent-foreground);
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    background-color: var(--sidebar-accent);
+    color: var(--sidebar-accent-foreground);
+
+    & > .fi-icon {
+        color: var(--sidebar-accent-foreground);
+        opacity: 1;
+    }
+
+    & > .fi-sidebar-item-label {
+        color: var(--sidebar-accent-foreground);
+        font-weight: 500;
+    }
+
+    & > .fi-sidebar-item-grouped-border > .fi-sidebar-item-grouped-border-part {
+        background-color: var(--sidebar-primary);
+    }
+}
+
+.fi-sidebar-item-grouped-border-part-not-first,
+.fi-sidebar-item-grouped-border-part-not-last {
+    background-color: var(--sidebar-border);
+}
+
+.fi-sidebar-footer {
+    border-color: var(--sidebar-border);
+}
+
+.fi-sidebar-database-notifications-btn {
+    border-radius: var(--sc-radius-item);
+
+    &:hover {
+        background-color: var(--sidebar-accent);
+    }
+}
+
+/* ---------- Topbar ---------- */
+
+.fi-topbar {
+    min-height: var(--topbar-height);
+    background-color: var(--background);
+    box-shadow: 0 1px 0 0 var(--border);
+}
+
+.fi-topbar-item-btn {
+    border-radius: var(--sc-radius-item);
+    color: var(--foreground);
+
+    &:hover,
+    &:focus-visible {
+        background-color: var(--accent);
+    }
+}
+
+.fi-topbar-item.fi-active .fi-topbar-item-btn {
+    background-color: var(--accent);
+
+    & .fi-icon,
+    & .fi-topbar-item-label {
+        color: var(--accent-foreground);
+    }
+}
+
+/* ---------- Konten ---------- */
+
+.fi-main-ctn {
+    background-color: var(--background);
+}
+
+.fi-page-header-main-ctn {
+    row-gap: 1.5rem;
+}
+
+/* ---------- Varian: inset ---------- */
+
+html[data-sc-sidebar='inset'],
+html[data-sc-sidebar='floating'] {
+    & .fi-body {
+        background-color: var(--sidebar);
+    }
+
+    & .fi-topbar {
+        background-color: var(--sidebar);
+        box-shadow: none;
+    }
+}
+
+@media (min-width: 64rem) {
+    html[data-sc-sidebar='inset'] .fi-body.fi-body-has-navigation:not(.fi-body-has-top-navigation) .fi-main-ctn,
+    html[data-sc-sidebar='floating'] .fi-body.fi-body-has-navigation:not(.fi-body-has-top-navigation) .fi-main-ctn {
+        margin: 0 0.5rem 0.5rem 0;
+        border-radius: var(--sc-radius-card);
+        box-shadow: var(--sc-shadow-xs), var(--sc-border);
+        background-color: var(--background);
+        min-height: calc(100dvh - var(--topbar-height) - 0.5rem);
+    }
+
+    html[data-sc-sidebar='inset'] .fi-body:not(.fi-body-has-topbar) .fi-main-ctn,
+    html[data-sc-sidebar='floating'] .fi-body:not(.fi-body-has-topbar) .fi-main-ctn {
+        margin-top: 0.5rem;
+        min-height: calc(100dvh - 1rem);
+    }
+
+    html[dir='rtl'][data-sc-sidebar='inset'] .fi-main-ctn,
+    html[dir='rtl'][data-sc-sidebar='floating'] .fi-main-ctn {
+        margin: 0 0 0.5rem 0.5rem;
+    }
+}
+
+/* ---------- Varian: floating ---------- */
+
+@media (min-width: 64rem) {
+    html[data-sc-sidebar='floating'] .fi-sidebar-nav {
+        margin: 0 0.5rem 0.5rem;
+        border-radius: var(--sc-radius-card);
+        background-color: var(--background);
+        box-shadow: var(--sc-shadow-sm), var(--sc-border);
+    }
+}
+
+/* ---------- Varian: sidebar klasik ---------- */
+
+@media (min-width: 64rem) {
+    html[data-sc-sidebar='sidebar'] .fi-sidebar {
+        background-color: var(--sidebar);
+        box-shadow: 1px 0 0 0 var(--sidebar-border);
+    }
+
+    html[dir='rtl'][data-sc-sidebar='sidebar'] .fi-sidebar {
+        box-shadow: -1px 0 0 0 var(--sidebar-border);
+    }
+}
+
+/* ---------- Sub-navigasi halaman (resource) ---------- */
+
+.fi-page-sub-navigation-sidebar .fi-sidebar-item-btn {
+    border-radius: var(--sc-radius-item);
+}
+
+/* ---------- User menu & tenant menu ---------- */
+
+.fi-user-menu-trigger,
+.fi-tenant-menu-trigger {
+    border-radius: var(--sc-radius-item);
+
+    &:hover,
+    &:focus-visible {
+        background-color: var(--accent);
+    }
+}
+
+.fi-avatar {
+    border-radius: var(--sc-radius-item);
+
+    &.fi-circular {
+        border-radius: 9999px;
+    }
+}
+
+/* ---------- Pengalih tema (terang / gelap / sistem) ---------- */
+
+.fi-theme-switcher {
+    padding: 0.125rem;
+    border-radius: var(--sc-radius-control);
+    background-color: var(--muted);
+}
+
+.fi-theme-switcher-btn {
+    border-radius: calc(var(--sc-radius-control) - 2px);
+    color: var(--muted-foreground);
+
+    &:hover {
+        background-color: transparent;
+        color: var(--foreground);
+    }
+
+    &.fi-active {
+        background-color: var(--background);
+        color: var(--foreground);
+        box-shadow: var(--sc-shadow-xs);
+    }
+}

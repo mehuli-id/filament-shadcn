@@ -1,0 +1,370 @@
+/*
+ * Tombol, tombol ikon, dan badge — varian shadcn/ui:
+ *   warna primary   → "default"     (latar --primary)
+ *   warna danger    → "destructive" (latar --destructive)
+ *   abu-abu / tanpa warna → "outline" (border + latar --background)
+ *   ->outlined()    → "outline" berwarna
+ *   tombol ikon     → "ghost"
+ */
+
+/* ---------- Dasar ---------- */
+
+.fi-btn {
+    min-height: var(--sc-control-height);
+    padding: 0.25rem 0.875rem;
+    gap: 0.5rem;
+    border-radius: var(--sc-radius-control);
+    font-size: var(--sc-text);
+    font-weight: 500;
+    line-height: 1.25rem;
+    transition: var(--sc-transition);
+
+    & > .fi-icon {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    &.fi-size-xs {
+        min-height: calc(var(--sc-control-height) - 0.5rem);
+        padding-inline: 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    &.fi-size-sm {
+        min-height: calc(var(--sc-control-height) - 0.25rem);
+        padding-inline: 0.75rem;
+    }
+
+    &.fi-size-lg {
+        min-height: calc(var(--sc-control-height) + 0.25rem);
+        padding-inline: 1.25rem;
+    }
+
+    &.fi-size-xl {
+        min-height: calc(var(--sc-control-height) + 0.5rem);
+        padding-inline: 1.5rem;
+        font-size: 0.9375rem;
+    }
+
+    &:focus-visible {
+        box-shadow: var(--sc-focus);
+    }
+
+    &[disabled],
+    &.fi-disabled:not(.fi-force-enabled) {
+        opacity: 0.5;
+    }
+}
+
+/* ---------- Outline: tombol abu-abu / tanpa warna ---------- */
+
+.fi-btn:not(.fi-outlined):not(.fi-color),
+.fi-btn:not(.fi-outlined).fi-color-gray:not(label):not([aria-pressed]) {
+    background-color: var(--background);
+    color: var(--foreground);
+    box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
+
+    & > .fi-icon {
+        color: var(--muted-foreground);
+    }
+
+    &:not([disabled]):not(.fi-disabled):hover {
+        background-color: var(--accent);
+        color: var(--accent-foreground);
+    }
+
+    &:focus-visible {
+        box-shadow: var(--sc-input-border), var(--sc-focus);
+    }
+}
+
+.dark .fi-btn:not(.fi-outlined):not(.fi-color),
+.dark .fi-btn:not(.fi-outlined).fi-color-gray:not(label):not([aria-pressed]) {
+    background-color: color-mix(in oklab, var(--input) 30%, transparent);
+
+    &:not([disabled]):not(.fi-disabled):hover {
+        background-color: color-mix(in oklab, var(--input) 50%, transparent);
+    }
+}
+
+/* ---------- Solid berwarna ---------- */
+
+.fi-btn:not(.fi-outlined).fi-color:not(label):not([aria-pressed]) {
+    box-shadow: var(--sc-shadow-xs);
+
+    &:focus-visible {
+        box-shadow: var(--sc-focus);
+    }
+}
+
+.fi-btn:not(.fi-outlined).fi-color-primary:not(label):not([aria-pressed]) {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+
+    & > .fi-icon {
+        color: var(--primary-foreground);
+    }
+
+    &:not([disabled]):not(.fi-disabled):hover {
+        background-color: color-mix(in oklab, var(--primary) 90%, transparent);
+        color: var(--primary-foreground);
+    }
+}
+
+.fi-btn:not(.fi-outlined).fi-color-danger:not(label):not([aria-pressed]) {
+    background-color: var(--destructive);
+    color: var(--destructive-foreground);
+
+    & > .fi-icon {
+        color: var(--destructive-foreground);
+    }
+
+    &:not([disabled]):not(.fi-disabled):hover {
+        background-color: color-mix(in oklab, var(--destructive) 90%, transparent);
+        color: var(--destructive-foreground);
+    }
+
+    &:focus-visible {
+        box-shadow: var(--sc-focus-destructive);
+    }
+}
+
+.fi-btn:not(.fi-outlined).fi-color-success:not(label):not([aria-pressed]) {
+    background-color: var(--success);
+    color: var(--success-foreground);
+
+    & > .fi-icon {
+        color: var(--success-foreground);
+    }
+
+    &:not([disabled]):not(.fi-disabled):hover {
+        background-color: color-mix(in oklab, var(--success) 90%, transparent);
+        color: var(--success-foreground);
+    }
+}
+
+.fi-btn:not(.fi-outlined).fi-color-warning:not(label):not([aria-pressed]) {
+    background-color: var(--warning);
+    color: var(--warning-foreground);
+
+    & > .fi-icon {
+        color: var(--warning-foreground);
+    }
+
+    &:not([disabled]):not(.fi-disabled):hover {
+        background-color: color-mix(in oklab, var(--warning) 90%, transparent);
+        color: var(--warning-foreground);
+    }
+}
+
+.fi-btn:not(.fi-outlined).fi-color-info:not(label):not([aria-pressed]) {
+    background-color: var(--info);
+    color: var(--info-foreground);
+
+    & > .fi-icon {
+        color: var(--info-foreground);
+    }
+
+    &:not([disabled]):not(.fi-disabled):hover {
+        background-color: color-mix(in oklab, var(--info) 90%, transparent);
+        color: var(--info-foreground);
+    }
+}
+
+/* ---------- Outline berwarna (->outlined()) ---------- */
+
+.fi-btn.fi-outlined {
+    background-color: var(--background);
+    color: var(--foreground);
+    box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
+
+    &:not([disabled]):not(.fi-disabled):hover {
+        background-color: var(--accent);
+    }
+
+    &.fi-color-danger {
+        color: var(--destructive);
+        box-shadow: var(--sc-shadow-xs), 0 0 0 1px color-mix(in oklab, var(--destructive) 45%, transparent);
+
+        & > .fi-icon {
+            color: var(--destructive);
+        }
+
+        &:not([disabled]):not(.fi-disabled):hover {
+            background-color: color-mix(in oklab, var(--destructive) 8%, transparent);
+        }
+    }
+
+    &.fi-color-primary:not(.fi-color-gray) {
+        box-shadow: var(--sc-shadow-xs), 0 0 0 1px color-mix(in oklab, var(--primary) 45%, transparent);
+    }
+
+    &:focus-visible {
+        box-shadow: var(--sc-input-border), var(--sc-focus);
+    }
+}
+
+/* ---------- Tombol pilihan (ToggleButtons, aria-pressed) ---------- */
+
+.fi-btn:is(label, [aria-pressed]) {
+    background-color: var(--background);
+    color: var(--foreground);
+    box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
+
+    &:hover {
+        background-color: var(--accent);
+    }
+}
+
+input:checked + label.fi-btn,
+.fi-btn[aria-pressed='true'] {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: var(--sc-shadow-xs);
+
+    & > .fi-icon {
+        color: var(--primary-foreground);
+    }
+
+    &:hover {
+        background-color: color-mix(in oklab, var(--primary) 90%, transparent);
+    }
+}
+
+input:checked + label.fi-btn.fi-color-danger,
+.fi-btn.fi-color-danger[aria-pressed='true'] {
+    background-color: var(--destructive);
+    color: var(--destructive-foreground);
+}
+
+input:checked + label.fi-btn.fi-color-success,
+.fi-btn.fi-color-success[aria-pressed='true'] {
+    background-color: var(--success);
+    color: var(--success-foreground);
+}
+
+input:checked + label.fi-btn.fi-color-warning,
+.fi-btn.fi-color-warning[aria-pressed='true'] {
+    background-color: var(--warning);
+    color: var(--warning-foreground);
+}
+
+input:focus-visible + label.fi-btn {
+    box-shadow: var(--sc-input-border), var(--sc-focus);
+}
+
+/* Grup tombol yang menyatu */
+.fi-btn-group {
+    border-radius: var(--sc-radius-control);
+    box-shadow: var(--sc-shadow-xs), var(--sc-input-border);
+
+    & > .fi-btn {
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    & > .fi-btn + .fi-btn {
+        box-shadow: -1px 0 0 0 var(--input);
+    }
+
+    & > .fi-btn:first-child {
+        border-start-start-radius: var(--sc-radius-control);
+        border-end-start-radius: var(--sc-radius-control);
+    }
+
+    & > .fi-btn:last-child {
+        border-start-end-radius: var(--sc-radius-control);
+        border-end-end-radius: var(--sc-radius-control);
+    }
+}
+
+/* ---------- Tombol ikon (ghost) ---------- */
+
+.fi-icon-btn {
+    border-radius: var(--sc-radius-item);
+    color: var(--muted-foreground);
+    transition: var(--sc-transition);
+
+    &:not(.fi-color) > .fi-icon,
+    &.fi-color-gray > .fi-icon {
+        color: var(--muted-foreground);
+    }
+
+    &:not([disabled]):not(.fi-disabled):hover {
+        background-color: var(--accent);
+        color: var(--accent-foreground);
+
+        &:not(.fi-color) > .fi-icon,
+        &.fi-color-gray > .fi-icon {
+            color: var(--accent-foreground);
+        }
+    }
+
+    &:focus-visible {
+        box-shadow: var(--sc-focus);
+    }
+
+    &.fi-color-danger > .fi-icon {
+        color: var(--destructive);
+    }
+
+    &.fi-color-danger:not([disabled]):not(.fi-disabled):hover {
+        background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
+    }
+}
+
+.fi-icon-btn-badge-ctn .fi-badge {
+    min-width: 1.125rem;
+    padding-inline: 0.25rem;
+}
+
+/* ---------- Badge ---------- */
+
+.fi-badge {
+    min-height: 1.375rem;
+    padding: 0.125rem 0.5rem;
+    gap: 0.25rem;
+    border-radius: var(--sc-radius-badge);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1rem;
+
+    /* abu-abu/tanpa warna = "secondary" */
+    &:not(.fi-color),
+    &.fi-color-gray {
+        background-color: var(--secondary);
+        color: var(--secondary-foreground);
+        box-shadow: none;
+    }
+
+    &.fi-color-primary {
+        background-color: var(--primary);
+        color: var(--primary-foreground);
+        box-shadow: none;
+
+        & .fi-icon,
+        & .fi-badge-delete-btn-icon {
+            color: var(--primary-foreground);
+        }
+    }
+
+    /* warna status: lembut (tint) + garis tipis, ala shadcn "outline" berwarna */
+    &.fi-color:not(.fi-color-gray):not(.fi-color-primary) {
+        box-shadow: inset 0 0 0 1px color-mix(in oklab, currentColor 20%, transparent);
+    }
+
+    & .fi-icon {
+        width: 0.875rem;
+        height: 0.875rem;
+    }
+}
+
+html[data-sc-primary='color'] .fi-badge.fi-color-primary {
+    background-color: color-mix(in oklab, var(--primary) 12%, transparent);
+    color: var(--primary);
+
+    & .fi-icon,
+    & .fi-badge-delete-btn-icon {
+        color: var(--primary);
+    }
+}

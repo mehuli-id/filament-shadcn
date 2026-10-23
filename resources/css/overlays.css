@@ -1,0 +1,269 @@
+/*
+ * Lapisan di atas halaman: Modal/Dialog, Slide-over (Sheet), Dropdown,
+ * Tooltip, Global search, Notifikasi (toast & database).
+ */
+
+/* ---------- Modal (Dialog) & Slide-over (Sheet) ---------- */
+
+.fi-modal-close-overlay {
+    background-color: rgb(0 0 0 / 0.5);
+}
+
+.fi-modal-window {
+    background-color: var(--background);
+    color: var(--foreground);
+    box-shadow: var(--sc-shadow-lg), var(--sc-border);
+
+    & .fi-modal-header,
+    & .fi-modal-footer {
+        border-color: var(--border);
+        background-color: var(--background);
+    }
+
+    & .fi-modal-heading {
+        color: var(--foreground);
+        font-size: 1.125rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+    }
+
+    & .fi-modal-description {
+        color: var(--muted-foreground);
+        font-size: 0.875rem;
+    }
+
+    & .fi-modal-icon-bg {
+        background-color: var(--muted);
+
+        &.fi-color-danger {
+            background-color: color-mix(in oklab, var(--destructive) 12%, transparent);
+        }
+    }
+
+    & .fi-modal-close-btn {
+        border-radius: var(--sc-radius-item);
+        opacity: 0.7;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.fi-modal:not(.fi-modal-slide-over) .fi-modal-window {
+    border-radius: var(--sc-radius-card);
+}
+
+.fi-modal.fi-modal-slide-over .fi-modal-window {
+    border-radius: 0;
+    box-shadow: var(--sc-shadow-lg), -1px 0 0 0 var(--border);
+}
+
+.fi-modal-slide-over-from-start .fi-modal-window {
+    box-shadow: var(--sc-shadow-lg), 1px 0 0 0 var(--border);
+}
+
+/* ---------- Dropdown (Dropdown Menu) ---------- */
+
+.fi-dropdown-panel {
+    padding: 0.25rem;
+    border-radius: var(--sc-radius-control);
+    background-color: var(--popover);
+    color: var(--popover-foreground);
+    box-shadow: var(--sc-shadow-md), var(--sc-border);
+
+    & .fi-dropdown-list {
+        padding: 0;
+    }
+
+    & .fi-dropdown-list + .fi-dropdown-list,
+    &.fi-divided > * + * {
+        border-color: var(--border);
+        margin-top: 0.25rem;
+        padding-top: 0.25rem;
+    }
+}
+
+html[data-sc-style='maia'] .fi-dropdown-panel {
+    border-radius: var(--sc-radius-card);
+}
+
+.fi-dropdown-header {
+    padding: 0.375rem 0.5rem;
+    color: var(--foreground);
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    & .fi-icon {
+        color: var(--muted-foreground);
+    }
+}
+
+.fi-dropdown-list-item {
+    min-height: 2rem;
+    padding: 0.375rem 0.5rem;
+    gap: 0.5rem;
+    border-radius: max(0px, calc(var(--sc-radius-control) - 2px));
+    color: var(--popover-foreground);
+    font-size: 0.875rem;
+
+    &:not(.fi-disabled):hover,
+    &:not(.fi-disabled):focus-visible,
+    &.fi-selected {
+        background-color: var(--accent);
+        color: var(--accent-foreground);
+    }
+
+    & .fi-icon {
+        width: 1rem;
+        height: 1rem;
+        color: var(--muted-foreground);
+    }
+
+    & .fi-dropdown-list-item-label {
+        color: inherit;
+    }
+
+    &.fi-color-danger {
+        color: var(--destructive);
+
+        & .fi-icon,
+        & .fi-dropdown-list-item-label {
+            color: var(--destructive);
+        }
+
+        &:not(.fi-disabled):hover {
+            background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
+        }
+    }
+}
+
+html[data-sc-style='maia'] .fi-dropdown-list-item {
+    border-radius: var(--sc-radius-item);
+}
+
+/* ---------- Tooltip ---------- */
+
+.tippy-box,
+.tippy-box[data-theme~='light'] {
+    --tippy-background-color: var(--foreground);
+    --tippy-box-shadow: none;
+    border-radius: var(--sc-radius-item);
+    color: var(--background);
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+.tippy-box > .tippy-content {
+    padding: 0.375rem 0.75rem;
+}
+
+/* ---------- Global search (Command) ---------- */
+
+.fi-global-search-field .fi-input-wrp {
+    background-color: color-mix(in oklab, var(--muted) 60%, transparent);
+    box-shadow: var(--sc-input-border);
+}
+
+.fi-global-search-results-ctn {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--popover);
+    color: var(--popover-foreground);
+    box-shadow: var(--sc-shadow-lg), var(--sc-border);
+}
+
+.fi-global-search-no-results-message {
+    color: var(--muted-foreground);
+}
+
+.fi-global-search-result-group-header {
+    border-color: var(--border);
+    background-color: var(--popover);
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: none;
+}
+
+.fi-global-search-results,
+.fi-global-search-result-group-results {
+    & > * + * {
+        border-color: var(--border);
+    }
+}
+
+.fi-global-search-result {
+    margin: 0.125rem 0.25rem;
+    border-radius: var(--sc-radius-item);
+
+    &:hover,
+    &:focus-within {
+        background-color: var(--accent);
+    }
+
+    & .fi-global-search-result-heading {
+        color: var(--foreground);
+        font-weight: 500;
+    }
+
+    & .fi-global-search-result-detail-label {
+        color: var(--muted-foreground);
+    }
+
+    & .fi-global-search-result-detail-value {
+        color: var(--foreground);
+    }
+}
+
+/* ---------- Notifikasi toast (Sonner) ---------- */
+
+.fi-no-notification:not(.fi-inline) {
+    border-radius: var(--sc-radius-card);
+    background-color: var(--popover);
+    color: var(--popover-foreground);
+    box-shadow: var(--sc-shadow-lg), var(--sc-border);
+
+    &.fi-color {
+        background-color: var(--popover);
+        box-shadow: var(--sc-shadow-lg), var(--sc-border);
+    }
+}
+
+.fi-no-notification {
+    & .fi-no-notification-title {
+        color: var(--foreground);
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    & .fi-no-notification-body,
+    &.fi-color .fi-no-notification-body {
+        color: var(--muted-foreground);
+        font-size: 0.875rem;
+    }
+
+    & .fi-no-notification-date {
+        color: var(--muted-foreground);
+        font-size: 0.75rem;
+    }
+}
+
+/* ---------- Notifikasi database (panel slide-over) ---------- */
+
+.fi-no-database {
+    & .fi-modal-heading {
+        font-size: 1rem;
+    }
+
+    & .fi-no-notification-unread-ctn {
+        background-color: color-mix(in oklab, var(--muted) 60%, transparent);
+    }
+
+    & .fi-no-notification-unread-ctn::before {
+        background-color: var(--info);
+    }
+
+    & .fi-no-notification {
+        border-color: var(--border);
+    }
+}

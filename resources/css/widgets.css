@@ -1,0 +1,131 @@
+/*
+ * Widget dasbor: Stats overview (Section Cards shadcn), Chart, Account,
+ * Filament info.
+ */
+
+.fi-wi-stats-overview-stat {
+    padding: calc(var(--sc-card-padding) + 0.25rem);
+    border-radius: var(--sc-radius-card);
+    background-color: var(--card);
+    background-image: linear-gradient(to top, color-mix(in oklab, var(--primary) 4%, var(--card)), var(--card));
+    color: var(--card-foreground);
+    box-shadow: var(--sc-shadow-xs), var(--sc-border);
+
+    &:focus-visible {
+        box-shadow: var(--sc-border), var(--sc-focus);
+    }
+
+    & .fi-wi-stats-overview-stat-label {
+        color: var(--muted-foreground);
+        font-size: 0.875rem;
+        font-weight: 400;
+    }
+
+    & .fi-wi-stats-overview-stat-value {
+        color: var(--card-foreground);
+        font-size: 1.875rem;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        font-variant-numeric: tabular-nums;
+    }
+
+    & .fi-wi-stats-overview-stat-description {
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    & .fi-wi-stats-overview-stat-description:not(.fi-color) {
+        color: var(--muted-foreground);
+    }
+
+    & .fi-wi-stats-overview-stat-chart {
+        border-end-start-radius: var(--sc-radius-card);
+        border-end-end-radius: var(--sc-radius-card);
+    }
+}
+
+.dark .fi-wi-stats-overview-stat {
+    background-image: none;
+}
+
+/* Grafik: warna mengikuti --chart-1 … --chart-5 */
+.fi-wi-chart {
+    & .fi-wi-chart-grid-color {
+        color: var(--border);
+    }
+
+    & .fi-wi-chart-text-color {
+        color: var(--muted-foreground);
+    }
+
+    & .fi-wi-chart-tooltip-bg-color {
+        color: var(--popover);
+    }
+
+    & .fi-wi-chart-tooltip-border-color {
+        color: var(--border);
+    }
+
+    & .fi-wi-chart-tooltip-text-color {
+        color: var(--popover-foreground);
+    }
+
+    & .fi-color-primary .fi-wi-chart-border-color,
+    & .fi-wi-chart-border-color {
+        color: var(--chart-1);
+    }
+
+    & .fi-color-primary .fi-wi-chart-bg-color,
+    & .fi-wi-chart-bg-color {
+        color: color-mix(in oklab, var(--chart-1) 20%, transparent);
+    }
+
+    & .fi-color-success .fi-wi-chart-border-color {
+        color: var(--chart-2);
+    }
+
+    & .fi-color-success .fi-wi-chart-bg-color {
+        color: color-mix(in oklab, var(--chart-2) 20%, transparent);
+    }
+
+    & .fi-color-info .fi-wi-chart-border-color {
+        color: var(--chart-3);
+    }
+
+    & .fi-color-info .fi-wi-chart-bg-color {
+        color: color-mix(in oklab, var(--chart-3) 20%, transparent);
+    }
+
+    & .fi-color-warning .fi-wi-chart-border-color {
+        color: var(--chart-4);
+    }
+
+    & .fi-color-warning .fi-wi-chart-bg-color {
+        color: color-mix(in oklab, var(--chart-4) 20%, transparent);
+    }
+
+    & .fi-color-danger .fi-wi-chart-border-color {
+        color: var(--chart-5);
+    }
+
+    & .fi-color-danger .fi-wi-chart-bg-color {
+        color: color-mix(in oklab, var(--chart-5) 20%, transparent);
+    }
+}
+
+.fi-account-widget,
+.fi-filament-info-widget {
+    & .fi-section {
+        border-radius: var(--sc-radius-card);
+    }
+}
+
+.fi-account-widget-heading {
+    color: var(--foreground);
+    font-weight: 600;
+}
+
+.fi-account-widget-user-name,
+.fi-filament-info-widget-version {
+    color: var(--muted-foreground);
+}

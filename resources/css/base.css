@@ -1,0 +1,92 @@
+/*
+ * Dasar: latar, teks, seleksi, scrollbar, link & tipografi.
+ */
+
+.fi-body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: 'cv11', 'ss01';
+}
+
+.fi ::selection {
+    background-color: color-mix(in oklab, var(--primary) 18%, transparent);
+}
+
+.fi * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--muted-foreground) 35%, transparent) transparent;
+}
+
+/* Judul halaman (header) */
+.fi-header-heading {
+    color: var(--foreground);
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
+
+.fi-header-subheading {
+    color: var(--muted-foreground);
+    font-size: 0.9375rem;
+    margin-top: 0.25rem;
+}
+
+.fi-simple-header-heading {
+    color: var(--foreground);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+}
+
+.fi-simple-header-subheading {
+    color: var(--muted-foreground);
+}
+
+/* Breadcrumbs */
+.fi-breadcrumbs {
+    & a,
+    & span {
+        color: var(--muted-foreground);
+        font-size: 0.875rem;
+    }
+
+    & a:hover {
+        color: var(--foreground);
+    }
+
+    & li:last-child span,
+    & li:last-child a {
+        color: var(--foreground);
+        font-weight: 500;
+    }
+}
+
+/* Link */
+.fi-link {
+    text-underline-offset: 4px;
+
+    &:not(.fi-color) {
+        color: var(--foreground);
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+/* Teks pemisah, deskripsi, helper */
+.fi-sc-text,
+.fi-fo-field-wrp-helper-text,
+.fi-in-entry-helper-text {
+    color: var(--muted-foreground);
+}
+
+/* Prose (RichEditor / Markdown output) */
+.fi-prose {
+    --prose-body: var(--foreground);
+    --prose-headings: var(--foreground);
+    --prose-links: var(--foreground);
+    --prose-borders: var(--border);
+    color: var(--foreground);
+}

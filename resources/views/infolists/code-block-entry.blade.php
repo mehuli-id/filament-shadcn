@@ -1,0 +1,14 @@
+<x-dynamic-component
+    :component="$getEntryWrapperView()"
+    :entry="$entry"
+>
+    <x-shadcn::code-block
+        :code="$getCode()"
+        :title="$getTitle()"
+        :language="$getLanguage()"
+        :line-numbers="$hasLineNumbers()"
+        :diff="$isDiff()"
+        :wrap="$shouldWrap()"
+        :max-height="$getMaxHeight()"
+    />
+</x-dynamic-component>

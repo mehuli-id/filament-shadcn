@@ -1,0 +1,22 @@
+/*
+ * Salin ke: resources/css/filament/admin/theme.css
+ * (ganti "admin" dengan ID panel Anda)
+ *
+ * Path di bawah relatif terhadap lokasi file ini. Kalau package dipasang
+ * sebagai path repository (mis. packages/filament-shadcn), composer membuat
+ * symlink di vendor/mehuli/filament-shadcn, jadi path ini tetap berlaku.
+ */
+
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../../../../vendor/mehuli/filament-shadcn/resources/css/index.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+@source '../../../../vendor/mehuli/filament-shadcn/src/**/*';
+@source '../../../../vendor/mehuli/filament-shadcn/resources/views/**/*';
+
+/*
+ * Tambahan khusus proyek di bawah ini. Pakai token shadcn, mis.:
+ *
+ * .fi-header-heading { color: var(--primary); }
+ */

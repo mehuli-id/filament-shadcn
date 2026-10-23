@@ -1,0 +1,24 @@
+/*
+ * Filament × shadcn/ui — titik masuk CSS.
+ *
+ * Diimpor dari file tema panel SETELAH tema Filament:
+ *
+ *   @import '../../../../vendor/filament/filament/resources/css/theme.css';
+ *   @import '../../../../vendor/mehuli/filament-shadcn/resources/css/index.css';
+ *
+ * Aturan di sini sengaja tidak dimasukkan ke @layer supaya selalu menang
+ * atas gaya komponen Filament, tanpa perlu !important.
+ */
+
+@import './tokens.css';
+@import './base.css';
+@import './layout.css';
+@import './buttons.css';
+@import './inputs.css';
+@import './forms-advanced.css';
+@import './surfaces.css';
+@import './tables.css';
+@import './overlays.css';
+@import './widgets.css';
+@import './auth.css';
+@import './components.css';
