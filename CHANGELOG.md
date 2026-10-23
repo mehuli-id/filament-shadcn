@@ -1,5 +1,10 @@
 # Changelog
 
+## Belum dirilis
+
+- `Pages\Auth\EditProfile`: profil di dalam layout panel dengan dua kartu (Informasi akun, Kata sandi), label di atas field, lebar 56rem. `shadcn:install` memasangnya (`->profile(EditProfile::class, isSimple: false)`).
+- Sidebar ciut: kelompok menu dipusatkan dengan `margin-inline: auto` tanpa bergantung pada `scrollbar-gutter` (Safari).
+
 ## v1.1.2 — 2026-10-23
 
 - Avatar di kaki sidebar & header dikunci 32/36px dari semua sisi (Safari bisa meregangkan avatar SVG jadi lonjong); tombol pengguna saat sidebar ciut bulat 40×40.

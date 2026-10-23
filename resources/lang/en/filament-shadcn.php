@@ -87,6 +87,13 @@ return [
         'privacy_label' => 'Privacy Policy',
     ],
 
+    'profile' => [
+        'account' => 'Account',
+        'account_description' => 'Name and email address used to sign in.',
+        'password' => 'Password',
+        'password_description' => 'Leave empty to keep your current password.',
+    ],
+
     'shell' => [
         'toggle_sidebar' => 'Toggle sidebar',
         'breadcrumbs' => 'Breadcrumbs',

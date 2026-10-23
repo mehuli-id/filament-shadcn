@@ -234,6 +234,14 @@ Untuk judul "Selamat datang kembali" dan tautan "Belum punya akun? Daftar" di ba
 $panel->login(\Mehuli\FilamentShadcn\Pages\Auth\Login::class)
 ```
 
+### Halaman profil
+
+```php
+$panel->profile(\Mehuli\FilamentShadcn\Pages\Auth\EditProfile::class, isSimple: false)
+```
+
+Profil tampil di dalam panel (sidebar + header) dengan dua kartu: informasi akun dan kata sandi. Dipasang otomatis oleh `shadcn:install`.
+
 ### Widget bergaya shadcn
 
 ```php

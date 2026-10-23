@@ -171,7 +171,7 @@ class InstallCommand extends Command
         $contents = preg_replace('/->login\(\s*\)/', '->login(\\Mehuli\\FilamentShadcn\\Pages\\Auth\\Login::class)', $contents, 1);
 
         // Profil di dalam layout panel (sidebar + header), bukan halaman "simple" terpisah.
-        $contents = preg_replace('/->profile\(\s*\)/', '->profile(isSimple: false)', $contents, 1);
+        $contents = preg_replace('/->profile\(\s*(isSimple:\s*false\s*)?\)/', '->profile(\\Mehuli\\FilamentShadcn\\Pages\\Auth\\EditProfile::class, isSimple: false)', $contents, 1);
 
         $additions = [];
 

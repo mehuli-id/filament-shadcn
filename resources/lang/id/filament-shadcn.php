@@ -87,6 +87,13 @@ return [
         'privacy_label' => 'Kebijakan Privasi',
     ],
 
+    'profile' => [
+        'account' => 'Informasi akun',
+        'account_description' => 'Nama dan alamat email untuk masuk ke panel.',
+        'password' => 'Kata sandi',
+        'password_description' => 'Kosongkan bila tidak ingin mengganti kata sandi.',
+    ],
+
     'shell' => [
         'toggle_sidebar' => 'Buka/tutup sidebar',
         'breadcrumbs' => 'Jejak navigasi',
