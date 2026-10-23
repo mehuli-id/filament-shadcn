@@ -134,6 +134,7 @@ class ShowcaseDashboard extends Page implements HasTable
                     BulkAction::make('markDone')->label('Tandai selesai')->icon(Heroicon::OutlinedCheck)->action(fn () => null),
                 ]),
             ])
+            ->stackedOnMobile()
             ->paginated([7, 10, 25])
             ->defaultPaginationPageOption(7);
     }

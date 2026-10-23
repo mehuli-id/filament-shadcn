@@ -532,3 +532,21 @@ html[data-sc-shell='on'] {
         display: none;
     }
 }
+
+/* Email di bawah nama pada kartu pengguna sidebar (override view user-menu). */
+.fi-user-menu-trigger-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    text-align: start;
+    line-height: 1.3;
+}
+
+.sc-user-menu-email {
+    overflow: hidden;
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

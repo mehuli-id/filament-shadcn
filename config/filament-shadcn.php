@@ -114,6 +114,12 @@ return [
         // Tampil bila salah satu URL diisi.
         'terms_url' => env('SHADCN_TERMS_URL'),
         'privacy_url' => env('SHADCN_PRIVACY_URL'),
+
+        // Tombol "Masuk dengan …" di halaman login (hanya tampilan). Alur OAuth-nya
+        // (mis. Laravel Socialite) dibuat di aplikasi; 'url' mengarah ke rute redirect-nya.
+        // 'icon': google | microsoft | github, atau nama Heroicon.
+        // Contoh: ['label' => 'Google', 'url' => '/auth/google/redirect', 'icon' => 'google'],
+        'social' => [],
     ],
 
     /*

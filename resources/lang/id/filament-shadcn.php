@@ -82,6 +82,11 @@ return [
             'register_prompt' => 'Belum punya akun?',
             'register' => 'Daftar',
         ],
+        'social' => [
+            'continue_with' => 'Masuk dengan :provider',
+            'divider_email' => 'Atau lanjut dengan email',
+            'divider' => 'Atau lanjut dengan',
+        ],
         'terms' => 'Dengan melanjutkan, Anda menyetujui :terms dan :privacy kami.',
         'terms_label' => 'Ketentuan Layanan',
         'privacy_label' => 'Kebijakan Privasi',

@@ -96,6 +96,11 @@
 
 /* ---------- Input & select native ---------- */
 
+/* Input mengisi tinggi kontrol (--sc-control-height) supaya teks sejajar dengan prefix/suffix. */
+.fi-input-wrp :is(input.fi-input, select.fi-select-input) {
+    min-height: var(--sc-control-height);
+}
+
 input.fi-input,
 select.fi-select-input,
 textarea.fi-input {

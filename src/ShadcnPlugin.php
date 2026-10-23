@@ -330,6 +330,17 @@ class ShadcnPlugin implements Plugin
                 : null,
         );
 
+        // Tombol "Masuk dengan …": di atas form (muted/plain) atau di bawahnya sebagai ikon (split).
+        $panel->renderHook(
+            PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE,
+            fn (): ?View => $this->renderSocialLogin(before: true),
+        );
+
+        $panel->renderHook(
+            PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
+            fn (): ?View => $this->renderSocialLogin(before: false),
+        );
+
         $panel->renderHook(
             PanelsRenderHook::SIMPLE_LAYOUT_END,
             fn (): ?View => $this->renderAuthTerms(),
@@ -478,6 +489,54 @@ class ShadcnPlugin implements Plugin
             'tagline' => $settings->get('auth_tagline'),
             'taglineAuthor' => $settings->get('auth_tagline_author'),
             'brand' => filament()->getBrandName(),
+        ]);
+    }
+
+    /**
+     * @return list<array{label: string, url: string, icon: ?string}>
+     */
+    public function getSocialLoginProviders(): array
+    {
+        $providers = [];
+
+        foreach ((array) config('filament-shadcn.auth.social', []) as $provider) {
+            $url = SafeUrl::filter($provider['url'] ?? null);
+
+            if ($url === null || blank($provider['label'] ?? null)) {
+                continue;
+            }
+
+            $providers[] = [
+                'label' => __((string) $provider['label']),
+                'url' => $url,
+                'icon' => filled($provider['icon'] ?? null) ? (string) $provider['icon'] : null,
+            ];
+        }
+
+        return $providers;
+    }
+
+    protected function renderSocialLogin(bool $before): ?View
+    {
+        $providers = $this->getSocialLoginProviders();
+        $isSplit = $this->settings()->get('auth_layout') === 'split';
+
+        // Muted/plain: di atas form. Split: di bawah form, ikon saja.
+        if ($providers === [] || $before === $isSplit) {
+            return null;
+        }
+
+        // Saat langkah MFA, form login biasa disembunyikan; tombol ikut disembunyikan.
+        $page = \Livewire\Livewire::current();
+
+        if ($page !== null && filled(data_get($page, 'userUndertakingMultiFactorAuthentication'))) {
+            return null;
+        }
+
+        return view('filament-shadcn::auth.social', [
+            'providers' => $providers,
+            'before' => $before,
+            'compact' => $isSplit,
         ]);
     }
 

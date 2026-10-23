@@ -82,6 +82,11 @@ return [
             'register_prompt' => 'Don\'t have an account?',
             'register' => 'Sign up',
         ],
+        'social' => [
+            'continue_with' => 'Continue with :provider',
+            'divider_email' => 'Or continue with email',
+            'divider' => 'Or continue with',
+        ],
         'terms' => 'By continuing, you agree to our :terms and :privacy.',
         'terms_label' => 'Terms of Service',
         'privacy_label' => 'Privacy Policy',

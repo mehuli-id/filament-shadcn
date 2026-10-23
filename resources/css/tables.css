@@ -264,3 +264,119 @@
         font-size: 0.875rem;
     }
 }
+
+/* ---------- Tabel ->stackedOnMobile() di ponsel: daftar ringkas (docs/mockup/gambar/DasborPonsel.png) ----------
+ * Label kolom disembunyikan, isi bertumpuk di kiri; kolom rata kanan (mis. total), aksi baris,
+ * dan kotak pilih berada di kolom kanan.
+ */
+
+@media (max-width: 39.99rem) {
+    .fi-ta-table-stacked-on-mobile > tbody > tr.fi-ta-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-auto-flow: row dense;
+        align-items: start;
+        column-gap: 0.75rem;
+        row-gap: 0.25rem;
+        padding: 0.875rem var(--sc-card-padding);
+
+        & > .fi-ta-cell {
+            grid-column: 1;
+            padding: 0;
+        }
+
+        & .fi-ta-cell-label {
+            display: none;
+        }
+
+        & .fi-ta-cell-content .fi-ta-col > * {
+            padding: 0;
+        }
+
+        /* Kolom rata kanan (angka/total): kanan atas, tebal. */
+        & > .fi-ta-cell.fi-align-end {
+            grid-row: 1;
+            grid-column: 2;
+            justify-self: end;
+
+            & .fi-ta-text-item {
+                font-weight: 600;
+            }
+        }
+
+        & > .fi-ta-cell:has(> .fi-ta-actions) {
+            grid-row: 2;
+            grid-column: 2;
+            justify-self: end;
+        }
+
+        & > .fi-ta-selection-cell {
+            grid-row: 3;
+            grid-column: 2;
+            justify-self: end;
+        }
+
+        /* Sel pertama (mis. nomor): kecil & mono bila diatur fontFamily('mono'). */
+        & > .fi-ta-cell:not(.fi-ta-selection-cell):first-of-type .fi-ta-text-item,
+        & > .fi-ta-selection-cell + .fi-ta-cell .fi-ta-text-item {
+            font-size: 0.8125rem;
+        }
+
+        & .fi-ta-text-has-descriptions > .fi-ta-text-item {
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+    }
+}
+
+/* ---------- Tab + toolbar tabel dalam satu baris (docs/mockup/gambar/Shadcn.png) ----------
+ * Desktop: bila tab berada tepat di atas tabel tanpa judul (ListRecords::getTabs() atau
+ * Tabs berisi tabel), pencarian, pengatur kolom, dan aksi header pindah ke kanan baris tab.
+ */
+
+@media (min-width: 64rem) {
+    /* Acuan posisi: grid halaman yang diawali tab (resource) atau komponen Tabs berisi tabel. */
+    .fi-sc-has-gap:has(> .fi-grid-col:first-child > .fi-sc-component > .fi-sc-tabs):has(> .fi-grid-col > .fi-sc-component > .fi-ta),
+    .fi-sc-tabs:has(.fi-ta-ctn) {
+        position: relative;
+    }
+
+    :is(
+        .fi-sc-has-gap:has(> .fi-grid-col:first-child > .fi-sc-component > .fi-sc-tabs) > .fi-grid-col > .fi-sc-component > .fi-ta,
+        .fi-sc-tabs .fi-ta
+    ) > .fi-ta-ctn:not(:has(.fi-ta-header-heading)) {
+        position: static;
+
+        & .fi-ta-header-ctn {
+            position: absolute;
+            top: 0;
+            inset-inline-end: 0;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: var(--sc-control-height);
+        }
+
+        & .fi-ta-header,
+        & .fi-ta-header-toolbar {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        & .fi-ta-header-toolbar {
+            gap: 0.5rem;
+        }
+
+        & .fi-ta-search-field {
+            width: 15.5rem;
+        }
+
+        /* Kartu tabel kini diawali kepala kolom. */
+        & .fi-ta-main > .fi-ta-header-ctn + * {
+            border-top: 0;
+        }
+    }
+}

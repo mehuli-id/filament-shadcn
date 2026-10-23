@@ -19,10 +19,31 @@ class FilamentShadcnServiceProvider extends ServiceProvider
         $this->app->singleton(AppearanceRepository::class);
     }
 
+    protected function registerViewOverrides(): void
+    {
+        $finder = $this->app['view']->getFinder();
+        $hints = $finder->getHints()['filament-panels'] ?? null;
+
+        if ($hints === null) {
+            return;
+        }
+
+        $ours = __DIR__ . '/../resources/views/overrides/filament-panels';
+        $appVendor = resource_path('views/vendor/filament-panels');
+        $appFirst = array_values(array_filter($hints, fn (string $path): bool => $path === $appVendor));
+        $rest = array_values(array_filter($hints, fn (string $path): bool => $path !== $appVendor && $path !== $ours));
+
+        $finder->replaceNamespace('filament-panels', [...$appFirst, $ours, ...$rest]);
+    }
+
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'filament-shadcn');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'filament-shadcn');
+
+        // Override view Filament (resources/views/overrides): sesudah override milik aplikasi
+        // (resources/views/vendor/filament-panels), sebelum view bawaan Filament.
+        $this->app->booted(fn () => $this->registerViewOverrides());
 
         // Komponen Blade shadcn: <x-shadcn::progress />, <x-shadcn::accordion>, dst.
         Blade::anonymousComponentPath(__DIR__ . '/../resources/views/components', 'shadcn');

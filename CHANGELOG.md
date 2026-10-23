@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.1.4 — 2026-10-24
+
+Sisa selisih dengan `docs/mockup/`:
+- Kartu pengguna di kaki sidebar menampilkan email di bawah nama (override view `user-menu` Filament di `resources/views/overrides/`; override milik aplikasi tetap diutamakan).
+- Tabel `->stackedOnMobile()` di ponsel tampil sebagai daftar ringkas: tanpa label, kolom rata kanan (total), aksi, dan kotak pilih di kanan. Dipakai di tabel Showcase.
+- Desktop: pencarian, pengatur kolom, dan aksi header tabel pindah ke baris tab (ListRecords dengan `getTabs()` atau Tabs berisi tabel) bila tabel tanpa judul.
+- Tombol "Masuk dengan Google/Microsoft/GitHub" lewat config `auth.social` (hanya tampilan; alur OAuth di aplikasi, URL lewat SafeUrl): tombol lebar di atas form (muted/plain), tombol ikon di bawah form (split).
+
+Perbaikan:
+- Input & select mengisi tinggi kontrol, sehingga teks sejajar dengan prefix/suffix (sebelumnya 30px di dalam kontrol 36px).
+
 ## v1.1.3 — 2026-10-24
 
 - `Pages\Auth\EditProfile`: profil di dalam layout panel dengan dua kartu (Informasi akun, Kata sandi), label di atas field, lebar 56rem. `shadcn:install` memasangnya (`->profile(EditProfile::class, isSimple: false)`).

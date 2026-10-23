@@ -570,6 +570,7 @@ class ComponentShowcase extends Page implements HasTable
                     BulkAction::make('deleteSelected')->label('Hapus terpilih')->icon(Heroicon::OutlinedTrash)->color('danger')->requiresConfirmation()->action(fn () => null),
                 ]),
             ])
+            ->stackedOnMobile()
             ->paginated([5, 10, 25])
             ->defaultPaginationPageOption(5);
     }

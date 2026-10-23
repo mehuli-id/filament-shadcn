@@ -42,9 +42,9 @@ class Login extends FilamentLogin
                 RenderHook::make(PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE),
                 $this->getFormContentComponent(),
                 $this->getMultiFactorChallengeFormContentComponent(),
+                RenderHook::make(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER),
                 View::make('filament-shadcn::auth.register-prompt')
                     ->visible(fn (): bool => filament()->hasRegistration() && blank($this->userUndertakingMultiFactorAuthentication)),
-                RenderHook::make(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER),
             ]);
     }
 }

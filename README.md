@@ -242,6 +242,21 @@ $panel->profile(\Mehuli\FilamentShadcn\Pages\Auth\EditProfile::class, isSimple: 
 
 Profil tampil di dalam panel (sidebar + header) dengan dua kartu: informasi akun dan kata sandi. Dipasang otomatis oleh `shadcn:install`.
 
+### Tombol masuk dengan layanan lain
+
+```php
+// config/filament-shadcn.php → auth.social (hanya tampilan; buat rute OAuth sendiri, mis. Laravel Socialite)
+'social' => [
+    ['label' => 'Google', 'url' => '/auth/google/redirect', 'icon' => 'google'],
+    ['label' => 'Microsoft', 'url' => '/auth/microsoft/redirect', 'icon' => 'microsoft'],
+],
+```
+
+### Tabel
+
+- `->stackedOnMobile()`: di ponsel baris tabel jadi daftar ringkas (kolom `alignEnd()` dan aksi di kanan).
+- Tab di atas tabel (ListRecords `getTabs()`): di desktop pencarian & pengatur kolom ikut di baris tab.
+
 ### Widget bergaya shadcn
 
 ```php
