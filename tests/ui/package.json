@@ -1,0 +1,15 @@
+{
+    "name": "filament-shadcn-ui-tests",
+    "private": true,
+    "type": "module",
+    "description": "Uji tampilan otomatis tema filament-shadcn (Chromium + Safari).",
+    "scripts": {
+        "test": "node run.mjs",
+        "test:chromium": "node run.mjs --browser=chromium",
+        "test:safari": "node run.mjs --browser=safari",
+        "selftest": "node selftest.mjs"
+    },
+    "devDependencies": {
+        "playwright": "1.56.1"
+    }
+}

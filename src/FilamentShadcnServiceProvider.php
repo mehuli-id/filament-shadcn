@@ -44,7 +44,20 @@ class FilamentShadcnServiceProvider extends ServiceProvider
 
         // Kalender tanggal Filament (bergaya shadcn) sebagai bawaan; ->native() di field tetap menang.
         if (! config('filament-shadcn.forms.native_date_pickers', false) && class_exists(DateTimePicker::class)) {
-            DateTimePicker::configureUsing(fn (DateTimePicker $picker): DateTimePicker => $picker->native(false));
+            DateTimePicker::configureUsing(fn (DateTimePicker $picker): DateTimePicker => $picker
+                ->native(false)
+                // Format tampilan mengikuti bahasa (mis. "24 Okt 2026 09:30"); ->displayFormat() di field menang.
+                ->defaultDateDisplayFormat(fn (): string => __('filament-shadcn::filament-shadcn.forms.date_format'))
+                ->defaultDateTimeDisplayFormat(fn (): string => __('filament-shadcn::filament-shadcn.forms.datetime_format'))
+                ->defaultDateTimeWithSecondsDisplayFormat(fn (): string => __('filament-shadcn::filament-shadcn.forms.datetime_seconds_format'))
+                ->defaultTimeDisplayFormat(fn (): string => __('filament-shadcn::filament-shadcn.forms.time_format'))
+                ->defaultTimeWithSecondsDisplayFormat(fn (): string => __('filament-shadcn::filament-shadcn.forms.time_seconds_format'))
+                // Kolom kosong tetap memberi petunjuk; ->placeholder() di field menimpa ini.
+                ->placeholder(fn (DateTimePicker $component): string => __('filament-shadcn::filament-shadcn.forms.' . match (true) {
+                    $component->hasDate() && $component->hasTime() => 'datetime_placeholder',
+                    $component->hasTime() => 'time_placeholder',
+                    default => 'date_placeholder',
+                })));
         }
 
         // Override view Filament (resources/views/overrides): sesudah override milik aplikasi

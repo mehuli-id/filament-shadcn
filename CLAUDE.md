@@ -6,6 +6,8 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - Balas dalam Bahasa Indonesia.
 - Hindari hard-code: semua yang bisa berubah (warna, label, daftar, ukuran, path) harus lewat config/.env/terjemahan.
 - Teks UI lewat `resources/lang/{id,en}/filament-shadcn.php`.
+- Sebelum setiap rilis/tag: jalankan uji tampilan `cd tests/ui && npm test` (Chromium + Safari) dan `npm run selftest`; keduanya harus lolos. Pengguna memeriksa hasil di Safari.
+- Setiap bug tampilan yang ditemukan pengguna: perbaiki, lalu tambahkan aturannya di `tests/ui/checks.js` + kasusnya di `tests/ui/selftest.mjs` supaya tidak terulang.
 
 ## Stack
 - PHP 8.2+, Laravel 11/12/13, Filament 5 (kompatibel 4), Livewire 4, Tailwind v4.
@@ -19,6 +21,7 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - `src/Commands/InstallCommand.php` — `php artisan shadcn:install [--panel=] [--config] [--force]`.
 - `resources/views/components/` — 28 komponen Blade `<x-shadcn::…>` (Alpine.js).
 - `stubs/` — theme.css & contoh AdminPanelProvider.
+- `tests/ui/` — uji tampilan otomatis (aturan di `checks.js`, runner `run.mjs` untuk Chromium & Safari, uji-diri `selftest.mjs`).
 - `docs/mockup/` — mockup desain acuan: `gambar/*.png` (cepat dilihat) dan `sumber/*.dc.html` (interaktif, buka di browser). Tampilan package harus mengikuti mockup ini.
 
 ## Keamanan (jangan dilonggarkan)
@@ -31,7 +34,7 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 
 ## Status
 - v1.1.0 (lihat CHANGELOG.md): tampilan mengikuti `docs/mockup/` — shell (sidebar 16rem, header di kartu konten), `Widgets\Stat`, `Widgets\ChartWidget`, tabel, login muted/split + `Pages\Auth\Login`, halaman Contoh dasbor/form. Diuji di `../shadcn-playground` (Laravel 13.38, Filament 5.10.3) di 1440/820/390px, mode gelap, gaya maia, `->shell(false)`.
-- Repo GitHub: `mehuli-id/filament-shadcn` (privat), branch `main`, tag terakhir `v1.1.5`.
+- Repo GitHub: `mehuli-id/filament-shadcn` (privat), branch `main`, tag terakhir `v1.1.6`.
 - Starter kit terpisah: `mehuli-id/starter-kit` (privat, template repository, lokal di `../starter-kit`; Laravel 13 + Filament 5 + package ini, locale id, Asia/Jakarta, admin via seeder `ADMIN_*`, akses panel `is_admin`).
 - `resources/views/widgets/chart.blade.php` adalah salinan view chart Filament 5.x (hanya filter diganti tombol) — periksa ulang saat memperbarui Filament.
 - Selisih kecil yang tersisa dengan mockup: di daftar ponsel nomor & status belum satu baris; ikon menu pengguna masih chevron (mockup ⋮). Alur OAuth untuk `auth.social` belum ada (hanya tombol).

@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.6 — 2026-10-24
+
+- Kolom tanggal kosong menampilkan petunjuk ("Pilih tanggal & jam"); format tampilan mengikuti bahasa ("23 Okt 2026 09:30"). `->placeholder()` / `->displayFormat()` di field tetap menang.
+- Uji tampilan otomatis `tests/ui/` (Chromium + Safari lewat safaridriver, 1440/820/390, terang/gelap, sidebar ciut) dengan uji-diri yang memunculkan kembali bug lama. Tidak ikut paket composer.
+
 ## v1.1.5 — 2026-10-24
 
 - DatePicker/DateTimePicker/TimePicker memakai kalender Filament (bergaya shadcn, sama di semua browser) sebagai bawaan; `->native()` di field tetap menang. Kontrol bawaan browser: `SHADCN_NATIVE_DATE_PICKERS=true` (`forms.native_date_pickers`).

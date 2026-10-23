@@ -99,6 +99,17 @@ return [
         'password_description' => 'Leave empty to keep your current password.',
     ],
 
+    'forms' => [
+        'date_format' => 'M j, Y',
+        'datetime_format' => 'M j, Y H:i',
+        'datetime_seconds_format' => 'M j, Y H:i:s',
+        'time_format' => 'H:i',
+        'time_seconds_format' => 'H:i:s',
+        'date_placeholder' => 'Pick a date',
+        'datetime_placeholder' => 'Pick date & time',
+        'time_placeholder' => 'Pick a time',
+    ],
+
     'shell' => [
         'toggle_sidebar' => 'Toggle sidebar',
         'breadcrumbs' => 'Breadcrumbs',

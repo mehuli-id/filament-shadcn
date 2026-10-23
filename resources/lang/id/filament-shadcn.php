@@ -99,6 +99,17 @@ return [
         'password_description' => 'Kosongkan bila tidak ingin mengganti kata sandi.',
     ],
 
+    'forms' => [
+        'date_format' => 'j M Y',
+        'datetime_format' => 'j M Y H:i',
+        'datetime_seconds_format' => 'j M Y H:i:s',
+        'time_format' => 'H:i',
+        'time_seconds_format' => 'H:i:s',
+        'date_placeholder' => 'Pilih tanggal',
+        'datetime_placeholder' => 'Pilih tanggal & jam',
+        'time_placeholder' => 'Pilih jam',
+    ],
+
     'shell' => [
         'toggle_sidebar' => 'Buka/tutup sidebar',
         'breadcrumbs' => 'Jejak navigasi',
