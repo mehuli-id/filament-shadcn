@@ -37,5 +37,5 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - Selisih yang tersisa dengan mockup: tabel ponsel belum jadi daftar kartu; toolbar tabel (cari/Kolom/Tambah) belum satu baris dengan tab; kartu pengguna di sidebar belum menampilkan email; tombol masuk sosial (Google/Microsoft) belum ada.
 
 ## Pekerjaan lanjutan yang tercatat
-- `composer require` lewat repo `vcs` sudah diuji (v1.0.2) dan dipakai starter kit `^1.0.2`. Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit.
+- `composer require` lewat repo `vcs` sudah diuji (v1.0.2) dan dipakai starter kit (kini `^1.1.0`). Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit.
 - Catatan uji: `php artisan serve` mewarisi `APP_ENV` lama setelah `.env` diubah, jadi restart penuh server saat menguji production.
