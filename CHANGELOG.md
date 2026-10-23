@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.1.1 — 2026-10-23
+
+Perbaikan sidebar yang diciutkan (`->sidebarCollapsibleOnDesktop()`):
+- Kotak ikon merek tetap tampil (nama & subjudul disembunyikan).
+- Ikon navigasi dipusatkan (margin negatif Filament dan ruang scrollbar tidak lagi menggeser).
+- Avatar di kaki sidebar tidak lagi gepeng/lonjong (ukuran dikunci 32×32).
+
 ## v1.1.0 — 2026-10-23
 
 Tampilan mengikuti `docs/mockup/`:
