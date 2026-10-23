@@ -1,6 +1,6 @@
 # Changelog
 
-## Belum dirilis (v1.1.0)
+## v1.1.0 — 2026-10-23
 
 Tampilan mengikuti `docs/mockup/`:
 - Shell baru (bawaan aktif, `->shell(false)` / `SHADCN_SHELL=false` untuk topbar Filament): sidebar 16rem dengan blok merek dan menu pengguna di kaki sidebar, header di dalam kartu konten (judul/breadcrumb, pencarian, pilihan tema, lonceng, tautan), header ponsel dengan avatar.

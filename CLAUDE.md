@@ -30,10 +30,10 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - Teks bawaan komponen dari terjemahan `ui.*`, jangan ditulis langsung di Blade.
 
 ## Status
-- v1.0.2 (lihat CHANGELOG.md). Sudah diuji di proyek uji `../shadcn-playground` (Laravel 13.38, Filament 5.10.3, path repository symlink): `shadcn:install`, `npm run build`, halaman Tampilan (simpan/reset/validasi font), login `split` + upload (SVG ditolak, gambar lama dihapus saat diganti/reset), akses production (`canCustomizeAppearance`), ponsel 390px & tablet 820px tanpa overflow.
-- Repo GitHub: `mehuli-id/filament-shadcn` (privat), branch `main`, tag `v1.0.2`.
-- Starter kit terpisah: `mehuli-id/starter-kit` (privat, template repository, lokal di `../starter-kit`; Laravel 13 + Filament 5 + package ini, locale id, Asia/Jakarta, admin via seeder `ADMIN_*`, akses panel `is_admin`).
-- Sedang dikerjakan (v1.1.0): menyamakan tampilan dengan `docs/mockup/` — sidebar 256px + kepala/kaki sidebar, topbar, kartu statistik, tabel, pilihan tema, lalu login muted/gambar, lalu Showcase.
+- v1.1.0 (lihat CHANGELOG.md): tampilan mengikuti `docs/mockup/` — shell (sidebar 16rem, header di kartu konten), `Widgets\Stat`, `Widgets\ChartWidget`, tabel, login muted/split + `Pages\Auth\Login`, halaman Contoh dasbor/form. Diuji di `../shadcn-playground` (Laravel 13.38, Filament 5.10.3) di 1440/820/390px, mode gelap, gaya maia, `->shell(false)`.
+- Repo GitHub: `mehuli-id/filament-shadcn` (privat), branch `main`, tag `v1.1.0`.
+- `resources/views/widgets/chart.blade.php` adalah salinan view chart Filament 5.x (hanya filter diganti tombol) — periksa ulang saat memperbarui Filament.
+- Selisih yang tersisa dengan mockup: tabel ponsel belum jadi daftar kartu; toolbar tabel (cari/Kolom/Tambah) belum satu baris dengan tab; kartu pengguna di sidebar belum menampilkan email; tombol masuk sosial (Google/Microsoft) belum ada.
 
 ## Pekerjaan lanjutan yang tercatat
 - `composer require` lewat repo `vcs` sudah diuji (v1.0.2) dan dipakai starter kit `^1.0.2`. Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit.
