@@ -44,5 +44,7 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - `resources/views/overrides/filament-panels/components/user-menu.blade.php` adalah salinan view Filament 5.x (tambah email) — periksa ulang saat memperbarui Filament.
 
 ## Pekerjaan lanjutan yang tercatat
-- `composer require` lewat repo `vcs` sudah diuji (v1.0.2) dan dipakai starter kit (kini `^1.1.0`). Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit.
+- Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit (kini `^1.1.7`). CI kedua repo harus hijau.
+- CI starter kit memakai secret `FILAMENT_SHADCN_TOKEN` (fine-grained, Contents: Read-only ke repo ini). Proyek dari template butuh secret yang sama. Token punya masa berlaku — perbarui sebelum kedaluwarsa.
+- Belum dikerjakan: alur OAuth (Socialite) untuk `auth.social` di starter kit; polesan mockup (kalender ‹ ›, ikon ⋮ menu pengguna, nomor & status satu baris di daftar ponsel).
 - Catatan uji: `php artisan serve` mewarisi `APP_ENV` lama setelah `.env` diubah, jadi restart penuh server saat menguji production.
