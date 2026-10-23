@@ -1,4 +1,5 @@
 {{--
+    Sumber: filament/filament: resources/views/components/user-menu.blade.php (sha1 c09ed67141cd7d83bf421a1f5f5048365ea92176) — dicek tests/Feature/ViewCopiesTest.php.
     Salinan resources/views/components/user-menu.blade.php dari filament/filament 5.x.
     Satu-satunya perubahan: email pengguna di bawah nama pada pemicu menu posisi sidebar (.sc-user-menu-email).
     Override di resources/views/vendor/filament-panels milik aplikasi tetap diutamakan.

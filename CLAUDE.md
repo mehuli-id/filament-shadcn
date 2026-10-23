@@ -6,7 +6,7 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - Balas dalam Bahasa Indonesia.
 - Hindari hard-code: semua yang bisa berubah (warna, label, daftar, ukuran, path) harus lewat config/.env/terjemahan.
 - Teks UI lewat `resources/lang/{id,en}/filament-shadcn.php`.
-- Sebelum setiap rilis/tag: jalankan uji tampilan `cd tests/ui && npm test` (Chromium + Safari) dan `npm run selftest`; keduanya harus lolos. Pengguna memeriksa hasil di Safari.
+- Sebelum setiap rilis/tag: `vendor/bin/phpunit` harus lolos, lalu uji tampilan `cd tests/ui && npm test` (Chromium + Safari) dan `npm run selftest`; keduanya harus lolos. Pengguna memeriksa hasil di Safari.
 - Setiap bug tampilan yang ditemukan pengguna: perbaiki, lalu tambahkan aturannya di `tests/ui/checks.js` + kasusnya di `tests/ui/selftest.mjs` supaya tidak terulang.
 
 ## Stack
@@ -21,6 +21,8 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 - `src/Commands/InstallCommand.php` — `php artisan shadcn:install [--panel=] [--config] [--force]`.
 - `resources/views/components/` — 28 komponen Blade `<x-shadcn::…>` (Alpine.js).
 - `stubs/` — theme.css & contoh AdminPanelProvider.
+- `tests/Unit`, `tests/Feature` — tes PHP (Testbench): keamanan, installer, `ViewCopiesTest` (sha1 view Filament yang disalin).
+- `.github/workflows/tests.yml` — CI: tes PHP 8.3/8.4 + audit, lalu aplikasi uji baru (`tests/ui/ci-app.sh`) + uji tampilan Chromium.
 - `tests/ui/` — uji tampilan otomatis (aturan di `checks.js`, runner `run.mjs` untuk Chromium & Safari, uji-diri `selftest.mjs`).
 - `docs/mockup/` — mockup desain acuan: `gambar/*.png` (cepat dilihat) dan `sumber/*.dc.html` (interaktif, buka di browser). Tampilan package harus mengikuti mockup ini.
 

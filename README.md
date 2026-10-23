@@ -381,6 +381,18 @@ Syntax highlighting di Code Block belum ada (teks polos). Kalau perlu, bisa disa
 
 ---
 
+## Tes
+
+```bash
+composer install
+vendor/bin/phpunit          # keamanan (SafeUrl, token CSS, font/warna, lebar sidebar), installer, salinan view Filament
+cd tests/ui && npm install && npm test   # uji tampilan Chromium + Safari (butuh panel berjalan, lihat tests/ui/README.md)
+```
+
+CI (`.github/workflows/tests.yml`) menjalankan tes PHP (PHP 8.3 & 8.4) + `composer audit`, lalu membangun aplikasi Laravel baru (`tests/ui/ci-app.sh`) dan menjalankan uji tampilan Chromium + uji-diri di setiap push. Uji Safari dijalankan lokal di Mac sebelum rilis.
+
+`ViewCopiesTest` gagal bila Filament mengubah view yang disalin package (chart, user-menu): tinjau salinannya dan perbarui sha1 di kepala file.
+
 ## Keamanan
 
 - **Halaman Tampilan** mengubah tampilan untuk semua user. Tanpa `->canCustomizeAppearance(...)` halaman ini hanya muncul di `APP_ENV=local`. Di production tentukan siapa yang boleh, misalnya `->canCustomizeAppearance(fn (): bool => (bool) auth()->user()?->is_admin)`.

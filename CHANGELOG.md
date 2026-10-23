@@ -1,5 +1,10 @@
 # Changelog
 
+## Belum dirilis
+
+- Tes PHP package (Testbench): SafeUrl, token CSS, font/warna, lebar sidebar, tautan header & tombol sosial, akses halaman Tampilan, installer, dan penjaga salinan view Filament (`ViewCopiesTest`).
+- CI GitHub Actions: tes PHP 8.3/8.4 + `composer audit`, aplikasi uji baru + uji tampilan Chromium + uji-diri.
+
 ## v1.1.7 — 2026-10-24
 
 Keamanan (hasil tinjauan keamanan):

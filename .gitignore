@@ -5,3 +5,4 @@ composer.lock
 .phpunit.result.cache
 /tests/ui/node_modules
 /tests/ui/output
+/.phpunit.cache

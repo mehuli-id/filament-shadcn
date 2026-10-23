@@ -1,4 +1,5 @@
 {{--
+    Sumber: filament/widgets: resources/views/chart-widget.blade.php (sha1 83193a934cde14c07fc05fd24e6caebefbcff510) — dicek tests/Feature/ViewCopiesTest.php.
     Salinan resources/views/chart-widget.blade.php dari filament/widgets 5.x.
     Satu-satunya perubahan: filter <select> diganti tombol bersegmen (.sc-chart-filter).
     Periksa ulang file ini saat memperbarui Filament.

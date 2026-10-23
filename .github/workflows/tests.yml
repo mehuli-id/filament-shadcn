@@ -1,0 +1,71 @@
+name: Tes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.3', '8.4']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - run: composer update --prefer-dist --no-interaction --no-progress
+      - name: Audit dependensi
+        run: composer audit
+      - name: Tes PHP (keamanan, installer, salinan view Filament)
+        run: vendor/bin/phpunit --colors=always
+
+  ui:
+    name: Uji tampilan (Chromium)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: sqlite3, pdo_sqlite, intl
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Bangun aplikasi uji
+        run: tests/ui/ci-app.sh "$RUNNER_TEMP/app" 8765
+      - name: Jalankan server
+        run: |
+          cd "$RUNNER_TEMP/app"
+          php artisan serve --port=8765 > "$RUNNER_TEMP/server.log" 2>&1 &
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://127.0.0.1:8765/admin/login && exit 0; sleep 1; done
+          cat "$RUNNER_TEMP/server.log"; exit 1
+      - name: Pasang Playwright
+        working-directory: tests/ui
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Uji tampilan
+        working-directory: tests/ui
+        run: node run.mjs --browser=chromium
+      - name: Uji-diri aturan
+        working-directory: tests/ui
+        run: node selftest.mjs
+      - name: Simpan screenshot & laporan
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uji-tampilan
+          path: tests/ui/output
+          if-no-files-found: ignore
+          retention-days: 7
