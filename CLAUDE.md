@@ -31,8 +31,8 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 ## Status
 - v1.0.2 (lihat CHANGELOG.md). Sudah diuji di proyek uji `../shadcn-playground` (Laravel 13.38, Filament 5.10.3, path repository symlink): `shadcn:install`, `npm run build`, halaman Tampilan (simpan/reset/validasi font), login `split` + upload (SVG ditolak, gambar lama dihapus saat diganti/reset), akses production (`canCustomizeAppearance`), ponsel 390px & tablet 820px tanpa overflow.
 - Repo GitHub: `mehuli-id/filament-shadcn` (privat), branch `main`, tag `v1.0.2`.
-- Starter kit terpisah (repo belum dibuat per 2026-10-23): `mehuli-id/starter-kit` (Laravel 13 + Filament 5 + package ini, locale id, Asia/Jakarta, admin via seeder `ADMIN_*`, akses panel `is_admin`).
+- Starter kit terpisah: `mehuli-id/starter-kit` (privat, template repository, lokal di `../starter-kit`; Laravel 13 + Filament 5 + package ini, locale id, Asia/Jakarta, admin via seeder `ADMIN_*`, akses panel `is_admin`).
 
 ## Pekerjaan lanjutan yang tercatat
-- `composer require mehuli/filament-shadcn:^1.0` lewat repo `vcs` sudah diuji (v1.0.2). Berikutnya: buat starter kit dan pakai `^1.0.2`.
+- `composer require` lewat repo `vcs` sudah diuji (v1.0.2) dan dipakai starter kit `^1.0.2`. Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit.
 - Catatan uji: `php artisan serve` mewarisi `APP_ENV` lama setelah `.env` diubah, jadi restart penuh server saat menguji production.
