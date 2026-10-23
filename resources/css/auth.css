@@ -1,9 +1,13 @@
 /*
  * Halaman sederhana: login, daftar, lupa sandi, verifikasi email.
+ * Acuan: docs/mockup/gambar/LoginMuted.png, LoginImage.png, LoginPonsel.png, LoginTablet.png.
  *
- *   data-sc-auth="muted" – latar --muted, kartu di tengah (block login-03)
- *   data-sc-auth="split" – form + gambar berdampingan (block login-02)
- *   data-sc-auth="plain" – latar --background polos
+ *   data-sc-auth="muted" – latar --muted, merek di atas kartu 400px (block login-03)
+ *   data-sc-auth="split" – satu kartu 920px: form + gambar berdampingan (block login-04)
+ *   data-sc-auth="plain" – latar --background, kartu tanpa garis
+ *
+ * Bagian atas (pilihan tema, merek), panel gambar, dan teks persetujuan
+ * dirender plugin lewat render hook SIMPLE_LAYOUT_START / SIMPLE_PAGE_START / SIMPLE_LAYOUT_END.
  */
 
 .fi-simple-layout {
@@ -12,11 +16,20 @@
 
 .fi-simple-main {
     margin-block: 2.5rem;
-    padding: calc(var(--sc-card-padding) + 1rem);
+    padding: calc(var(--sc-card-padding) + 0.5rem);
     border-radius: var(--sc-radius-card);
     background-color: var(--card);
     color: var(--card-foreground);
-    box-shadow: var(--sc-shadow-sm), var(--sc-border);
+    box-shadow: var(--sc-shadow-xs), var(--sc-border);
+}
+
+.fi-simple-page-content {
+    row-gap: 1.25rem;
+}
+
+/* Isi form login lebih rapat: 16px antar-field (mockup). */
+.fi-simple-page .fi-sc-has-gap {
+    gap: 1rem;
 }
 
 .fi-simple-header {
@@ -27,9 +40,31 @@
     }
 }
 
+.fi-simple-header-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.fi-simple-header-subheading {
+    margin-top: 0;
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+}
+
 .fi-simple-page-content .fi-sc-text,
 .fi-simple-page .fi-link {
     font-size: 0.875rem;
+}
+
+/* "Lupa kata sandi?" di samping label: tautan bergaris bawah ala shadcn. */
+.fi-simple-page .fi-fo-field-label-col .fi-link,
+.fi-simple-page .fi-fo-field-wrp-hint .fi-link {
+    color: var(--foreground);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 /* Tombol utama formulir login dibuat selebar kartu */
@@ -38,14 +73,114 @@
     width: 100%;
 }
 
+/* ---------- Bagian atas: pilihan tema & merek ---------- */
+
+.fi-simple-layout:has(> .sc-auth-top) {
+    justify-content: flex-start;
+    padding: 1.5rem 1rem 2.5rem;
+
+    & > .fi-simple-main-ctn {
+        flex-grow: 0;
+    }
+
+    & .fi-simple-main {
+        margin-block: 4rem 0;
+    }
+
+    /* Merek sudah ditampilkan plugin (kotak ikon + nama). */
+    &:has(.sc-auth-brand, .sc-auth-card-icon) .fi-simple-header > .fi-logo {
+        display: none;
+    }
+
+    &:has(> .sc-auth-brand) .fi-simple-main {
+        margin-top: 1.5rem;
+    }
+}
+
+.sc-auth-top {
+    display: flex;
+    align-self: stretch;
+    justify-content: flex-end;
+    min-height: 2.25rem;
+}
+
+.sc-auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-top: 4rem;
+    color: var(--foreground);
+    font-size: 0.9375rem;
+    font-weight: 600;
+
+    & .sc-brand-icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        background-color: var(--primary);
+        color: var(--primary-foreground);
+    }
+}
+
+.sc-auth-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0 auto 0.375rem;
+    border-radius: var(--sc-radius-item);
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+
+    & .fi-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
+
+.sc-auth-register {
+    margin: 0;
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    text-align: center;
+
+    & a {
+        color: var(--foreground);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+}
+
+.sc-auth-terms {
+    max-width: 25rem;
+    margin: 1.5rem auto 0;
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    text-align: center;
+
+    & a {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+
+        &:hover {
+            color: var(--foreground);
+        }
+    }
+}
+
+html[data-sc-auth='split'] .sc-auth-terms {
+    max-width: 57.5rem;
+}
+
 /* ---------- muted ---------- */
 
 html[data-sc-auth='muted'] .fi-simple-layout {
     background-color: var(--muted);
 }
 
-html[data-sc-auth='muted'] .fi-simple-main {
-    box-shadow: var(--sc-shadow-sm), var(--sc-border);
+html[data-sc-auth='muted'] .fi-simple-layout:has(> .sc-auth-top) .fi-simple-main {
+    max-width: 25rem;
 }
 
 /* ---------- plain ---------- */
@@ -55,55 +190,87 @@ html[data-sc-auth='plain'] .fi-simple-main {
     box-shadow: none;
 }
 
-/* ---------- split (form + gambar) ---------- */
+/* ---------- split (satu kartu: form + gambar) ---------- */
+
+html[data-sc-auth='split'] .fi-simple-layout {
+    background-color: var(--muted);
+}
 
 .sc-auth-aside {
     display: none;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 48rem) {
     html[data-sc-auth='split'] .fi-simple-layout:has(> .sc-auth-aside) {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        grid-template-rows: auto 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 28.75rem) minmax(0, 28.75rem) minmax(0, 1fr);
+        grid-template-rows: auto auto 1fr;
+        align-content: start;
         align-items: stretch;
         min-height: 100dvh;
 
+        & > .sc-auth-top {
+            grid-column: 1 / -1;
+        }
+
         & > .fi-simple-main-ctn {
-            grid-column: 1;
-            grid-row: 1 / span 2;
-            padding: 1.5rem;
+            grid-column: 2;
+            grid-row: 2;
+            align-items: stretch;
+            margin-top: 3rem;
         }
 
         & > .sc-auth-aside {
-            grid-column: 2;
-            grid-row: 1 / span 2;
+            grid-column: 3;
+            grid-row: 2;
+            margin-top: 3rem;
         }
 
+        & > :not(.sc-auth-top, .fi-simple-main-ctn, .sc-auth-aside) {
+            grid-column: 2 / span 2;
+            align-self: start;
+        }
+
+        /* Kartu kiri + panel kanan tampil sebagai satu kartu. */
         & .fi-simple-main {
-            max-width: 24rem;
-            background-color: transparent;
-            box-shadow: none;
-            padding: 0;
+            max-width: none;
+            height: 100%;
+            margin: 0;
+            padding: calc(var(--sc-card-padding) + 1rem);
+            border-start-end-radius: 0;
+            border-end-end-radius: 0;
         }
     }
 
     html[data-sc-auth='split'][data-sc-auth-image='start'] .fi-simple-layout:has(> .sc-auth-aside) {
         & > .fi-simple-main-ctn {
-            grid-column: 2;
+            grid-column: 3;
         }
 
         & > .sc-auth-aside {
-            grid-column: 1;
+            grid-column: 2;
+        }
+
+        & .fi-simple-main {
+            border-radius: var(--sc-radius-card);
+            border-start-start-radius: 0;
+            border-end-start-radius: 0;
+        }
+
+        & > .sc-auth-aside {
+            border-radius: var(--sc-radius-card) 0 0 var(--sc-radius-card);
         }
     }
 
     html[data-sc-auth='split'] .sc-auth-aside {
         position: relative;
         display: block;
+        min-height: 20rem;
         overflow: hidden;
-        background-color: var(--muted);
-        color: var(--muted-foreground);
+        border-radius: 0 var(--sc-radius-card) var(--sc-radius-card) 0;
+        background-color: color-mix(in oklab, var(--muted) 70%, var(--border));
+        color: color-mix(in oklab, var(--muted-foreground) 70%, transparent);
+        box-shadow: var(--sc-border);
     }
 }
 
@@ -134,15 +301,14 @@ html[data-sc-auth='plain'] .fi-simple-main {
     inset-inline: 0;
     bottom: 0;
     margin: 0;
-    padding: 2.5rem;
+    padding: 1.75rem;
     color: var(--foreground);
-    background: linear-gradient(to top, color-mix(in oklab, var(--muted) 92%, transparent) 40%, transparent);
 
     & blockquote {
         margin: 0;
         font-size: 1.125rem;
         font-weight: 500;
-        line-height: 1.6;
+        line-height: 1.4;
     }
 
     & figcaption {
@@ -150,4 +316,9 @@ html[data-sc-auth='plain'] .fi-simple-main {
         color: var(--muted-foreground);
         font-size: 0.875rem;
     }
+}
+
+/* Gambar asli: teks butuh latar agar terbaca. */
+.sc-auth-aside:has(.sc-auth-aside-image) .sc-auth-aside-quote {
+    background: linear-gradient(to top, color-mix(in oklab, var(--muted) 92%, transparent) 40%, transparent);
 }

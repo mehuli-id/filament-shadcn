@@ -22,7 +22,12 @@
     font-size: 0.8125rem;
 }
 
+/* Label shadcn: teks foreground (docs/mockup); petunjuk di sampingnya abu-abu. */
 .fi-fo-field-label-ctn .fi-fo-field-label-content,
+.fi-fo-field-label .fi-fo-field-label-content {
+    color: var(--foreground);
+}
+
 .fi-fo-field-wrp-hint {
     color: var(--muted-foreground);
 }
@@ -58,6 +63,12 @@
             border-color: var(--input);
             background-color: color-mix(in oklab, var(--muted) 60%, transparent);
         }
+    }
+
+    /* Suffix berisi tombol saja (mis. tampilkan kata sandi): menyatu di dalam input. */
+    & .fi-input-wrp-suffix:not(.fi-inline):has(> .fi-input-wrp-actions:only-child) {
+        border-color: transparent;
+        background-color: transparent;
     }
 
     & .fi-input-wrp-label {

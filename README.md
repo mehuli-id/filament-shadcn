@@ -220,6 +220,20 @@ Catatan:
 - Lonceng tampil di header bila `->databaseNotifications()` aktif (kecuali posisinya diatur sendiri).
 - Pencarian global muncul bila ada resource yang bisa dicari.
 
+### Halaman login
+
+Login, daftar, dan lupa sandi mengikuti `docs/mockup` (LoginMuted / LoginImage):
+
+- pilihan tema di kanan atas; merek (kotak ikon + nama) di atas kartu 400px (`muted`/`plain`);
+- `split`: satu kartu 920px berisi form + panel gambar (`SHADCN_AUTH_IMAGE` atau unggah lewat halaman Tampilan);
+- teks persetujuan di bawah kartu bila `SHADCN_TERMS_URL` / `SHADCN_PRIVACY_URL` diisi.
+
+Untuk judul "Selamat datang kembali" dan tautan "Belum punya akun? Daftar" di bawah form, pakai halaman login package (dipasang otomatis oleh `shadcn:install`):
+
+```php
+$panel->login(\Mehuli\FilamentShadcn\Pages\Auth\Login::class)
+```
+
 ### Widget bergaya shadcn
 
 ```php
@@ -242,13 +256,13 @@ class RevenueChart extends ChartWidget { /* getData(), getFilters(), getType() s
 
 | Gaya | Radius | Tinggi kontrol | Ciri |
 |------|--------|----------------|------|
-| **vega** | 0.625rem | 36px | klasik shadcn (dulu "New York") |
-| **nova** | 0.5rem | 32px | padat, cocok untuk admin (bawaan) |
-| **maia** | 1rem | 36px | tombol, input, badge berbentuk pil |
-| **lyra** | 0 | 32px | kotak tajam, font monospace |
-| **mira** | 0.375rem | 28px | paling rapat, untuk tabel data |
+| **vega** | 0.625rem | 40px | klasik shadcn (dulu "New York") |
+| **nova** | 0.5rem | 36px | padat, cocok untuk admin (bawaan) |
+| **maia** | 1rem | 40px | tombol, input, badge berbentuk pil |
+| **lyra** | 0 | 36px | kotak tajam, font monospace |
+| **mira** | 0.375rem | 30px | paling rapat, untuk tabel data |
 
-Radius memetakan skala Tailwind (`rounded-sm/md/lg/xl`) ke `--radius`, sehingga semua komponen Filament ikut berubah. Kerapatan mengatur `--spacing` Tailwind.
+Tinggi kontrol mengikuti `docs/mockup`; di ponsel (<640px) minimal 44px. Radius memetakan skala Tailwind (`rounded-sm/md/lg/xl`) ke `--radius`, sehingga semua komponen Filament ikut berubah. Kerapatan mengatur `--spacing` Tailwind.
 
 ---
 

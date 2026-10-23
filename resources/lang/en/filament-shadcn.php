@@ -75,6 +75,18 @@ return [
         ],
     ],
 
+    'auth' => [
+        'login' => [
+            'heading' => 'Welcome back',
+            'subheading' => 'Sign in to your :brand account',
+            'register_prompt' => 'Don\'t have an account?',
+            'register' => 'Sign up',
+        ],
+        'terms' => 'By continuing, you agree to our :terms and :privacy.',
+        'terms_label' => 'Terms of Service',
+        'privacy_label' => 'Privacy Policy',
+    ],
+
     'shell' => [
         'toggle_sidebar' => 'Toggle sidebar',
         'breadcrumbs' => 'Breadcrumbs',

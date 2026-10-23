@@ -109,6 +109,11 @@ return [
         'image_position' => 'end', // 'start' | 'end'
         'tagline' => null,
         'tagline_author' => null,
+
+        // Teks persetujuan di bawah kartu ("Dengan melanjutkan, Anda menyetujui …").
+        // Tampil bila salah satu URL diisi.
+        'terms_url' => env('SHADCN_TERMS_URL'),
+        'privacy_url' => env('SHADCN_PRIVACY_URL'),
     ],
 
     /*

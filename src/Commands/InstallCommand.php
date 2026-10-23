@@ -13,7 +13,8 @@ use Illuminate\Support\Str;
  *   1. membuat resources/css/filament/{panel}/theme.css dari stub
  *   2. menambahkan file itu ke input vite.config.js
  *   3. menambahkan ->viteTheme() dan ->plugin(ShadcnPlugin::make()) ke Panel Provider
- *      (dan menghapus ->colors([...]) bawaan, karena warnanya diatur plugin)
+ *      (dan menghapus ->colors([...]) bawaan, karena warnanya diatur plugin;
+ *      ->login() diganti halaman login package)
  *   4. (opsional) menerbitkan config/filament-shadcn.php
  *
  * Aman dijalankan berulang: langkah yang sudah terpasang dilewati.
@@ -153,8 +154,9 @@ class InstallCommand extends Command
         if (! str_contains($contents, 'Mehuli\\FilamentShadcn\\ShadcnPlugin')) {
             $use = 'use Mehuli\\FilamentShadcn\\ShadcnPlugin;';
 
-            $contents = preg_match('/^use /m', $contents)
-                ? preg_replace('/^use /m', $use . "\nuse ", $contents, 1)
+            // Sisipkan setelah baris `use` terakhir supaya urutan import tetap rapi.
+            $contents = preg_match_all('/^use [^;]+;$/m', $contents, $uses, PREG_OFFSET_CAPTURE)
+                ? substr_replace($contents, "\n" . $use, end($uses[0])[1] + strlen(end($uses[0])[0]), 0)
                 : preg_replace('/^(namespace [^;]+;)\n/m', "$1\n\n{$use}\n", $contents, 1);
         }
 
@@ -164,6 +166,9 @@ class InstallCommand extends Command
         if (! str_contains($contents, 'Color::')) {
             $contents = str_replace("use Filament\\Support\\Colors\\Color;\n", '', $contents);
         }
+
+        // Halaman login bergaya mockup (judul "Selamat datang kembali", tautan daftar di bawah form).
+        $contents = preg_replace('/->login\(\s*\)/', '->login(\\Mehuli\\FilamentShadcn\\Pages\\Auth\\Login::class)', $contents, 1);
 
         $additions = [];
 

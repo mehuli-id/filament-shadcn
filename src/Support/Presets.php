@@ -35,8 +35,8 @@ class Presets
             'vega' => [
                 'radius' => 0.625,
                 'density' => 1.0,
-                'control' => 2.25,
-                'card_padding' => 1.5,
+                'control' => 2.5,
+                'card_padding' => 1.25,
                 'page_padding' => 1.5,
                 'gap' => 1.0,
                 'row_padding' => 0.625,
@@ -48,7 +48,7 @@ class Presets
             'nova' => [
                 'radius' => 0.5,
                 'density' => 0.92,
-                'control' => 2.0,
+                'control' => 2.25,
                 'card_padding' => 1.0,
                 'page_padding' => 1.0,
                 'gap' => 0.75,
@@ -61,7 +61,7 @@ class Presets
             'maia' => [
                 'radius' => 1.0,
                 'density' => 1.0,
-                'control' => 2.25,
+                'control' => 2.5,
                 'card_padding' => 1.5,
                 'page_padding' => 1.75,
                 'gap' => 1.25,
@@ -74,7 +74,7 @@ class Presets
             'lyra' => [
                 'radius' => 0.0,
                 'density' => 0.95,
-                'control' => 2.0,
+                'control' => 2.25,
                 'card_padding' => 1.0,
                 'page_padding' => 1.25,
                 'gap' => 0.875,
@@ -87,7 +87,7 @@ class Presets
             'mira' => [
                 'radius' => 0.375,
                 'density' => 0.85,
-                'control' => 1.75,
+                'control' => 1.875,
                 'card_padding' => 0.75,
                 'page_padding' => 0.75,
                 'gap' => 0.5,

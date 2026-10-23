@@ -75,6 +75,18 @@ return [
         ],
     ],
 
+    'auth' => [
+        'login' => [
+            'heading' => 'Selamat datang kembali',
+            'subheading' => 'Masuk ke akun :brand Anda',
+            'register_prompt' => 'Belum punya akun?',
+            'register' => 'Daftar',
+        ],
+        'terms' => 'Dengan melanjutkan, Anda menyetujui :terms dan :privacy kami.',
+        'terms_label' => 'Ketentuan Layanan',
+        'privacy_label' => 'Kebijakan Privasi',
+    ],
+
     'shell' => [
         'toggle_sidebar' => 'Buka/tutup sidebar',
         'breadcrumbs' => 'Jejak navigasi',

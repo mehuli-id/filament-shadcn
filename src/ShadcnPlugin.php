@@ -313,9 +313,22 @@ class ShadcnPlugin implements Plugin
             ]) : null,
         );
 
+        // Halaman login/daftar/lupa sandi: pilihan tema, merek, panel gambar, teks persetujuan.
         $panel->renderHook(
             PanelsRenderHook::SIMPLE_LAYOUT_START,
-            fn (): ?View => $this->renderAuthAside(),
+            fn (): View => $this->renderAuthStart(),
+        );
+
+        $panel->renderHook(
+            PanelsRenderHook::SIMPLE_PAGE_START,
+            fn (): ?View => $this->isGuestAuthPage() && $this->settings()->get('auth_layout') === 'split' && $this->showsAuthBrand()
+                ? view('filament-shadcn::hooks.auth-card-start', ['icon' => $this->getBrandIcon()])
+                : null,
+        );
+
+        $panel->renderHook(
+            PanelsRenderHook::SIMPLE_LAYOUT_END,
+            fn (): ?View => $this->renderAuthTerms(),
         );
     }
 
@@ -435,20 +448,45 @@ class ShadcnPlugin implements Plugin
         return (bool) ($condition instanceof Closure ? app()->call($condition) : $condition);
     }
 
-    protected function renderAuthAside(): ?View
+    protected function isGuestAuthPage(): bool
+    {
+        return ! filament()->auth()->check();
+    }
+
+    /**
+     * Kotak ikon + nama merek dipakai bila panel tanpa ->brandLogo() (logo Filament tetap dipakai bila ada).
+     */
+    protected function showsAuthBrand(): bool
+    {
+        return blank(filament()->getBrandLogo()) && filled($this->getBrandIcon());
+    }
+
+    protected function renderAuthStart(): View
     {
         $settings = $this->settings();
 
-        if ($settings->get('auth_layout') !== 'split' || filament()->auth()->check()) {
-            return null;
-        }
-
-        return view('filament-shadcn::hooks.auth-aside', [
+        return view('filament-shadcn::hooks.auth-start', [
+            'isGuest' => $this->isGuestAuthPage(),
+            'layout' => $settings->get('auth_layout'),
+            'showBrand' => $this->showsAuthBrand(),
+            'icon' => $this->getBrandIcon(),
             'image' => $this->authImageUrl($settings),
             'tagline' => $settings->get('auth_tagline'),
             'taglineAuthor' => $settings->get('auth_tagline_author'),
             'brand' => filament()->getBrandName(),
         ]);
+    }
+
+    protected function renderAuthTerms(): ?View
+    {
+        $terms = SafeUrl::filter(config('filament-shadcn.auth.terms_url'));
+        $privacy = SafeUrl::filter(config('filament-shadcn.auth.privacy_url'));
+
+        if (! $this->isGuestAuthPage() || ($terms === null && $privacy === null)) {
+            return null;
+        }
+
+        return view('filament-shadcn::hooks.auth-end', ['termsUrl' => $terms, 'privacyUrl' => $privacy]);
     }
 
     /**

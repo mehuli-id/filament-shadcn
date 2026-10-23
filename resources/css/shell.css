@@ -269,9 +269,9 @@ html[data-sc-shell='on'] {
     }
 }
 
-/* Pilihan tema: 3 tombol dalam satu grup bergaris. */
-.sc-header-theme {
-    display: none;
+/* Pilihan tema: 3 tombol dalam satu grup bergaris (header panel & halaman login). */
+.sc-theme-switcher {
+    display: flex;
     gap: 0.125rem;
     padding: 0.125rem;
     border-radius: var(--sc-radius-control);
@@ -279,7 +279,7 @@ html[data-sc-shell='on'] {
     box-shadow: var(--sc-border);
 }
 
-.sc-header-theme-btn {
+.sc-theme-switcher-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -396,8 +396,13 @@ html[data-sc-shell='on'] {
 
 /* ---------- Tablet & desktop ---------- */
 
+/* Di header ponsel pilihan tema disembunyikan (ada di laci sidebar lewat menu pengguna). */
+.sc-header .sc-theme-switcher {
+    display: none;
+}
+
 @media (min-width: 48rem) {
-    .sc-header-theme {
+    .sc-header .sc-theme-switcher {
         display: flex;
     }
 

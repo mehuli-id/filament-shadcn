@@ -32,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(\Mehuli\FilamentShadcn\Pages\Auth\Login::class)
             ->passwordReset()
             ->profile()
             ->brandName('Panel Admin')
@@ -49,6 +49,7 @@ class AdminPanelProvider extends PanelProvider
                     ->primary('default')            // 'default' | 'blue' | '#2563eb' | 'oklch(...)'
                     ->sidebarLayout('inset')        // inset | sidebar | floating
                     ->authLayout('muted')           // muted | split | plain
+                    ->brand(subtitle: 'Toko Utama')  // kotak ikon + nama + subjudul di sidebar & login
                     ->canCustomizeAppearance(fn (): bool => (bool) auth()->user()?->is_admin)
                     ->showcase(app()->isLocal()),
             )

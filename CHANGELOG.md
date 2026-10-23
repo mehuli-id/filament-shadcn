@@ -10,8 +10,13 @@ Tampilan mengikuti `docs/mockup/`:
 - Token baru per gaya: `--sc-page-padding`, `--sc-gap`, `--sc-row-padding`, `--sc-radius-inset`; `--sc-radius-card` kini radius + 2px.
 - Warna grafik 1–2 mengikuti mockup (oranye/teal, juga di mode gelap).
 - Tabel: kepala tabel berlatar `--muted`, baris lebih rapat, badge berikon bergaris netral, tombol pagination bergaris.
+- Login/daftar/lupa sandi: pilihan tema di kanan atas, merek di atas kartu (muted/plain), layout `split` jadi satu kartu 920px (form + gambar), teks persetujuan (`SHADCN_TERMS_URL`, `SHADCN_PRIVACY_URL`).
+- `Pages\Auth\Login`: "Selamat datang kembali", subjudul dengan nama merek, tautan daftar di bawah form. `shadcn:install` mengganti `->login()` dengan halaman ini.
+- Tinggi kontrol mengikuti mockup: vega 40px, nova 36px, maia 40px, lyra 36px; minimal 44px di ponsel. Padding kartu vega 20px.
+- Label field berwarna foreground; tombol tampilkan kata sandi menyatu di dalam input.
 
 Perbaikan:
+- `shadcn:install` menyisipkan `use …ShadcnPlugin;` setelah import terakhir (sebelumnya sebelum import pertama).
 - Kartu konten inset tanpa topbar kini punya jarak atas (aturan `margin-top` sebelumnya kalah spesifisitas).
 
 ## v1.0.2 — 2026-10-23
