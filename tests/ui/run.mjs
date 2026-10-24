@@ -140,7 +140,9 @@ async function login(driver) {
 
     for (let i = 0; i < 60; i++) {
         await sleep(250);
-        if (!(await driver.eval('return location.pathname')).endsWith('/login')) return;
+        // Halaman bisa sedang berpindah saat dibaca (server baru menyala = lambat): coba lagi.
+        const path = await driver.eval('return location.pathname').catch(() => '/login');
+        if (!path.endsWith('/login')) return;
     }
 
     throw new Error('Gagal masuk: periksa UI_EMAIL / UI_PASSWORD.');
