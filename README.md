@@ -47,19 +47,16 @@ Persyaratan: PHP 8.2+, Laravel 11/12/13, Filament 5 (atau 4), Node 20+.
 
 ### 1. Pasang package
 
-Package ini ada di repo privat GitHub. Tambahkan ke `composer.json` proyek:
+```bash
+composer require mehuli/filament-shadcn
+```
+
+Belum terdaftar di Packagist? Tambahkan repo GitHub-nya (publik, tanpa token) ke `composer.json` proyek, lalu jalankan perintah di atas:
 
 ```json
 "repositories": [
     { "type": "vcs", "url": "https://github.com/mehuli-id/filament-shadcn" }
 ]
-```
-
-```bash
-# sekali per komputer/CI: token GitHub yang punya akses baca ke repo privat
-composer config --global github-oauth.github.com <TOKEN>
-
-composer require mehuli/filament-shadcn
 ```
 
 > Saat mengembangkan package-nya sendiri, pakai `{ "type": "path", "url": "packages/filament-shadcn" }` dan `composer require mehuli/filament-shadcn:@dev`.
@@ -416,3 +413,7 @@ CI (`.github/workflows/tests.yml`) menjalankan tes PHP (PHP 8.3 & 8.4) + `compos
 - Gambar di `docs/` adalah **pratinjau statis**: HTML tiruan dengan class Filament, bukan tangkapan layar aplikasi sungguhan. Saat pertama dipasang, cek halaman Showcase dan sesuaikan detail kecil di `resources/css/*.css` bila perlu.
 - Aturan CSS tidak dimasukkan ke `@layer`, supaya selalu menang atas gaya bawaan Filament tanpa `!important`. Kalau ingin menimpanya, tulis aturan Anda di `theme.css` setelah baris impor.
 - Ganti nama package/namespace (`mehuli/filament-shadcn`, `Mehuli\FilamentShadcn`) bila perlu: cukup cari-ganti di `composer.json`, `src/`, dan `stubs/`.
+
+## Lisensi
+
+MIT — lihat [LICENSE](LICENSE). © 2026 PT. Mehuli Data Media.

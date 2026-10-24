@@ -1,7 +1,9 @@
 # Changelog
 
-## Belum dirilis
+## v1.1.8 — 2026-10-24
 
+- Repo kini **publik** dengan lisensi **MIT** (sebelumnya proprietary). Instalasi tidak butuh token GitHub lagi.
+- Uji tampilan: Playwright 1.64.1; penantian login tahan terhadap halaman yang sedang berpindah.
 - Tes PHP package (Testbench): SafeUrl, token CSS, font/warna, lebar sidebar, tautan header & tombol sosial, akses halaman Tampilan, installer, dan penjaga salinan view Filament (`ViewCopiesTest`).
 - CI GitHub Actions: tes PHP 8.3/8.4 + `composer audit`, aplikasi uji baru + uji tampilan Chromium + uji-diri.
 

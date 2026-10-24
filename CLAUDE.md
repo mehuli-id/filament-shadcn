@@ -38,14 +38,14 @@ Package tema Filament × shadcn/ui milik PT. Mehuli Data Media.
 
 ## Status
 - v1.1.0 (lihat CHANGELOG.md): tampilan mengikuti `docs/mockup/` — shell (sidebar 16rem, header di kartu konten), `Widgets\Stat`, `Widgets\ChartWidget`, tabel, login muted/split + `Pages\Auth\Login`, halaman Contoh dasbor/form. Diuji di `../shadcn-playground` (Laravel 13.38, Filament 5.10.3) di 1440/820/390px, mode gelap, gaya maia, `->shell(false)`.
-- Repo GitHub: `mehuli-id/filament-shadcn` (privat), branch `main`, tag terakhir `v1.1.7`.
-- Starter kit terpisah: `mehuli-id/starter-kit` (privat, template repository, lokal di `../starter-kit`; Laravel 13 + Filament 5 + package ini, locale id, Asia/Jakarta, admin via seeder `ADMIN_*`, akses panel `is_admin`).
+- Repo GitHub: `mehuli-id/filament-shadcn` (**publik**, lisensi MIT), branch `main`, tag terakhir `v1.1.8`. Commit baru memakai email kantor `support@mehuli.id`.
+- Starter kit terpisah: `mehuli-id/starter-kit` (publik, MIT, template repository, lokal di `../starter-kit`; Laravel 13 + Filament 5 + package ini, locale id, Asia/Jakarta, admin via seeder `ADMIN_*`, akses panel `is_admin`).
 - `resources/views/widgets/chart.blade.php` adalah salinan view chart Filament 5.x (hanya filter diganti tombol) — periksa ulang saat memperbarui Filament.
 - Selisih kecil yang tersisa dengan mockup: di daftar ponsel nomor & status belum satu baris; ikon menu pengguna masih chevron (mockup ⋮). Alur OAuth untuk `auth.social` belum ada (hanya tombol).
 - `resources/views/overrides/filament-panels/components/user-menu.blade.php` adalah salinan view Filament 5.x (tambah email) — periksa ulang saat memperbarui Filament.
 
 ## Pekerjaan lanjutan yang tercatat
-- Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit (kini `^1.1.7`). CI kedua repo harus hijau.
-- CI & Dependabot starter kit memakai secret `FILAMENT_SHADCN_TOKEN` (fine-grained, Contents: Read-only ke repo ini) — di secret Actions **dan** secret Dependabot. Proyek dari template butuh keduanya. Token punya masa berlaku — perbarui sebelum kedaluwarsa.
+- Setiap rilis baru: tag di sini, lalu `composer update mehuli/filament-shadcn` di starter kit (kini `^1.1.8`). CI kedua repo harus hijau.
+- Package publik: starter kit & proyek lain memasangnya tanpa token (repo vcs publik; nanti Packagist). Secret `FILAMENT_SHADCN_TOKEN` tidak diperlukan lagi.
 - Belum dikerjakan: alur OAuth (Socialite) untuk `auth.social` di starter kit; polesan mockup (kalender ‹ ›, ikon ⋮ menu pengguna, nomor & status satu baris di daftar ponsel).
 - Catatan uji: `php artisan serve` mewarisi `APP_ENV` lama setelah `.env` diubah, jadi restart penuh server saat menguji production.

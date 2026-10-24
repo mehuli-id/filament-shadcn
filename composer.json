@@ -2,7 +2,7 @@
     "name": "mehuli/filament-shadcn",
     "description": "Tema Filament bergaya shadcn/ui: token warna yang bisa dikustomisasi, gaya Vega/Nova/Maia/Lyra/Mira, halaman Tampilan, dan showcase semua komponen.",
     "type": "library",
-    "license": "proprietary",
+    "license": "MIT",
     "keywords": [
         "filament",
         "filament-plugin",
