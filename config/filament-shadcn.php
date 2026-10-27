@@ -51,10 +51,33 @@ return [
     ],
 
     /*
+    | Shade palet warna utama yang ditentukan sendiri (hanya bila 'primary' bukan 'default').
+    | Shade yang tidak diisi dihitung seperti biasa. Contoh: [500 => '#f59e0b', 600 => '#b45309'].
+    */
+    'primary_palette' => [],
+
+    /*
+    | Warna Filament tambahan di luar gray/primary/danger/success/warning/info,
+    | dipakai lewat color="teal" dst. Nama huruf kecil; nilai nama warna atau kode warna.
+    | Contoh: ['teal' => 'teal', 'violet' => 'violet', 'merek' => '#7c3aed'].
+    */
+    'extra_colors' => [],
+
+    /*
     | Radius dasar dalam rem. null = ikut gaya (vega 0.625, nova 0.5, maia 1,
     | lyra 0, mira 0.375).
     */
     'radius' => env('SHADCN_RADIUS'),
+
+    /*
+    | Radius kartu & kontrol tersendiri (rem), bila tidak cocok dengan turunan radius dasar
+    | (kartu = radius + 2px, kontrol = radius − 2px). null = ikut radius dasar.
+    | Contoh: kartu 1.25 & kontrol 0.75 → 'card' => 1.25, 'control' => 0.75.
+    */
+    'radii' => [
+        'card' => env('SHADCN_RADIUS_CARD'),
+        'control' => env('SHADCN_RADIUS_CONTROL'),
+    ],
 
     /*
     | Kerapatan (skala jarak Tailwind). null = ikut gaya. 1 = normal.
@@ -65,11 +88,26 @@ return [
     | Font. null = ikut gaya (Geist, atau Geist Mono untuk lyra).
     | provider: null = Bunny Fonts (bawaan Filament). Bisa diisi class
     | \Filament\FontProviders\GoogleFontProvider::class atau LocalFontProvider.
+    | heading: font judul (halaman, section, modal, angka statistik). null = sama dengan sans.
+    |          Dimuat lewat provider yang sama; dengan LocalFontProvider @font-face disediakan aplikasi.
     */
     'font' => [
         'sans' => env('SHADCN_FONT'),
         'mono' => env('SHADCN_FONT_MONO'),
+        'heading' => env('SHADCN_FONT_HEADING'),
         'provider' => null,
+    ],
+
+    /*
+    | Tipografi tambahan. null/false = bawaan gaya.
+    |   heading_weight:   tebal judul halaman 100–900, mis. 800
+    |   uppercase_labels: label grup sidebar & kepala tabel kapital kecil
+    |   tabular_nums:     semua angka lebar sama (cocok untuk tabel keuangan)
+    */
+    'typography' => [
+        'heading_weight' => env('SHADCN_HEADING_WEIGHT'),
+        'uppercase_labels' => env('SHADCN_UPPERCASE_LABELS', false),
+        'tabular_nums' => env('SHADCN_TABULAR_NUMS', false),
     ],
 
     /*
@@ -142,6 +180,12 @@ return [
     | Timpa token shadcn mana pun. Kunci = nama variabel tanpa "--".
     | Cocok untuk menempel tema dari ui.shadcn.com/themes atau tweakcn.
     | Contoh: 'light' => ['primary' => 'oklch(0.55 0.22 263)', 'radius' => '0.75rem']
+    |
+    | Token opsional tambahan (tidak dicetak bila tidak diisi):
+    |   page                      – latar halaman, terpisah dari --background (modal, tombol outline)
+    |   sidebar-active(-foreground) – item aktif sidebar, terpisah dari warna hover (sidebar-accent)
+    |   topbar-height             – tinggi topbar Filament, mis. '4rem'
+    | Primary berbeda di mode gelap: isi 'dark' => ['primary' => …, 'primary-foreground' => …].
     */
     'tokens' => [
         'light' => [],

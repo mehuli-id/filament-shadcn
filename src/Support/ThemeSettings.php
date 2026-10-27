@@ -2,6 +2,8 @@
 
 namespace Mehuli\FilamentShadcn\Support;
 
+use Filament\Support\Colors\Color;
+
 /**
  * Hasil akhir pengaturan tema setelah menggabungkan:
  * config → pengaturan plugin (kode) → halaman Tampilan (JSON).
@@ -37,9 +39,14 @@ class ThemeSettings
                 'info' => 'blue',
             ], array_filter((array) ($config['colors'] ?? []))),
             'radius' => $config['radius'] ?? null,
+            'radii' => array_filter((array) ($config['radii'] ?? []), static fn (mixed $value): bool => $value !== null && $value !== ''),
             'density' => $config['density'] ?? null,
             'font_sans' => $config['font']['sans'] ?? null,
             'font_mono' => $config['font']['mono'] ?? null,
+            'font_heading' => $config['font']['heading'] ?? null,
+            'primary_palette' => array_filter((array) ($config['primary_palette'] ?? [])),
+            'extra_colors' => array_filter((array) ($config['extra_colors'] ?? [])),
+            'typography' => array_filter((array) ($config['typography'] ?? []), static fn (mixed $value): bool => $value !== null && $value !== ''),
             'font_provider' => $config['font']['provider'] ?? null,
             'sidebar' => $or($config['layout']['sidebar'] ?? null, 'inset'),
             'auth_layout' => $or($config['auth']['layout'] ?? null, 'muted'),
@@ -60,8 +67,10 @@ class ThemeSettings
                     continue;
                 }
 
-                if (in_array($key, ['colors'], true) && is_array($value)) {
-                    $values[$key] = array_merge($values[$key], array_filter($value));
+                if (in_array($key, ['colors', 'radii', 'primary_palette', 'extra_colors', 'typography'], true) && is_array($value)) {
+                    // array_replace (bukan array_merge) supaya kunci angka seperti shade 600 tidak dinomori ulang;
+                    // hanya null/'' yang dibuang, angka 0 & false tetap nilai yang sah.
+                    $values[$key] = array_replace($values[$key], array_filter($value, static fn (mixed $item): bool => $item !== null && $item !== ''));
 
                     continue;
                 }
@@ -109,6 +118,16 @@ class ThemeSettings
         return is_numeric($radius) ? max(0, (float) $radius) : (float) $this->style()['radius'];
     }
 
+    /**
+     * Radius kartu / kontrol tersendiri (rem). null = turunan radius dasar (perilaku bawaan).
+     */
+    public function radiusFor(string $part): ?float
+    {
+        $value = $this->values['radii'][$part] ?? null;
+
+        return is_numeric($value) ? max(0, (float) $value) : null;
+    }
+
     public function density(): float
     {
         $density = $this->values['density'];
@@ -124,6 +143,40 @@ class ThemeSettings
     public function fontMono(): string
     {
         return static::safeFontName($this->values['font_mono'] ?? null) ?? $this->style()['mono'];
+    }
+
+    /**
+     * Font judul (halaman, section, modal, angka statistik). null = sama dengan font isi.
+     */
+    public function fontHeading(): ?string
+    {
+        return static::safeFontName($this->values['font_heading'] ?? null);
+    }
+
+    /**
+     * Tebal judul 100–900 (kelipatan 100). null = bawaan gaya.
+     */
+    public function headingWeight(): ?int
+    {
+        $weight = $this->values['typography']['heading_weight'] ?? null;
+
+        if (! is_numeric($weight)) {
+            return null;
+        }
+
+        $weight = (int) $weight;
+
+        return ($weight >= 100 && $weight <= 900 && $weight % 100 === 0) ? $weight : null;
+    }
+
+    public function uppercaseLabels(): bool
+    {
+        return filter_var($this->values['typography']['uppercase_labels'] ?? false, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    public function tabularNums(): bool
+    {
+        return filter_var($this->values['typography']['tabular_nums'] ?? false, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
@@ -190,8 +243,60 @@ class ThemeSettings
             return $this->basePalette();
         }
 
-        return Presets::palette($this->primaryValue(), $this->basePalette());
+        return $this->withPaletteOverrides(Presets::palette($this->primaryValue(), $this->basePalette()));
     }
+
+    /**
+     * Shade palet utama yang diberikan sendiri (mis. palet Amber yang digeser). Shade yang tidak
+     * diisi atau bukan kode warna yang sah memakai hasil hitungan biasa.
+     *
+     * @param  array<int, string>  $palette
+     * @return array<int, string>
+     */
+    protected function withPaletteOverrides(array $palette): array
+    {
+        foreach ((array) $this->values['primary_palette'] as $shade => $color) {
+            if (! array_key_exists((int) $shade, $palette) || ! is_string($color) || ! Presets::isColorValue($color)) {
+                continue;
+            }
+
+            $palette[(int) $shade] = Color::convertToOklch(trim($color));
+        }
+
+        return $palette;
+    }
+
+    /**
+     * Warna Filament tambahan di luar 6 bawaan, mis. ['teal' => 'teal', 'merek' => '#7c3aed'].
+     * Nama: huruf kecil/angka/tanda hubung, tidak boleh menimpa warna bawaan.
+     *
+     * @return array<string, array<int, string>>
+     */
+    public function extraColors(): array
+    {
+        $reserved = ['gray', 'primary', 'danger', 'success', 'warning', 'info'];
+        $colors = [];
+
+        foreach ((array) $this->values['extra_colors'] as $name => $value) {
+            $name = strtolower(trim((string) $name));
+
+            if (! preg_match(static::COLOR_NAME_PATTERN, $name) || in_array($name, $reserved, true) || ! is_string($value)) {
+                continue;
+            }
+
+            $key = strtolower(trim($value));
+
+            if (! array_key_exists($key, Presets::accentColors() + Presets::baseColors()) && ! Presets::isColorValue($value)) {
+                continue;
+            }
+
+            $colors[$name] = Presets::palette($value);
+        }
+
+        return $colors;
+    }
+
+    public const COLOR_NAME_PATTERN = '/^[a-z][a-z0-9-]{0,31}$/';
 
     /**
      * @return array<int, string>
@@ -217,7 +322,7 @@ class ThemeSettings
             'success' => $this->statusPalette('success'),
             'warning' => $this->statusPalette('warning'),
             'info' => $this->statusPalette('info'),
-        ];
+        ] + $this->extraColors();
     }
 
     /**
