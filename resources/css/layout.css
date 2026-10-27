@@ -86,16 +86,17 @@
 }
 
 .fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
-    background-color: var(--sidebar-accent);
-    color: var(--sidebar-accent-foreground);
+    /* --sidebar-active(-foreground): warna item aktif tersendiri (opsional); tanpa itu sama dengan hover. */
+    background-color: var(--sidebar-active, var(--sidebar-accent));
+    color: var(--sidebar-active-foreground, var(--sidebar-accent-foreground));
 
     & > .fi-icon {
-        color: var(--sidebar-accent-foreground);
+        color: var(--sidebar-active-foreground, var(--sidebar-accent-foreground));
         opacity: 1;
     }
 
     & > .fi-sidebar-item-label {
-        color: var(--sidebar-accent-foreground);
+        color: var(--sidebar-active-foreground, var(--sidebar-accent-foreground));
         font-weight: 500;
     }
 
@@ -125,7 +126,7 @@
 
 .fi-topbar {
     min-height: var(--topbar-height);
-    background-color: var(--background);
+    background-color: var(--page, var(--background));
     box-shadow: 0 1px 0 0 var(--border);
 }
 
@@ -151,7 +152,7 @@
 /* ---------- Konten ---------- */
 
 .fi-main-ctn {
-    background-color: var(--background);
+    background-color: var(--page, var(--background));
 }
 
 .fi-page-header-main-ctn {

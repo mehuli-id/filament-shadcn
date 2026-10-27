@@ -168,6 +168,39 @@ Salin variabel dari ui.shadcn.com/themes atau tweakcn.com ke config:
 
 Bisa juga lewat bagian "Lanjutan" di halaman Tampilan.
 
+### Opsi tambahan (opsional)
+
+Untuk menyamakan tampilan dengan desain yang sudah ada. Bila tidak diisi, tampilan tetap seperti bawaan.
+
+```php
+ShadcnPlugin::make()
+    ->radii(card: 1.25, control: 0.75)             // radius kartu & kontrol tersendiri (rem)
+    ->font(sans: 'Inter', heading: 'Outfit')         // font judul halaman/section/modal/statistik
+    ->primary('amber')
+    ->primaryPalette([500 => '#f59e0b', 600 => '#b45309']) // shade palet utama sendiri
+    ->extraColors(['teal' => 'teal', 'merek' => '#7c3aed']) // warna Filament tambahan: color="teal"
+    ->typography(headingWeight: 800, uppercaseLabels: true, tabularNums: true)
+    ->tokens(
+        light: ['page' => '#f4f5fa', 'sidebar-active' => '#eef0ff', 'sidebar-active-foreground' => '#4338ca'],
+        dark: ['page' => '#0b0e14', 'primary' => '#f59e0b', 'primary-foreground' => '#111827'],
+    );
+```
+
+| Opsi | Config | Efek |
+|---|---|---|
+| Radius kartu/kontrol | `radii.card`, `radii.control` | `--sc-radius-card` (+ inset = kartu + 2px), `--sc-radius-control` |
+| Latar halaman | token `page` | latar body/konten/topbar, terpisah dari `--background` (modal, tombol outline) |
+| Item aktif sidebar | token `sidebar-active(-foreground)` | warna item aktif berbeda dari hover |
+| Font judul | `font.heading` | `--sc-font-heading`; dimuat lewat provider font yang sama (LocalFontProvider: @font-face dari aplikasi) |
+| Tebal judul | `typography.heading_weight` | judul halaman 100–900 |
+| Label kapital | `typography.uppercase_labels` | label grup sidebar & kepala tabel kapital kecil |
+| Angka tabular | `typography.tabular_nums` | semua angka selebar sama |
+| Palet utama | `primary_palette` | menimpa shade `primary-50…950` (hanya bila `primary` bukan `default`) |
+| Warna tambahan | `extra_colors` | warna Filament di luar 6 bawaan; nama huruf kecil, tidak bisa menimpa bawaan |
+| Tinggi topbar | token `topbar-height` | mis. `'4rem'` |
+
+Config yang sudah di-publish sebelum versi ini: tambahkan `'heading' => env('SHADCN_FONT_HEADING'),` di blok `font` bila font judul diatur lewat config/.env.
+
 ---
 
 ## Token yang tersedia

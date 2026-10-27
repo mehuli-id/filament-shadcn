@@ -124,12 +124,53 @@ class ShadcnPlugin implements Plugin
     /**
      * @param  class-string | null  $provider
      */
-    public function font(?string $sans = null, ?string $mono = null, ?string $provider = null): static
+    public function font(?string $sans = null, ?string $mono = null, ?string $provider = null, ?string $heading = null): static
     {
         $this->set('font_sans', $sans);
         $this->set('font_mono', $mono);
+        $this->set('font_heading', $heading);
 
         return $this->set('font_provider', $provider);
+    }
+
+    /**
+     * Radius kartu & kontrol tersendiri (rem). null = turunan radius dasar.
+     */
+    public function radii(?float $card = null, ?float $control = null): static
+    {
+        return $this->set('radii', array_filter(['card' => $card, 'control' => $control], static fn (?float $value): bool => $value !== null));
+    }
+
+    /**
+     * Shade palet utama yang ditentukan sendiri, mis. [500 => '#f59e0b', 600 => '#b45309'].
+     *
+     * @param  array<int, string>  $palette
+     */
+    public function primaryPalette(array $palette): static
+    {
+        return $this->set('primary_palette', $palette);
+    }
+
+    /**
+     * Warna Filament tambahan, mis. ['teal' => 'teal', 'merek' => '#7c3aed'].
+     *
+     * @param  array<string, string>  $colors
+     */
+    public function extraColors(array $colors): static
+    {
+        return $this->set('extra_colors', $colors);
+    }
+
+    /**
+     * Tebal judul (100–900), label grup sidebar & kepala tabel kapital, angka tabular.
+     */
+    public function typography(?int $headingWeight = null, ?bool $uppercaseLabels = null, ?bool $tabularNums = null): static
+    {
+        return $this->set('typography', array_filter([
+            'heading_weight' => $headingWeight,
+            'uppercase_labels' => $uppercaseLabels,
+            'tabular_nums' => $tabularNums,
+        ], static fn (mixed $value): bool => $value !== null));
     }
 
     /**
@@ -286,6 +327,13 @@ class ShadcnPlugin implements Plugin
             ]),
         );
 
+        // Font judul dimuat lewat penyedia font yang sama dengan font isi (bawaan Filament: Bunny).
+        // Dengan LocalFontProvider, @font-face disediakan sendiri oleh aplikasi.
+        $panel->renderHook(
+            PanelsRenderHook::HEAD_END,
+            fn (): ?\Illuminate\Contracts\Support\Htmlable => $this->headingFontHtml(),
+        );
+
         $panel->sidebarWidth(fn (): string => $this->getSidebarWidth());
 
         // Shell: topbar Filament dimatikan, header shadcn dipasang di dalam kartu konten.
@@ -406,6 +454,24 @@ class ShadcnPlugin implements Plugin
         $condition = $this->hasShell ?? config('filament-shadcn.layout.shell', true);
 
         return (bool) ($condition instanceof Closure ? app()->call($condition) : $condition);
+    }
+
+    public function headingFontHtml(): ?\Illuminate\Contracts\Support\Htmlable
+    {
+        $settings = $this->settings();
+        $heading = $settings->fontHeading();
+
+        if ($heading === null || $heading === $settings->fontSans()) {
+            return null;
+        }
+
+        $provider = $settings->fontProvider() ?? \Filament\FontProviders\BunnyFontProvider::class;
+
+        if (! is_a($provider, \Filament\FontProviders\Contracts\FontProvider::class, true) || $provider === \Filament\FontProviders\LocalFontProvider::class) {
+            return null;
+        }
+
+        return app($provider)->getHtml($heading);
     }
 
     public function getSidebarWidth(): string

@@ -180,6 +180,27 @@ class TokenBuilder
             'sc-text' => $style['text'] . 'rem',
         ];
 
+        // Radius kartu / kontrol tersendiri: menggantikan turunan radius dasar hanya bila diisi.
+        // Kartu konten inset tetap kartu + 2px supaya proporsinya sama dengan bawaan.
+        if (($card = $this->settings->radiusFor('card')) !== null) {
+            $cardPx = round($card * 16, 2);
+            $tokens['sc-radius-card'] = $cardPx . 'px';
+            $tokens['sc-radius-inset'] = ($cardPx <= 0 ? 0 : $cardPx + 2) . 'px';
+        }
+
+        if (($control = $this->settings->radiusFor('control')) !== null) {
+            $tokens['sc-radius-control'] = round($control * 16, 2) . 'px';
+        }
+
+        // Font & tebal judul: hanya dicetak bila diatur (CSS-nya aktif lewat atribut data di <html>).
+        if (($heading = $this->settings->fontHeading()) !== null) {
+            $tokens['sc-font-heading'] = '"' . $heading . '", var(--font-family), ui-sans-serif, system-ui, sans-serif';
+        }
+
+        if (($weight = $this->settings->headingWeight()) !== null) {
+            $tokens['sc-heading-weight'] = (string) $weight;
+        }
+
         // Token bersama yang ditimpa lewat config (mis. 'radius').
         foreach (['radius'] as $key) {
             // Dicek ulang saat render: nilai bisa berasal dari config atau JSON yang diedit tangan.
@@ -212,13 +233,32 @@ class TokenBuilder
      */
     public function dataAttributes(): array
     {
-        return [
+        $attributes = [
             'scStyle' => $this->settings->styleName(),
             'scSidebar' => (string) $this->settings->get('sidebar', 'inset'),
             'scAuth' => (string) $this->settings->get('auth_layout', 'muted'),
             'scAuthImage' => (string) $this->settings->get('auth_image_position', 'end'),
             'scPrimary' => $this->settings->isDefaultPrimary() ? 'default' : 'color',
         ];
+
+        // Opsi tipografi tambahan: atribut hanya dipasang bila aktif, jadi tampilan bawaan tidak berubah.
+        if ($this->settings->fontHeading() !== null) {
+            $attributes['scHeadingFont'] = 'on';
+        }
+
+        if ($this->settings->headingWeight() !== null) {
+            $attributes['scHeadingWeight'] = 'on';
+        }
+
+        if ($this->settings->uppercaseLabels()) {
+            $attributes['scUpper'] = 'on';
+        }
+
+        if ($this->settings->tabularNums()) {
+            $attributes['scNums'] = 'on';
+        }
+
+        return $attributes;
     }
 
     /**

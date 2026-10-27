@@ -3,7 +3,8 @@
  */
 
 .fi-body {
-    background-color: var(--background);
+    /* --page: latar halaman tersendiri (opsional); tanpa itu sama dengan --background. */
+    background-color: var(--page, var(--background));
     color: var(--foreground);
     font-feature-settings: 'cv11', 'ss01';
 }
@@ -90,3 +91,40 @@
     --prose-borders: var(--border);
     color: var(--foreground);
 }
+
+/*
+ * Opsi tipografi (config `font.heading`, `typography.*`). Aturan di bawah hanya aktif bila
+ * atribut data-nya dipasang plugin, jadi tampilan bawaan tidak berubah.
+ */
+
+html[data-sc-heading-font='on'] :is(
+    .fi-header-heading,
+    .fi-simple-header-heading,
+    .fi-section-header-heading,
+    .fi-modal-heading,
+    .sc-header-heading,
+    .fi-wi-stats-overview-stat-value,
+    .sc-stat-value
+) {
+    font-family: var(--sc-font-heading);
+}
+
+html[data-sc-heading-weight='on'] :is(
+    .fi-header-heading,
+    .fi-simple-header-heading,
+    .sc-header-heading
+) {
+    font-weight: var(--sc-heading-weight);
+}
+
+html[data-sc-upper='on'] :is(.fi-sidebar-group-label, .fi-ta-header-cell) {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+html[data-sc-nums='on'] .fi-body {
+    font-variant-numeric: tabular-nums;
+}
+
