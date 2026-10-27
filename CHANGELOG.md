@@ -1,6 +1,6 @@
 # Changelog
 
-## Belum dirilis
+## v1.2.0 — 2026-10-27
 
 Opsi tampilan tambahan, semuanya opsional: tanpa diisi, token & atribut yang dicetak sama persis dengan sebelumnya (dicek dengan rekaman output CSS sebelum/sesudah).
 - `radii.card` / `radii.control` (`->radii()`): radius kartu & kontrol tersendiri, tidak lagi harus turunan radius dasar.
@@ -11,7 +11,7 @@ Opsi tampilan tambahan, semuanya opsional: tanpa diisi, token & atribut yang dic
 - `primary_palette` (`->primaryPalette()`): shade palet utama yang ditentukan sendiri.
 - `extra_colors` (`->extraColors()`): warna Filament tambahan di luar 6 bawaan.
 - Perbaikan: penggabungan pengaturan berbentuk array memakai `array_replace`, jadi kunci angka (shade palet) tidak dinomori ulang dan nilai `0`/`false` tidak terbuang.
-- Tes: `tests/Unit/OpsiTampilanTest.php` (15 tes).
+- Tes: `tests/Unit/OpsiTampilanTest.php` (15 tes). Uji tampilan Chromium + Safari + uji-diri lolos dengan pengaturan bawaan dan dengan preset GBKP Indigo.
 
 Catatan peningkatan versi: config yang sudah di-publish tidak otomatis mendapat kunci baru di dalam blok yang sudah ada (Laravel hanya menggabungkan kunci tingkat atas). Untuk font judul lewat config/.env, tambahkan `'heading' => env('SHADCN_FONT_HEADING'),` di blok `font` config proyek, atau pakai `->font(heading: …)` di kode. Kunci tingkat atas baru (`radii`, `typography`, `primary_palette`, `extra_colors`) terbaca tanpa perubahan.
 
